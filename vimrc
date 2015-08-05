@@ -3,6 +3,7 @@
 "                             VUNDLE                                 "
 "--------------------------------------------------------------------"
 set rtp+=~/.vim/bundle/Vundle.vim
+set rtp+=~/Library/Python/2.7/lib/python/site-packages/powerline/bindings/vim
 call vundle#begin() 
 
 Plugin 'gmarik/Vundle.vim'
@@ -10,7 +11,6 @@ Plugin 'scrooloose/nerdtree'
 Plugin 'chriskempson/base16-vim'
 
 call vundle#end()
-
 filetype plugin indent on
 
 "--------------------------------------------------------------------"
@@ -20,6 +20,13 @@ filetype plugin indent on
 let g:nerdtree_tabs_open_on_gui_startup=0
 nmap ,n :NERDTreeToggle<CR>
 nmap ,m :NERDTreeFind<CR>
+
+"--------------------------------------------------------------------"
+"                             POWERLINE                              "
+"--------------------------------------------------------------------"
+python from powerline.vim import setup as powerline_setup
+python powerline_setup()
+python del powerline_setup
 
 "--------------------------------------------------------------------"
 "                             COLORS                                 "
@@ -63,7 +70,7 @@ set showcmd
 " Show the current mode
 set showmode       
 
-set ruler
+set laststatus=2
 
 " Cursorline
 set cursorline
