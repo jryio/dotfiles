@@ -9,6 +9,7 @@ Plugin 'gmarik/Vundle.vim'
 Plugin 'scrooloose/nerdtree'
 Plugin 'suan/vim-instant-markdown'
 Plugin 'rizzatti/dash.vim'
+
 call vundle#end()
 filetype plugin indent on
 
@@ -149,5 +150,4 @@ if $TERM_PROGRAM =~ "iTerm"
     let &t_EI .= "\<Esc>[4 q" " Vertical bar in normal  mode
     let &t_SI = "\<Esc>]50;CursorShape=0\x7" " Block in insert  mode
 endif
-
 
