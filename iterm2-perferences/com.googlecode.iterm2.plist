@@ -548,7 +548,7 @@
 	<key>Default Arrangement Name</key>
 	<string>Berkeley + Dvcoders</string>
 	<key>Default Bookmark Guid</key>
-	<string>4A07AD02-4467-4300-8437-2D7FB18B48DF</string>
+	<string>8ACD07CD-E30F-48DA-9A8A-B82568D102DC</string>
 	<key>DimBackgroundWindows</key>
 	<false/>
 	<key>DimInactiveSplitPanes</key>
@@ -1430,7 +1430,7 @@
 	<key>NSWindow Frame Preferences</key>
 	<string>665 507 924 485 0 0 1680 1050 </string>
 	<key>NSWindow Frame iTerm Window 0</key>
-	<string>2 543 650 482 0 0 1680 1027 </string>
+	<string>2 540 650 482 0 0 1680 1027 </string>
 	<key>NSWindow Frame iTerm Window 1</key>
 	<string>760 240 570 410 0 0 1680 1027 </string>
 	<key>NSWindow Frame iTerm Window 10</key>
@@ -4611,7 +4611,7 @@
 	<key>NoSyncTimeOfLastPromo</key>
 	<real>453255549.051889</real>
 	<key>NoSyncTimeOfLastPromoDownload</key>
-	<real>460397508.97635001</real>
+	<real>460536370.56899899</real>
 	<key>OnlyWhenMoreTabs</key>
 	<false/>
 	<key>OpenArrangementAtStartup</key>
@@ -4682,7 +4682,7 @@
 	<key>SUHasLaunchedBefore</key>
 	<true/>
 	<key>SULastCheckTime</key>
-	<date>2015-08-04T18:32:00Z</date>
+	<date>2015-08-05T18:32:00Z</date>
 	<key>SUSendProfileInfo</key>
 	<false/>
 	<key>SUSkippedVersion</key>

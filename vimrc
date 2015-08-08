@@ -1,4 +1,3 @@
-
 "--------------------------------------------------------------------"
 "                             VUNDLE                                 "
 "--------------------------------------------------------------------"
@@ -28,14 +27,46 @@ python from powerline.vim import setup as powerline_setup
 python powerline_setup()
 python del powerline_setup
 
+
+
+"--------------------------------------------------------------------"
+"                          AUTOMATIC STUFF                           "
+"--------------------------------------------------------------------"
+augroup vimrcEx
+  autocmd!
+
+  " When editing a file, always jump to the last known cursor position.
+  " Don't do it for commit messages, when the position is invalid, or when
+  " inside an event handler (happens when dropping a file on gvim).
+  autocmd BufReadPost *
+    \ if &ft != 'gitcommit' && line("'\"") > 0 && line("'\"") <= line("$") |
+    \   exe "normal g`\"" |
+    \ endif
+
+  " Set syntax highlighting for specific file types
+  autocmd BufRead,BufNewFile *.md set filetype=markdown
+
+  " Enable spellchecking for Markdown
+  autocmd FileType markdown setlocal spell
+
+  " Automatically wrap at 80 characters for Markdown
+  autocmd BufRead,BufNewFile *.md setlocal textwidth=80
+
+  " Automatically wrap at 72 characters and spell check git commit messages
+  autocmd FileType gitcommit setlocal textwidth=72
+  autocmd FileType gitcommit setlocal spell
+
+  " Allow stylesheets to autocomplete hyphenated words
+  autocmd FileType css,scss,sass setlocal iskeyword+=-
+augroup END
+
+
 "--------------------------------------------------------------------"
 "                             COLORS                                 "
 "--------------------------------------------------------------------"
 
 syntax enable
-
 set background=dark
-
 colorscheme base16-railscasts
 
 "--------------------------------------------------------------------"
@@ -56,7 +87,6 @@ set smartindent
 "--------------------------------------------------------------------"
 "                             LAYOUT                                 "
 "--------------------------------------------------------------------"
-
 " Virtual Edit Block
 set virtualedit=block
 
@@ -70,6 +100,7 @@ set showcmd
 " Show the current mode
 set showmode       
 
+" Show statusline
 set laststatus=2
 
 " Cursorline
@@ -90,6 +121,7 @@ nmap <Leader>s :write<CR>
 
 " Buffers
 nmap <Leader>bn :bn<CR>
+nmap <Leader>bp :bl<CR>
 nmap <Leader>bd :bd<CR>
 
 " Spellcheck
@@ -105,14 +137,7 @@ set clipboard=unnamed
 " Mouse actions
 set mouse=a 
 
-"--------------------------------------------------------------------"
-"                            STATUSLINE 
-"--------------------------------------------------------------------"
-set statusline=%f
-set statusline=%f\ -\ FileType:\ %y
 
-
-"--------------------------------------------------------------------"
 
 if $TERM_PROGRAM =~ "iTerm"
     let &t_EI .= "\<Esc>[4 q" " Vertical bar in normal  mode
