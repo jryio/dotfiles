@@ -1,4 +1,4 @@
-## JYDotfiles 🎲
+## JY . Files 🐒
 
 ### makesymlinks.sh
 
