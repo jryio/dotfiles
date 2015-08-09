@@ -8,6 +8,7 @@ call vundle#begin()
 Plugin 'gmarik/Vundle.vim'
 Plugin 'scrooloose/nerdtree'
 Plugin 'chriskempson/base16-vim'
+Plugin 'suan/vim-instant-markdown'
 
 call vundle#end()
 filetype plugin indent on
@@ -27,10 +28,13 @@ python from powerline.vim import setup as powerline_setup
 python powerline_setup()
 python del powerline_setup
 
-
+"--------------------------------------------------------------------"
+"                             INSTANT MARKDOWN                       "
+"--------------------------------------------------------------------"
+let g:instant_markdown_autostart = 0
 
 "--------------------------------------------------------------------"
-"                          AUTOMATIC STUFF                           "
+"                             AUTOMATIC STUFF                        "
 "--------------------------------------------------------------------"
 augroup vimrcEx
   autocmd!
@@ -64,7 +68,6 @@ augroup END
 "--------------------------------------------------------------------"
 "                             COLORS                                 "
 "--------------------------------------------------------------------"
-
 syntax enable
 set background=dark
 colorscheme base16-railscasts
