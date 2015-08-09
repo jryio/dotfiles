@@ -1,3 +1,4 @@
+
 "--------------------------------------------------------------------"
 "                             VUNDLE                                 "
 "--------------------------------------------------------------------"
@@ -7,7 +8,6 @@ call vundle#begin()
 
 Plugin 'gmarik/Vundle.vim'
 Plugin 'scrooloose/nerdtree'
-Plugin 'chriskempson/base16-vim'
 Plugin 'suan/vim-instant-markdown'
 
 call vundle#end()
@@ -16,7 +16,6 @@ filetype plugin indent on
 "--------------------------------------------------------------------"
 "                             NERDTREE                               "
 "--------------------------------------------------------------------"
-
 let g:nerdtree_tabs_open_on_gui_startup=0
 nmap ,n :NERDTreeToggle<CR>
 nmap ,m :NERDTreeFind<CR>
@@ -31,6 +30,7 @@ python del powerline_setup
 "--------------------------------------------------------------------"
 "                             INSTANT MARKDOWN                       "
 "--------------------------------------------------------------------"
+set shell=bash\ -i
 let g:instant_markdown_autostart = 0
 
 "--------------------------------------------------------------------"
