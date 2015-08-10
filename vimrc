@@ -146,6 +146,9 @@ set clipboard=unnamed
 " Mouse actions
 set mouse=a 
 
+" No swap file
+set noswapfile
+
 if $TERM_PROGRAM =~ "iTerm"
     let &t_EI .= "\<Esc>[4 q" " Vertical bar in normal  mode
     let &t_SI = "\<Esc>]50;CursorShape=0\x7" " Block in insert  mode
