@@ -122,6 +122,9 @@ let mapleader=","
 " Save
 nmap <Leader>s :write<CR>
 
+" visual mode sucks
+noremap Q <NOP>
+
 " Buffers
 nmap <Leader>bn :bn<CR>
 nmap <Leader>bp :bl<CR>
