@@ -7,8 +7,8 @@ call vundle#begin()
 
 Plugin 'gmarik/Vundle.vim'
 Plugin 'scrooloose/nerdtree'
-Plugin 'suan/vim-instant-markdown'
 Plugin 'rizzatti/dash.vim'
+Plugin 'Raimondi/delimitMate'
 
 call vundle#end()
 filetype plugin indent on
