@@ -28,10 +28,10 @@ python powerline_setup()
 python del powerline_setup
 
 "--------------------------------------------------------------------
-"                             INSTANT MARKDOWN                       
+"                             DELIMITMATE
 "--------------------------------------------------------------------
-set shell=bash\ -i
-let g:instant_markdown_autostart = 0
+let b:delimitMate_autoclose = 1 
+let delimitMate_expand_cr = 1
 
 "--------------------------------------------------------------------
 "                             AUTOMATIC STUFF                        
