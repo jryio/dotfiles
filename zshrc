@@ -1,6 +1,7 @@
 # Path to your oh-my-zsh installation.
 export ZSH=~/.oh-my-zsh
 export PATH=$PATH:/usr/local/mongodb/bin
+export PATH=/usr/local/bin:$PATH 
 
 # Set name of the theme to load.
 # Look in ~/.oh-my-zsh/themes/
