@@ -83,7 +83,6 @@ set smarttab
 
 " Indentation
 set autoindent
-set smartindent
 
 "--------------------------------------------------------------------
 "                             LAYOUT                                 

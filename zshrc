@@ -48,10 +48,12 @@ COMPLETION_WAITING_DOTS="true"
 # Custom plugins may be added to ~/.oh-my-zsh/custom/plugins/
 # Example format: plugins=(rails git textmate ruby lighthouse)
 # Add wisely, as too many plugins slow down shell startup.
+
+
 plugins=(git emoji osx)
 
-# User configuration
 
+# User configuration
 export PATH="/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin:/usr/local/MacGPG2/bin"
 # export MANPATH="/usr/local/man:$MANPATH"
 
@@ -92,6 +94,6 @@ alias cd='cs'
 # Example aliases
 # alias zshconfig="mate ~/.zshrc"
 # alias ohmyzsh="mate ~/.oh-my-zsh"
-# alias fuck='fuck'
-
+eval "$(thefuck --alias)"
 export PATH="$PATH:$HOME/.rvm/bin" # Add RVM to PATH for scripting
+
