@@ -89,7 +89,6 @@ set autoindent
 set virtualedit=block
 
 " Text wrapping
-set tw=80
 au BufRead,BufNewFile *.md setlocal textwidth=80
 
 " Show (partial) command in status line.
