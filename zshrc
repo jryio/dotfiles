@@ -77,9 +77,9 @@ fi
 function cs()
 {
   if [ $# -eq 0 ]; then
-    cd && ls
+    cd && ll
   else
-    cd "$*" && ls
+    cd "$*" && ll
   fi
 }
 alias cd='cs'
