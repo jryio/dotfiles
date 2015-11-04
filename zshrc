@@ -89,6 +89,7 @@ alias cd='cs'
 
 # ssh
 # export SSH_KEY_PATH="~/.ssh/dsa_id"
+alias ssh171='ssh -l fa15u33 50.79.210.49'
 
 # Set personal aliases, overriding those provided by oh-my-zsh libs,
 # plugins, and themes. Aliases can be placed here, though oh-my-zsh
