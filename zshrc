@@ -89,6 +89,8 @@ alias cd='cs'
 
 # ssh
 # export SSH_KEY_PATH="~/.ssh/dsa_id"
+#
+# Alias to connect to COMSC 171 server
 alias ssh171='ssh -l fa15u33 50.79.210.49'
 
 # Set personal aliases, overriding those provided by oh-my-zsh libs,
