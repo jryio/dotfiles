@@ -3,6 +3,10 @@ export ZSH=~/.oh-my-zsh
 export PATH=$PATH:/usr/local/mongodb/bin
 export PATH=/usr/local/bin:$PATH 
 
+# Source for bash, zsh, and z-shell alias rm='rm -i'
+source ~/.common_profile
+export BASH_ENV='~/.bashenv'
+
 # Set name of the theme to load.
 # Look in ~/.oh-my-zsh/themes/
 # Optionally, if you set this to "random", it'll load a random theme each
