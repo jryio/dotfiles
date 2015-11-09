@@ -1,11 +1,18 @@
 # Path to your oh-my-zsh installation.
 export ZSH=~/.oh-my-zsh
-export PATH=$PATH:/usr/local/mongodb/bin
-export PATH=/usr/local/bin:$PATH 
+
+export PATH=$PATH:/usr/local/bin
+export PATH=$PATH:/usr/bin
+export PATH=$PATH:/bin
+export PATH=$PATH:/usr/sbin
+export PATH=$PATH:/sbin
+export PATH=$PATH:/usr/local/MacGPG2/bin
+
+export MANPATH="/usr/local/man:$MANPATH"
 
 # Source for bash, zsh, and z-shell alias rm='rm -i'
-source ~/.common_profile
-export BASH_ENV='~/.bashenv'
+# source ~/.common_profile
+# export BASH_ENV='~/.bashenv'
 
 # Set name of the theme to load.
 # Look in ~/.oh-my-zsh/themes/
@@ -60,11 +67,6 @@ COMPLETION_WAITING_DOTS="true"
 plugins=(git emoji osx)
 
 # User configuration
-
-export PATH="/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin:/usr/local/MacGPG2/bin"
-
-export MANPATH="/usr/local/man:$MANPATH"
-
 source $ZSH/oh-my-zsh.sh
 
 # You may need to manually set your language environment
