@@ -10,9 +10,11 @@ export PATH=$PATH:/usr/local/MacGPG2/bin
 
 export MANPATH="/usr/local/man:$MANPATH"
 
+export HOMEBREW_CASK_OPTS="--appdir=/Applications"
+#
 # Source for bash, zsh, and z-shell alias rm='rm -i'
-# source ~/.common_profile
-# export BASH_ENV='~/.bashenv'
+source ~/.common_profile
+export BASH_ENV='~/.bashenv'
 
 # Set name of the theme to load.
 # Look in ~/.oh-my-zsh/themes/
