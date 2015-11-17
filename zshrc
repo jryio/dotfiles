@@ -90,7 +90,6 @@ function cs()
     cd "$*" && ll
   fi
 }
-alias cd='cs'
 
 # Compilation flags
 # export ARCHFLAGS="-arch x86_64"
@@ -99,12 +98,14 @@ alias cd='cs'
 # export SSH_KEY_PATH="~/.ssh/dsa_id"
 #
 # Alias to connect to COMSC 171 server
-alias ssh171='ssh -l fa15u33 50.79.210.49'
 
 # Set personal aliases, overriding those provided by oh-my-zsh libs,
 # plugins, and themes. Aliases can be placed here, though oh-my-zsh
 # users are encouraged to define aliases within the ZSH_CUSTOM folder.
 # For a full list of active aliases, run `alias`.
+alias ssh171='ssh -l fa15u33 50.79.210.49'
+alias macdown="open -a /Applications/MacDown.app"
+alias cd='cs'
 
 # Example aliases
 # alias zshconfig="mate ~/.zshrc"
