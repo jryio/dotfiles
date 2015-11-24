@@ -27,7 +27,7 @@ To get iTerm working with settings and themes, go to Preferences > Load preferen
 
 ### Forking
 
-For the living shit out of dotfiles, that's why they're here! Would love some improvements/suggestions for the `install.sh`
+Fork the living shit out of dotfiles, that's why they're here! Would love some improvements/suggestions for the `install.sh`
 
 :v:
 
