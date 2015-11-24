@@ -1,1 +1,7 @@
-
+vim/
+.DS_Store
+.svn
+*~
+.*.swp
+*.bak
+oh-my-zsh

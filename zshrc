@@ -11,7 +11,7 @@ export PATH=$PATH:/usr/local/MacGPG2/bin
 export MANPATH="/usr/local/man:$MANPATH"
 
 export HOMEBREW_CASK_OPTS="--appdir=/Applications"
-#
+
 # Source for bash, zsh, and z-shell alias rm='rm -i'
 source ~/.common_profile
 export BASH_ENV='~/.bashenv'
@@ -42,7 +42,8 @@ DEFAULT_USER=`whoami`
 DISABLE_AUTO_TITLE="true"
 
 # Uncomment the following line to enable command auto-correction.
-# ENABLE_CORRECTION="true"
+
+ENABLE_CORRECTION="true"
 
 # Uncomment the following line to display red dots whilst waiting for completion.
 
@@ -71,9 +72,6 @@ plugins=(git emoji osx)
 # User configuration
 source $ZSH/oh-my-zsh.sh
 
-# You may need to manually set your language environment
-# export LANG=en_US.UTF-8
-
 # Preferred editor for local and remote sessions
 if [[ -n $SSH_CONNECTION ]]; then
   export EDITOR='vim'
@@ -91,13 +89,8 @@ function cs()
   fi
 }
 
-# Compilation flags
-# export ARCHFLAGS="-arch x86_64"
-
 # ssh
-# export SSH_KEY_PATH="~/.ssh/dsa_id"
-#
-# Alias to connect to COMSC 171 server
+export SSH_KEY_PATH="~/.ssh/dsa_id"
 
 # Set personal aliases, overriding those provided by oh-my-zsh libs,
 # plugins, and themes. Aliases can be placed here, though oh-my-zsh
@@ -115,7 +108,6 @@ alias cd='cs'
 eval "$(thefuck --alias)"
 
 export PATH="$PATH:$HOME/.rvm/bin" # Add RVM to PATH for scripting
-
 
 export NVM_DIR="/Users/CASE/.nvm"
 [ -s "$NVM_DIR/nvm.sh" ] && . "$NVM_DIR/nvm.sh"  # This loads nvm

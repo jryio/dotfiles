@@ -3,13 +3,12 @@
 "                             VUNDLE                                 
 "--------------------------------------------------------------------
 set rtp+=~/.vim/bundle/Vundle.vim
-set rtp+=~/Library/Python/2.7/lib/python/site-packages/powerline/bindings/vim
 call vundle#begin() 
 
-Plugin 'gmarik/Vundle.vim'
+Plugin 'Vundle/Vundle.vim'
 Plugin 'scrooloose/nerdtree'
-Plugin 'rizzatti/dash.vim'
 Plugin 'Raimondi/delimitMate'
+Plugin 'bling/vim-airline'
 
 call vundle#end()
 filetype plugin indent on
@@ -22,11 +21,9 @@ nmap ,n :NERDTreeToggle<CR>
 nmap ,m :NERDTreeFind<CR>
 
 "--------------------------------------------------------------------
-"                             POWERLINE                              
+"                             VIMAIRLINE
 "--------------------------------------------------------------------
-python from powerline.vim import setup as powerline_setup
-python powerline_setup()
-python del powerline_setup
+let g:airline#extensions#whitespace#enabled = 0
 
 "--------------------------------------------------------------------
 "                             DELIMITMATE
@@ -64,6 +61,7 @@ augroup END
 "--------------------------------------------------------------------
 "                             COLORS                                 
 "--------------------------------------------------------------------
+set t_Co=256
 syntax enable
 set background=dark
 colorscheme base16-railscasts
@@ -101,7 +99,7 @@ set showmode
 set laststatus=2
 
 " Cursorline
-set cursorline
+" set cursorline
 
 "--------------------------------------------------------------------
 "                             REMAPPING                              

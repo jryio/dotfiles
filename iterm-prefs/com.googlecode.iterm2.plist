@@ -1737,7 +1737,7 @@
 	<key>NSColorPickerSlidersDefaults</key>
 	<string>1</string>
 	<key>NSFontPanelAttributes</key>
-	<string>1, 4</string>
+	<string>1, 0</string>
 	<key>NSNavLastRootDirectory</key>
 	<string>~/Documents/JYProgramming/personal/dotfiles/iterm-themes/honukai-iterm-zsh</string>
 	<key>NSNavPanelExpandedSizeForOpenMode</key>
@@ -1777,11 +1777,11 @@
 	<key>NSWindow Frame NSColorPanel</key>
 	<string>1109 319 231 329 0 0 1680 1050 </string>
 	<key>NSWindow Frame NSFontPanel</key>
-	<string>991 525 791 181 0 0 1920 1057 </string>
+	<string>663 209 791 259 0 0 1920 1057 </string>
 	<key>NSWindow Frame Preferences</key>
 	<string>354 601 606 456 0 0 1920 1057 </string>
 	<key>NSWindow Frame iTerm Window 0</key>
-	<string>2 110 843 945 0 0 1920 1057 </string>
+	<string>2 2 955 1053 0 0 1920 1057 </string>
 	<key>NSWindow Frame iTerm Window 1</key>
 	<string>760 240 570 410 0 0 1680 1027 </string>
 	<key>NSWindow Frame iTerm Window 10</key>
@@ -1910,57 +1910,57 @@
 			<key>Ansi 10 Color</key>
 			<dict>
 				<key>Blue Component</key>
-				<real>0.5490196078431373</real>
+				<real>0.27450980392156865</real>
 				<key>Color Space</key>
 				<string>sRGB</string>
 				<key>Green Component</key>
-				<real>0.74509803921568629</real>
+				<real>0.23921568627450981</real>
 				<key>Red Component</key>
-				<real>0.63921568627450975</real>
+				<real>0.20392156862745098</real>
 			</dict>
 			<key>Ansi 11 Color</key>
 			<dict>
 				<key>Blue Component</key>
-				<real>0.54509803921568623</real>
+				<real>0.40000000000000002</real>
 				<key>Color Space</key>
 				<string>sRGB</string>
 				<key>Green Component</key>
-				<real>0.79607843137254897</real>
+				<real>0.35686274509803922</real>
 				<key>Red Component</key>
-				<real>0.92156862745098034</real>
+				<real>0.30980392156862746</real>
 			</dict>
 			<key>Ansi 12 Color</key>
 			<dict>
 				<key>Blue Component</key>
-				<real>0.70196078431372544</real>
+				<real>0.72941176470588232</real>
 				<key>Color Space</key>
 				<string>sRGB</string>
 				<key>Green Component</key>
-				<real>0.63137254901960782</real>
+				<real>0.67843137254901964</real>
 				<key>Red Component</key>
-				<real>0.5607843137254902</real>
+				<real>0.65490196078431373</real>
 			</dict>
 			<key>Ansi 13 Color</key>
 			<dict>
 				<key>Blue Component</key>
-				<real>0.67843137254901964</real>
+				<real>0.90980392156862744</real>
 				<key>Color Space</key>
 				<string>sRGB</string>
 				<key>Green Component</key>
-				<real>0.55686274509803924</real>
+				<real>0.88235294117647056</real>
 				<key>Red Component</key>
-				<real>0.70588235294117652</real>
+				<real>0.87450980392156863</real>
 			</dict>
 			<key>Ansi 14 Color</key>
 			<dict>
 				<key>Blue Component</key>
-				<real>0.70588235294117652</real>
+				<real>0.40392156862745099</real>
 				<key>Color Space</key>
 				<string>sRGB</string>
 				<key>Green Component</key>
-				<real>0.70980392156862748</real>
+				<real>0.47450980392156861</real>
 				<key>Red Component</key>
-				<real>0.58823529411764708</real>
+				<real>0.6705882352941176</real>
 			</dict>
 			<key>Ansi 15 Color</key>
 			<dict>
@@ -2053,13 +2053,13 @@
 			<key>Ansi 9 Color</key>
 			<dict>
 				<key>Blue Component</key>
-				<real>0.41568627450980394</real>
+				<real>0.4392156862745098</real>
 				<key>Color Space</key>
 				<string>sRGB</string>
 				<key>Green Component</key>
-				<real>0.38039215686274508</real>
+				<real>0.52941176470588236</real>
 				<key>Red Component</key>
-				<real>0.74901960784313726</real>
+				<real>0.81568627450980391</real>
 			</dict>
 			<key>Automatically Log</key>
 			<false/>
@@ -2122,20 +2122,16 @@
 			<integer>80</integer>
 			<key>Command</key>
 			<string></string>
-			<key>Cursor Boost</key>
-			<real>0.0</real>
 			<key>Cursor Color</key>
 			<dict>
-				<key>Alpha Component</key>
-				<real>1</real>
 				<key>Blue Component</key>
-				<real>0.4351503849029541</real>
+				<real>0.80784313725490198</real>
 				<key>Color Space</key>
-				<string>Calibrated</string>
+				<string>sRGB</string>
 				<key>Green Component</key>
-				<real>0.12651854753494263</real>
+				<real>0.77254901960784317</real>
 				<key>Red Component</key>
-				<real>0.76829981803894043</real>
+				<real>0.75294117647058822</real>
 			</dict>
 			<key>Cursor Guide Color</key>
 			<dict>
@@ -2295,7 +2291,7 @@
 			<key>Name</key>
 			<string>Development</string>
 			<key>Non Ascii Font</key>
-			<string>HackForPowerline 12</string>
+			<string>HackForPowerline 14</string>
 			<key>Non-ASCII Anti Aliased</key>
 			<true/>
 			<key>Normal Font</key>
@@ -2455,9 +2451,7 @@
 			<key>Tags</key>
 			<array/>
 			<key>Terminal Type</key>
-			<string>xterm-256color</string>
-			<key>Thin Strokes</key>
-			<false/>
+			<string>xterm</string>
 			<key>Transparency</key>
 			<real>0.0</real>
 			<key>Triggers</key>
@@ -2472,10 +2466,8 @@
 			<false/>
 			<key>Use Italic Font</key>
 			<false/>
-			<key>Use Non-ASCII Font</key>
-			<false/>
 			<key>Vertical Spacing</key>
-			<real>0.9962290568524097</real>
+			<real>1</real>
 			<key>Visual Bell</key>
 			<true/>
 			<key>Window Type</key>
@@ -3523,7 +3515,7 @@
 		</dict>
 	</array>
 	<key>NoSyncLastTipTime</key>
-	<real>470029226.72719401</real>
+	<real>469941184.34193802</real>
 	<key>NoSyncNeverRemindPrefsChangesCopy</key>
 	<true/>
 	<key>NoSyncNeverRemindPrefsChangesLostForFile</key>
@@ -3538,8 +3530,6 @@
 	<real>453255549.051889</real>
 	<key>NoSyncTimeOfLastPromoDownload</key>
 	<real>469063241.50361902</real>
-	<key>NoSyncTipsDisabled</key>
-	<true/>
 	<key>NoSyncTipsToNotShow</key>
 	<array>
 		<string>000</string>
@@ -3566,8 +3556,6 @@
 	<false/>
 	<key>PasteFromClipboard</key>
 	<false/>
-	<key>PasteTabToStringTabStopSize</key>
-	<integer>4</integer>
 	<key>PointerActions</key>
 	<dict>
 		<key>Button,1,1,,</key>
@@ -3626,7 +3614,7 @@
 	<key>SUHasLaunchedBefore</key>
 	<true/>
 	<key>SULastCheckTime</key>
-	<date>2015-11-24T04:41:57Z</date>
+	<date>2015-11-23T04:41:57Z</date>
 	<key>SUSendProfileInfo</key>
 	<false/>
 	<key>SUSkippedVersion</key>
@@ -3711,9 +3699,5 @@
 	<false/>
 	<key>iTerm Version</key>
 	<string>2.9.20151111</string>
-	<key>kCPKSelectionViewPreferredModeKey</key>
-	<integer>0</integer>
-	<key>kCPKSelectionViewShowHSBTextFieldsKey</key>
-	<false/>
 </dict>
 </plist>
