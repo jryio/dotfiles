@@ -7,9 +7,9 @@
 # Mar 2013 ys
 
 # Machine name.
-# function box_name {
-#    [ -f ~/.box-name ] && cat ~/.box-name || echo $HOST
-# }
+function box_name {
+   [ -f ~/.box-name ] && cat ~/.box-name || echo $HOST
+}
 
 # Directory info.
 local current_dir='${PWD/#$HOME/~}'
