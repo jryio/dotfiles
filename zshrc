@@ -99,8 +99,8 @@ export SSH_KEY_PATH="~/.ssh/dsa_id"
 alias ssh171='ssh -l fa15u33 50.79.210.49'
 alias macdown="open -a /Applications/MacDown.app"
 alias cd='cs'
-alias bgrep='grep'
-alias grep='ggrep'
+alias bgrep='/usr/bin/grep --color=auto --exclude-dir={.bzr,CVS,.git,.hg,.svn}'
+alias grep='ggrep --color=auto --exclude-dir={.bzr,CVS,.git,.hg,.svn}'
 
 # Example aliases
 # alias zshconfig="mate ~/.zshrc"
