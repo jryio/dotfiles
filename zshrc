@@ -3,12 +3,12 @@ export ZSH=~/.oh-my-zsh
 
 export PATH=$PATH:/usr/local/bin
 export PATH=$PATH:/usr/bin
-export PATH=$PATH:/bin
 export PATH=$PATH:/usr/sbin
+export PATH=$PATH:/bin
 export PATH=$PATH:/sbin
 export PATH=$PATH:/usr/local/MacGPG2/bin
 
-export MANPATH="/usr/local/man:$MANPATH"
+export MANPATH="/usr/local/share/man:$MANPATH"
 
 export HOMEBREW_CASK_OPTS="--appdir=/Applications"
 
@@ -100,7 +100,6 @@ alias ssh171='ssh -l fa15u33 50.79.210.49'
 alias macdown="open -a /Applications/MacDown.app"
 alias cd='cs'
 alias bgrep='/usr/bin/grep --color=auto --exclude-dir={.bzr,CVS,.git,.hg,.svn}'
-alias grep='ggrep --color=auto --exclude-dir={.bzr,CVS,.git,.hg,.svn}'
 
 # Example aliases
 # alias zshconfig="mate ~/.zshrc"

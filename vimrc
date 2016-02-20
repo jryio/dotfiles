@@ -8,7 +8,9 @@ call vundle#begin()
 Plugin 'Vundle/Vundle.vim'
 Plugin 'scrooloose/nerdtree'
 Plugin 'Raimondi/delimitMate'
-Plugin 'bling/vim-airline'
+Plugin 'vim-airline/vim-airline'
+Plugin 'vim-airline/vim-airline-themes'
+Plugin 'scrooloose/syntastic'
 
 call vundle#end()
 filetype plugin indent on
@@ -24,6 +26,8 @@ nmap ,m :NERDTreeFind<CR>
 "                             VIMAIRLINE
 "--------------------------------------------------------------------
 let g:airline#extensions#whitespace#enabled = 0
+let g:airline#extensions#tabline#enabled = 1
+let g:airline#extensions#tabline#fnamemod = ':t'
 
 "--------------------------------------------------------------------
 "                             DELIMITMATE
@@ -32,7 +36,21 @@ let b:delimitMate_autoclose = 1
 let delimitMate_expand_cr = 1
 
 "--------------------------------------------------------------------
-"                             AUTOMATIC STUFF                        
+"                             SYNTASTIC 
+"--------------------------------------------------------------------
+set statusline+=%#warningmsg#
+set statusline+=%{SyntasticStatuslineFlag()}
+
+" let g:syntastic_always_populate_loc_list = 1
+" let g:syntastic_loc_list_height=3
+" let g:syntastic_check_on_open = 1
+" let g:syntastic_check_on_wq = 0
+
+" Standard JS
+" let g:syntastic_javascript_checkers = ['standard']
+
+"--------------------------------------------------------------------
+"                            AUTOMATIC STUFF                        
 "--------------------------------------------------------------------
 augroup vimrcEx
   autocmd!
@@ -123,8 +141,10 @@ nmap <Leader>bn :bn<CR>
 nmap <Leader>bp :bl<CR>
 nmap <Leader>bd :bd<CR>
 
-" Dash Integration
-nmap <Leader>d :Dash 
+" Standard JS & Syntastic error moving shortcut
+nmap <Leader>ln :lnext<CR>
+nmap <Leader>lp :lprevious<CR>
+
 
 " Spellcheck
 nmap <Leader>cs :setlocal spell spelllang=en_us<CR>
