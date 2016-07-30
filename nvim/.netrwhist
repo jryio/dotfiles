@@ -1,0 +1,10 @@
+let g:netrw_dirhistmax  =10
+let g:netrw_dirhist_cnt =8
+let g:netrw_dirhist_1='/Users/CASE/Documents/JYProgramming/tulip/environments/cloud/Central/factory/imports/analytics'
+let g:netrw_dirhist_2='/Users/CASE/Documents/JYProgramming/tulip/environments/cloud/Central/factory/imports/analytics/builder'
+let g:netrw_dirhist_3='/Users/CASE/Documents/JYProgramming/tulip/environments/cloud/Central/factory/imports/analytics/client'
+let g:netrw_dirhist_4='/Users/CASE/Documents/JYProgramming/tulip/environments/cloud/Central/factory/imports/analytics/client/components'
+let g:netrw_dirhist_5='/Users/CASE/Documents/JYProgramming/tulip/environments/cloud/Central/factory/imports/analytics/client'
+let g:netrw_dirhist_6='/Users/CASE/Documents/JYProgramming/tulip/environments/cloud/Central/factory/imports/analytics/client/views'
+let g:netrw_dirhist_7='/Users/CASE/Documents/JYProgramming/tulip/environments/cloud/Central/factory/imports/analytics/client/views/CustomizeOptions'
+let g:netrw_dirhist_8='/Users/CASE/Documents/JYProgramming/tulip/environments/cloud/Central/factory/imports/analytics/client/views/CustomizeOptions/CustomizeComponent'
