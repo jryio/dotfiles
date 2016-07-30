@@ -9,12 +9,7 @@ export PATH=$PATH:/sbin
 export PATH=$PATH:/usr/local/MacGPG2/bin
 
 export MANPATH="/usr/local/share/man:$MANPATH"
-
 export HOMEBREW_CASK_OPTS="--appdir=/Applications"
-
-# Source for bash, zsh, and z-shell alias rm='rm -i'
-source ~/.common_profile
-export BASH_ENV='~/.bashenv'
 
 # Set name of the theme to load.
 # Look in ~/.oh-my-zsh/themes/
@@ -67,7 +62,7 @@ COMPLETION_WAITING_DOTS="true"
 # Example format: plugins=(rails git textmate ruby lighthouse)
 # Add wisely, as too many plugins slow down shell startup.
 
-plugins=(git emoji osx)
+plugins=(git osx)
 
 # User configuration
 source $ZSH/oh-my-zsh.sh
@@ -96,8 +91,7 @@ export SSH_KEY_PATH="~/.ssh/dsa_id"
 # plugins, and themes. Aliases can be placed here, though oh-my-zsh
 # users are encouraged to define aliases within the ZSH_CUSTOM folder.
 # For a full list of active aliases, run `alias`.
-alias ssh171='ssh -l fa15u33 50.79.210.49'
-alias macdown="open -a /Applications/MacDown.app"
+alias n='nvim'
 alias cd='cs'
 alias bgrep='/usr/bin/grep --color=auto --exclude-dir={.bzr,CVS,.git,.hg,.svn}'
 
@@ -105,10 +99,3 @@ alias bgrep='/usr/bin/grep --color=auto --exclude-dir={.bzr,CVS,.git,.hg,.svn}'
 # alias zshconfig="mate ~/.zshrc"
 # alias ohmyzsh="mate ~/.oh-my-zsh"
 
-# fuck alias
-eval "$(thefuck --alias)"
-
-export PATH="$PATH:$HOME/.rvm/bin" # Add RVM to PATH for scripting
-
-export NVM_DIR="/Users/CASE/.nvm"
-[ -s "$NVM_DIR/nvm.sh" ] && . "$NVM_DIR/nvm.sh"  # This loads nvm

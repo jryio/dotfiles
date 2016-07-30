@@ -7,10 +7,10 @@ call vundle#begin()
 
 Plugin 'Vundle/Vundle.vim'
 Plugin 'scrooloose/nerdtree'
+Plugin 'scrooloose/syntastic'
 Plugin 'Raimondi/delimitMate'
 Plugin 'vim-airline/vim-airline'
 Plugin 'vim-airline/vim-airline-themes'
-Plugin 'scrooloose/syntastic'
 
 call vundle#end()
 filetype plugin indent on
@@ -38,16 +38,12 @@ let delimitMate_expand_cr = 1
 "--------------------------------------------------------------------
 "                             SYNTASTIC 
 "--------------------------------------------------------------------
-set statusline+=%#warningmsg#
-set statusline+=%{SyntasticStatuslineFlag()}
-
-" let g:syntastic_always_populate_loc_list = 1
-" let g:syntastic_loc_list_height=3
-" let g:syntastic_check_on_open = 1
-" let g:syntastic_check_on_wq = 0
+let g:syntastic_check_on_open = 0 
+let g:syntastic_check_on_wq = 0 
 
 " Standard JS
-" let g:syntastic_javascript_checkers = ['standard']
+let g:syntastic_javascript_checkers = ['standard']
+let g:syntastic_python_python_exec = '/Library/Frameworks/Python.framework/Versions/3.4/bin/python3'
 
 "--------------------------------------------------------------------
 "                            AUTOMATIC STUFF                        
@@ -137,8 +133,8 @@ nmap <Leader>s :write<CR>
 noremap Q <NOP>
 
 " Buffers
-nmap <Leader>bn :bn<CR>
-nmap <Leader>bp :bl<CR>
+nmap <Leader>j :bn<CR>
+nmap <Leader>k :bp<CR>
 nmap <Leader>bd :bd<CR>
 
 " Standard JS & Syntastic error moving shortcut
