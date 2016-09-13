@@ -1,5 +1,24 @@
-call plug#begin('~/.config/nvim/autoload')
+" ---------------------------------------------------
+" Dotfiles
+" Author                  : thebearjew <Jacob Young>
+" Creation Date           : August 4th, 2015
+" Convereted to Vim by    : Daniel Awai
+" ---------------------------------------------------
 
+
+" Auto install Plug 
+if empty(glob('~/.config/nvim/autoload/plug.vim'))
+  silent !curl -fLo ~/.config/nvim/autoload/plug.vim --create-dirs
+        \ https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
+  autocmd VimEnter * PlugInstall
+endif
+" end - Auto install plug
+call plug#begin('~/.config/nvim/plugged')
+
+" Plug Packages
+
+" - 1. General plugins - tools, linters, etc,
+" ---------------------------------------------------
 Plug 'scrooloose/nertree'
 Plug 'shougo/vimfiler.vim'
 Plug 'scrooloose/syntastic'
@@ -8,6 +27,31 @@ Plug 'tpope/vim-surround'
 Plug 'vim-airline/vim-airline'
 Plug 'vim-airline/vim-airline-themes'
 Plug 'elixir-lang/vim-elixir'
+
+" - 2. JavaScript - ES6, React, etc.
+" ---------------------------------------------------
+"  Modern JavaScript support - indent, syntax, etc
+Plug 'pangloss/vim-javascript'
+" JSX Sytax - React
+Plug 'pangloss/vim-jsx'
+" JSON Syntax
+Plug 'sheerun/vim-json'
+" Tern JS - autocomplete, static analyzer
+Plug 'carlitux/deoplete-ternjs'
+" Flow - static type checker for JavaScript
+Plug 'steelsojka/deoplete-flow'
+" JSDoc - documentation comments
+
+" - 3. HTML & CSS - Syntax highlighting
+" ---------------------------------------------------
+" HTML snytax
+Plug "othree/html5.vim"
+" SCSS syntax 
+Plug 'cakebaker/scss-syntax.vim'
+" Color highlighter
+Plug 'lilydjwg/colorizer', { 'for': ['css', 'sass', 'scss', 'less', 'html', 'xdefaults', 'javascript', 'javascript.jsx'] }
+
+" - 4. Elxiir 
 
 call plug#end()
 
