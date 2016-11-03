@@ -1,142 +1,192 @@
-#! /bin/bash
+#!/bin/bash
 
-# Brian Cain
+#----------------------------------------------------------------------------------------
+# Well documented, terminal centric web developer's dot files.
+# Debian/ubuntu based distros installer.
+# @author Martin Toma
 #
-# WHAT'S THIS? A BASH FILE WITH FUNCTIONS?
-#
-# A simple bash script for setting up
-# an Operating System with my dotfiles
+# @version 6.0
+# @updated Sat Nov  7 22:38:01 CET 2015
+# @created Fri Nov 15 13:13:22 CET 2013
+#----------------------------------------------------------------------------------------
 
-function determine_package_manager() {
-  which yum > /dev/null && {
-    echo "yum"
-    export OSPACKMAN="yum"
-    return;
-  }
-  which apt-get > /dev/null && {
-    echo "apt-get"
-    export OSPACKMAN="aptget"
-    return;
-  }
-  which brew > /dev/null && {
-    echo "homebrew"
-    export OSPACKMAN="homebrew"
-    return;
-  }
-}
-
-# Adds a symbolic link to files in ~/.dotfiles
-# to your home directory.
-function symlink_files() {
-  ignoredfiles=(LICENSE readme.md install.sh get-omzsh.sh osxdefaults.sh zsh-theme iterm-prefs vim-colors)
-
-  for f in $(ls -d *); do
-    if [[ ${ignoredfiles[@]} =~ $f ]]; then
-      echo "Skipping $f ..."
-    else
-      link_file $f
-    fi
-  done
-}
-
-# symlink a file
-# arguments: filename
-function link_file(){
-  echo "linking ~/.$1"
-  if ! $(ln -s "$PWD/$1" "$HOME/.$1");  then
-    echo "Replace file '~/.$1'?"
-    read -p "[Y/n]?: " Q_REPLACE_FILE
-    if [[ $Q_REPLACE_FILE != 'n' ]]; then
-      replace_file $1
-    fi
-  fi
-}
-
-# replace file
-# arguments: filename
-function replace_file() {
-  echo "replacing ~/.$1"
-  rm -rf "$HOME/.$1"
-  ln -sf "$PWD/$1" "$HOME/.$1"
-}
-
-function setup_git() {
-  echo 'Setting up git config...'
-  read -p 'Enter Github username: ' GIT_USER
-  git config --global user.name "$GIT_USER"
-  read -p 'Enter email: ' GIT_EMAIL
-  git config --global user.email $GIT_EMAIL
-  git config --global core.editor vim
-  git config --global color.ui true
-  git config --global color.diff auto
-  git config --global color.status auto
-  git config --global color.branch auto
-}
-
-echo -e "\n----------------------------------------------------------------\n"
-echo "Setting up Operating System..."
-
+# Dont continue on error
 set -e
-(
-  determine_package_manager
 
-  # general package array
-  declare -a packages=('vim' 'git' 'htop' 'wget' 'curl')
+# Existing files won't be replaced
+REPLACE_FILES=true
 
-  if [[ $OSPACKMAN == "homebrew" ]]; then
-    echo "You are running homebrew."
-    echo "Using Homebrew to install packages..."
-    brew update
-    brew install "${packages[@]}"
-    echo "Setting OS X System defaults"
-    source osxdefaults.sh
-  elif [[ "$OSPACKMAN" == "yum" ]]; then
-    echo "You are running yum."
-    echo "Using yum to install packages...."
-    sudo yum update
-    sudo yum install "${packages[@]}" zsh
-  elif [[ "$OSPACKMAN" == "aptget" ]]; then
-    echo "You are running apt-get"
-    echo "Using apt-get to install packages...."
-    sudo apt-get update
-    sudo apt-get install "${packages[@]}" zsh
-  else
-    echo "Could not determine OS. Exiting..."
-    exit 1
+#-----------------------------------------------------
+# Functions and variables
+#-----------------------------------------------------
+current_path=$(pwd)
+
+command_exists() {
+  type "$1" &>/dev/null
+}
+
+install_oh_my_zsh() {
+  curl -L https://raw.github.com/robbyrussell/oh-my-zsh/master/tools/install.sh | sh
+  ln -sf $current_path/shell/martinus.zsh-theme ~/.oh-my-zsh/themes/martinus.zsh-theme
+  echo "    Change your default shell to zsh"
+  sudo chsh
+}
+
+install_plug_nvim() {
+  curl -fLo ~/.config/nvim/autoload/plug.vim https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
+}
+
+install_nvim_folder() {
+  mkdir -p ~/.config/nvim/autoload
+  install_plug_nvim
+  ln -sf $current_path/neovim/spell/dictionary.utf-8.add ~/.config/nvim/dictionary.utf-8.add
+  ln -sf $current_path/neovim/init.vim ~/.config/nvim/init.vim
+  ln -sf $current_path/neovim/autoload/utils.vim ~/.config/nvim/autoload/utils.vim
+}
+
+#-----------------------------------------------------
+# Basic requirements check
+#-----------------------------------------------------
+
+if ! command_exists curl; then
+  briew install curl
+fi
+
+#-----------------------------------------------------
+# ZSH installation
+#-----------------------------------------------------
+echo -n "[ zshrc ]"
+
+if [ ! -f ~/.zshrc ]; then
+  echo "    Creating zshrc!"
+  ln -sf $current_path/shell/zshrc ~/.zshrc
+elif $REPLACE_FILES; then
+  echo "    Deleting old zshrc!"
+  rm ~/.zshrc
+  ln -sf $current_path/shell/zshrc ~/.zshrc
+else
+  echo "    Keeping existing zshrc!"
+fi
+
+echo -n "[ oh-my-zsh ]"
+
+if command_exists zsh; then
+  if [ ! -d ~/.oh-my-zsh ]; then
+    echo "    Installing Oh my zsh"
+    install_oh_my_zsh
   fi
+else
+  echo "    Installing ZSH."
+  brew install zsh
+  install_oh_my_zsh
+fi
 
-  echo -e "\n----------------------------------------------------------------\n"
-  echo "Installing oh-my-zsh"
-  source get-omzsh.sh
-  echo "Installing dotfiles"
-  symlink_files
-  VUNDLEDIR=~/.vim/bundle
-  if [ ! -d "$VUNDLEDIR" ]; then
-    echo "Installing Vundle"
-    git clone https://github.com/VundleVim/Vundle.vim.git ~/.vim/bundle/Vundle.vim
-    echo "Installing powerline"
+#-----------------------------------------------------
+# Git (config, ignore)
+#-----------------------------------------------------
+echo -n "[ gitconfig ]"
+
+if [ ! -f ~/.gitconfig ]; then
+  echo "    Creating gitconfig!"
+  ln -sf $current_path/git/gitconfig ~/.gitconfig
+elif $REPLACE_FILES; then
+  echo "    Deleting old gitconfig!"
+  rm ~/.gitconfig
+  ln -sf $current_path/git/gitconfig ~/.gitconfig
+else
+  echo "    Keeping existing gitconfig!"
+fi
+
+echo -n "[ gitignore ]"
+
+if [ ! -f ~/.gitignore ]; then
+  echo "    Creating gitignore!"
+  ln -sf $current_path/git/gitignore ~/.gitignore
+elif $REPLACE_FILES; then
+  echo "    Deleting old gitignore!"
+  rm ~/.gitignore
+  ln -sf $current_path/git/gitignore ~/.gitignore
+else
+  echo "    Keeping existing gitignore!"
+fi
+
+#-----------------------------------------------------
+# Neovim, dictionary, ultisnips
+#-----------------------------------------------------
+echo -n "[ Neovim ]"
+
+if ! command_exists nvim; then
+  echo "    Installing Neovim!"
+  brew install neovim
+fi
+
+echo -n "[ Neovim config ]"
+
+if [ ! -d ~/.config/nvim ]; then
+  echo "    Creating nvim folder!"
+  mkdir ~/.config/nvim
+  install_nvim_folder
+elif $REPLACE_FILES; then
+  echo "    Deleting old nvim folder!"
+  rm -rf ~/.config/nvim
+  install_nvim_folder
+else
+  echo "    Keeping existing nvim folder!"
+fi
+
+#-----------------------------------------------------
+# Installing tmux
+#-----------------------------------------------------
+echo -n "[ tmux.conf ]"
+
+if ! command_exists tmux; then
+  brew install tmux
+fi
+
+if [ ! -f ~/.tmux.conf ]; then
+  echo "    Creating tmux.conf!"
+  ln -sf $current_path/tmux/tmux.conf ~/.tmux.conf
+elif $REPLACE_FILES; then
+  echo "    Deleting old tmux.conf!"
+  rm ~/.tmux.conf
+  ln -sf $current_path/tmux/tmux.conf ~/.tmux.conf
+else
+  echo "    Keeping existing tmux.conf!"
+fi
+
+#-----------------------------------------------------
+# Installing Ag
+#-----------------------------------------------------
+echo -n "[ Ag ]"
+
+if command_exists ag; then
+  if [ ! -f ~/.agignore ]; then
+    echo "   Creating agignore!"
+    ln -sf $current_path/other/agignore ~/.agignore
   else
-    echo "Vundle is already installed"
+    echo "   Keeping existing agignore!"
   fi
-  echo "Setting up colors..."
-  mkdir -p ~/.vim/colors
-  cp ~/.dotfiles/vim-colors/* ~/.vim/colors
+else
+  echo "   Installing Ag!"
+  brew install the_silver_searcher
+  echo "   Creating agignore!"
+  ln -sf $current_path/other/agignore ~/.agignore
+fi
 
-  echo "Install Plugins for Vundle"
-  vim +BundleInstall +qall
-  vim +PluginInstall +qall
+#-----------------------------------------------------
+# Installing linters
+#-----------------------------------------------------
+echo -n "[ Eslint ]"
 
-  echo "Changing shells to ZSH"
-  chsh -s /bin/zsh
+if command_exists eslint; then
+  ln -sf $current_path/linters/eslintrc ~/.eslintrc
+else
+  if command_exists npm; then
+    npm install -g eslint
+    ln -sf $current_path/linters/eslintrc ~/dev/.eslintrc
+  else
+    echo "   Install node and npm, then rerun script again!"
+    exit
+  fi
+fi
 
-  echo -e "\n----------------------------------------------------------------\n"
-  setup_git
-
-  # clean up env vars
-  unset OSPACKMAN
-
-  echo -e "\n----------------------------------------------------------------\n"
-  echo "Operating System setup complete."
-  echo "Reloading session"
-  exec zsh
-)

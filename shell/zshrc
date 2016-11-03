@@ -1,15 +1,16 @@
 # Path to your oh-my-zsh installation.
 export ZSH=~/.oh-my-zsh
 
-export PATH=$PATH:/usr/local/bin
-export PATH=$PATH:/usr/bin
-export PATH=$PATH:/usr/sbin
-export PATH=$PATH:/bin
-export PATH=$PATH:/sbin
+export PATH=$PATH:/usr/local/bin/
+export PATH=$PATH:/usr/local/sbin
 export PATH=$PATH:/usr/local/MacGPG2/bin
+export PATH=$PATH:$PYTHONPATH
 
 export MANPATH="/usr/local/share/man:$MANPATH"
 export HOMEBREW_CASK_OPTS="--appdir=/Applications"
+
+export EDITOR="nvim"
+export MYNVIMRC="~/.config/nvim/init.vim"
 
 # Set name of the theme to load.
 # Look in ~/.oh-my-zsh/themes/
@@ -62,7 +63,7 @@ COMPLETION_WAITING_DOTS="true"
 # Example format: plugins=(rails git textmate ruby lighthouse)
 # Add wisely, as too many plugins slow down shell startup.
 
-plugins=(git osx)
+plugins=(git osx common-aliases httpie jsontools meteor mix rsync vagrant zsh-zyntax-highlighting zsh-autosuggestions)
 
 # User configuration
 source $ZSH/oh-my-zsh.sh
@@ -84,6 +85,19 @@ function cs()
   fi
 }
 
+# Customize man pages color
+man() {
+    env \
+        LESS_TERMCAP_mb=$'\e[1;31m' \
+        LESS_TERMCAP_md=$'\e[1;31m' \
+        LESS_TERMCAP_me=$'\e[0m' \
+        LESS_TERMCAP_se=$'\e[0m' \
+        LESS_TERMCAP_so=$'\e[1;44;33m' \
+        LESS_TERMCAP_ue=$'\e[0m' \
+        LESS_TERMCAP_us=$'\e[1;32m' \
+            man "$@"
+}
+
 # ssh
 export SSH_KEY_PATH="~/.ssh/dsa_id"
 
@@ -91,11 +105,15 @@ export SSH_KEY_PATH="~/.ssh/dsa_id"
 # plugins, and themes. Aliases can be placed here, though oh-my-zsh
 # users are encouraged to define aliases within the ZSH_CUSTOM folder.
 # For a full list of active aliases, run `alias`.
+alias gc='git commit -v -S'
 alias n='nvim'
 alias cd='cs'
+alias kk='clear'
 alias bgrep='/usr/bin/grep --color=auto --exclude-dir={.bzr,CVS,.git,.hg,.svn}'
 
 # Example aliases
 # alias zshconfig="mate ~/.zshrc"
 # alias ohmyzsh="mate ~/.oh-my-zsh"
 
+
+test -e "${HOME}/.iterm2_shell_integration.zsh" && source "${HOME}/.iterm2_shell_integration.zsh"
