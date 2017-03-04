@@ -108,6 +108,7 @@ alias n='nvim'
 alias cd='cs'
 alias kk='clear'
 alias bgrep='/usr/bin/grep --color=auto --exclude-dir={.bzr,CVS,.git,.hg,.svn}'
+alias ggpush='git push -u origin $(git_current_branch)'
 
 # Example aliases
 # alias zshconfig="mate ~/.zshrc"

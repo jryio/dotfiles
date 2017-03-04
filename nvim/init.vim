@@ -58,6 +58,8 @@ Plug 'heavenshell/vim-jsdoc', { 'on': ['JsDoc'] }
 
 " HTML5 syntax
 Plug 'othree/html5.vim'
+" Emmett HTML completion
+Plug 'mattn/emmet-vim'
 " SCSS syntax
 Plug 'cakebaker/scss-syntax.vim'
 " Color highlighter
@@ -435,8 +437,10 @@ nnoremap <Space>? ?<CR>
 vnoremap <Space>s :!sort<CR>
 
 " Fix spelling error on the go
-inoremap <C-l> <C-g>u<ESC>[s1z=`]a<C-g>u
+inoremap <C-s> <C-g>u<ESC>[s1z=`]a<C-g>u
 
+" Fix spelling error in normal mode
+" nnoremap <C-s> <C-g>u<ESC>[s1z=`]a<C-g>u
 " -----------------------------------------------------
 " 3.5 F-key actions
 " -----------------------------------------------------
@@ -698,6 +702,8 @@ let g:neomake_error_sign = {
       \ 'texthl': 'ErrorMsg',
       \ }
 
+let g:neomake_javascript_enabled_makers = ['standard']
+
 " -----------------------------------------------------
 " 4.9 Vim Markdown settings
 " -----------------------------------------------------
@@ -955,6 +961,8 @@ autocmd FileType vim setlocal keywordprg=:help
 " Turn spellcheck on for markdown files
 autocmd BufNewFile,BufRead *.md setlocal spell
 
+autocmd FileType * setlocal tabstop=2 softtabstop=0 expandtab shiftwidth=2 smarttab
+
 " Remove trailing whitespaces automatically before save
 autocmd BufWritePre * call utils#stripTrailingWhitespaces()
 
@@ -973,18 +981,20 @@ augroup END
 " Run checktime in buffers, but avoiding the "Command Line" (q:) window
 autocmd CursorHold * if getcmdwintype() == '' | checktime | endif
 
+
 " -----------------------------------------------------
 " 7.1 Run linters after save
 " -----------------------------------------------------
 
-" npm install -g eslint
-autocmd BufWritePost *.js Neomake eslint
+" npm install -g standard
+
+autocmd BufWritePost *.js Neomake standard
 " npm install -g jsonlint
 autocmd BufWritePost *.json Neomake jsonlint
 " sudo apt-get install elixir
 autocmd BufWritePost *.ex Neomake elixir
 " apt-get install tidy
-autocmd BufWritePost *.html Neomake tidy-html5
+autocmd BufWritePost *.html Neomake tidy
 " gem install mdl
 autocmd BufWritePost *.md Neomake mdl
 
