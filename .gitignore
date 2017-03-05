@@ -6,3 +6,4 @@ vim/
 *.bak
 oh-my-zsh
 nvim/tmp/*
+nvim/plugged/*
