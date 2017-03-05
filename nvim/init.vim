@@ -933,6 +933,12 @@ syntax on
 set background=dark
 colorscheme base16-railscasts
 
+" This is a fix for vim-jsx mismatching closing tag colors
+hi Tag        ctermfg=04
+hi xmlTag     ctermfg=04
+hi xmlTagName ctermfg=04
+hi xmlEndTag  ctermfg=04
+
 " Highlight VCS conflict markers
 match ErrorMsg '^\(<\|=\|>\)\{7\}\([^=].\+\)\?$'
 
@@ -961,6 +967,7 @@ autocmd FileType vim setlocal keywordprg=:help
 " Turn spellcheck on for markdown files
 autocmd BufNewFile,BufRead *.md setlocal spell
 
+" Two space tabs for all file types
 autocmd FileType * setlocal tabstop=2 softtabstop=0 expandtab shiftwidth=2 smarttab
 
 " Remove trailing whitespaces automatically before save
