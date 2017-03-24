@@ -702,7 +702,7 @@ let g:neomake_error_sign = {
       \ 'texthl': 'ErrorMsg',
       \ }
 
-let g:neomake_javascript_enabled_makers = ['standard']
+" let g:neomake_javascript_enabled_makers = ['standard']
 
 " -----------------------------------------------------
 " 4.9 Vim Markdown settings
@@ -994,8 +994,9 @@ autocmd CursorHold * if getcmdwintype() == '' | checktime | endif
 " -----------------------------------------------------
 
 " npm install -g standard
-
-autocmd BufWritePost *.js Neomake standard
+autocmd BufWritePost *.js Neomake eslint
+" npm install -g standard
+autocmd BufWritePost *.jsx Neomake eslint
 " npm install -g jsonlint
 autocmd BufWritePost *.json Neomake jsonlint
 " sudo apt-get install elixir
