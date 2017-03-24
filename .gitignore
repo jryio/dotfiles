@@ -5,5 +5,5 @@ vim/
 .*.swp
 *.bak
 oh-my-zsh
-nvim/tmp/*
+nvim/tmp/undo/*
 nvim/plugged/*

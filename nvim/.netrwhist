@@ -1,11 +1,2 @@
 let g:netrw_dirhistmax  =10
-let g:netrw_dirhist_cnt =9
-let g:netrw_dirhist_1='/Users/case/jry/personal/sites/thebearjew'
-let g:netrw_dirhist_2='/Users/case/jry/tulip/environments/cloud/Central/factory/imports'
-let g:netrw_dirhist_3='/Users/case/jry/tulip/environments/cloud/Central/factory/imports/analytics-editor'
-let g:netrw_dirhist_4='/Users/case/jry/tulip/environments/cloud/Central/factory/imports'
-let g:netrw_dirhist_5='/Users/case/jry/tulip/environments/cloud/Central/factory/imports/analytics'
-let g:netrw_dirhist_6='/Users/case/jry/tulip/environments/cloud/Central/factory/imports/analytics/server'
-let g:netrw_dirhist_7='/Users/case/jry/tulip/environments/cloud/Central/factory/imports'
-let g:netrw_dirhist_8='/Users/case/jry/personal/jacob-young-braintree-coding-problem/.git'
-let g:netrw_dirhist_9='/Users/case/jry/calhacks/react-intro/src/js'
+let g:netrw_dirhist_cnt =0
