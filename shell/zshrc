@@ -104,6 +104,7 @@ export SSH_KEY_PATH="~/.ssh/dsa_id"
 # users are encouraged to define aliases within the ZSH_CUSTOM folder.
 # For a full list of active aliases, run `alias`.
 alias gc='git commit -v -S'
+alias gd='git difftool'
 alias n='nvim'
 alias cd='cs'
 alias kk='clear'
@@ -114,9 +115,8 @@ alias ggpush='git push -u origin $(git_current_branch)'
 # alias zshconfig="mate ~/.zshrc"
 # alias ohmyzsh="mate ~/.oh-my-zsh"
 
-
 test -e "${HOME}/.iterm2_shell_integration.zsh" && source "${HOME}/.iterm2_shell_integration.zsh"
 
-export NVM_DIR="$HOME/.nvm"
-[ -s "$NVM_DIR/nvm.sh" ] && . "$NVM_DIR/nvm.sh" # This loads nvm
 
+
+export PATH="$HOME/.yarn/bin:$PATH"
