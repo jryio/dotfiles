@@ -22,6 +22,8 @@ call plug#begin('~/.config/nvim/plugged')
 " --------------------------------------------------
 
 Plug 'benekastah/neomake', { 'on': ['Neomake'] }
+" Prefer local install of eslint over global
+Plug 'benjie/neomake-local-eslint.vim'
 " Autocomplete
 Plug 'Shougo/deoplete.nvim'
 " Automatically closing pair stuff
@@ -692,7 +694,7 @@ let g:lightline = {
 " -----------------------------------------------------
 " 4.8 Neomake settings
 " -----------------------------------------------------
-let g:neomake_verbose=0
+let g:neomake_verbose=3
 let g:neomake_warning_sign = {
       \ 'text': '❯',
       \ 'texthl': 'WarningMsg',
@@ -701,8 +703,6 @@ let g:neomake_error_sign = {
       \ 'text': '❯',
       \ 'texthl': 'ErrorMsg',
       \ }
-
-" let g:neomake_javascript_enabled_makers = ['standard']
 
 " -----------------------------------------------------
 " 4.9 Vim Markdown settings
@@ -993,10 +993,10 @@ autocmd CursorHold * if getcmdwintype() == '' | checktime | endif
 " 7.1 Run linters after save
 " -----------------------------------------------------
 
-" npm install -g standard
-autocmd BufWritePost *.js Neomake eslint
-" npm install -g standard
-autocmd BufWritePost *.jsx Neomake eslint
+" npm install -g
+" autocmd BufWritePost *.js Neomake eslint
+" npm install -g
+" autocmd BufWritePost *.jsx Neomake eslint
 " npm install -g jsonlint
 autocmd BufWritePost *.json Neomake jsonlint
 " sudo apt-get install elixir

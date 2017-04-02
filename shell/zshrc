@@ -5,6 +5,7 @@ export PATH=$PATH:/usr/local/bin/
 export PATH=$PATH:/usr/local/sbin
 export PATH=$PATH:/usr/local/MacGPG2/bin
 export PATH=$PATH:$PYTHONPATH
+export PATH="$HOME/.yarn/bin:$PATH"
 
 export MANPATH="/usr/local/share/man:$MANPATH"
 export HOMEBREW_CASK_OPTS="--appdir=/Applications"
@@ -117,6 +118,3 @@ alias ggpush='git push -u origin $(git_current_branch)'
 
 test -e "${HOME}/.iterm2_shell_integration.zsh" && source "${HOME}/.iterm2_shell_integration.zsh"
 
-
-
-export PATH="$HOME/.yarn/bin:$PATH"
