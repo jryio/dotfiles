@@ -64,7 +64,19 @@ COMPLETION_WAITING_DOTS="true"
 # Example format: plugins=(rails git textmate ruby lighthouse)
 # Add wisely, as too many plugins slow down shell startup.
 
-plugins=(git osx common-aliases httpie jsontools meteor mix rsync vagrant zsh-zyntax-highlighting zsh-autosuggestions)
+plugins=(
+  git
+  osx
+  common-aliases
+  httpie
+  jsontools
+  meteor
+  mix
+  rsync
+  vagrant
+  zsh-zyntax-highlighting
+  zsh-autosuggestions
+)
 
 # User configuration
 source $ZSH/oh-my-zsh.sh
@@ -98,7 +110,7 @@ man() {
 }
 
 # ssh
-export SSH_KEY_PATH="~/.ssh/dsa_id"
+export SSH_KEY_PATH="~/.ssh/id_rsa"
 
 # Set personal aliases, overriding those provided by oh-my-zsh libs,
 # plugins, and themes. Aliases can be placed here, though oh-my-zsh
