@@ -6,5 +6,5 @@ vim/
 *.bak
 oh-my-zsh
 nvim/tmp/undo/*
-nvim/plugged/*
+nvim/plugged
 nvim/.netrwhist
