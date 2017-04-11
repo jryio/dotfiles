@@ -1,4 +1,4 @@
-##.📄s
+## .📄s (Dot file s)
 
 Hey, look, `.dotfiles`!
 
