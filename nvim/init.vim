@@ -27,7 +27,7 @@ Plug 'benjie/neomake-local-eslint.vim'
 " Autocomplete
 Plug 'Shougo/deoplete.nvim'
 " Automatically closing pair stuff
-Plug 'cohama/lexima.vim'
+Plug 'jiangmiao/auto-pairs'
 " Commenting support (gc)
 Plug 'tpope/vim-commentary'
 " CamelCase and snake_case motions
@@ -186,7 +186,7 @@ set ttimeoutlen=10
 " 2.3 Spelling settings
 " --------------------------------------------------
 
-set spellfile=~/.config/nvim/dictionary.utf-8.add
+set spellfile=~/.config/nvim/spell/dictionary.utf-8.add
 set spelllang=en_us                         " Set language to US English
 set nospell                                 " Disable checking by default (use <F4> to toggle)
 
