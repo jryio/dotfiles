@@ -14,7 +14,7 @@
 set -e
 
 # Existing files won't be replaced
-REPLACE_FILES=true
+REPLACE_FILES=false
 
 #-----------------------------------------------------
 # Source Paths
@@ -29,8 +29,8 @@ THEME_FILE="honukai.zsh-theme"
 #-----------------------------------------------------
 # Destintation Paths
 #-----------------------------------------------------
-NEOVIM_CONFIG='~/.config/nvim'
-OH_MY_SH_CONFIG='~/oh-my-zsh'
+NEOVIM_CONFIG="$HOME/.config/nvim"
+OH_MY_ZSH_CONFIG="$HOME/.oh-my-zsh"
 
 #-----------------------------------------------------
 # Functions and variables
@@ -43,7 +43,7 @@ command_exists() {
 
 install_oh_my_zsh() {
   curl -L https://raw.github.com/robbyrussell/oh-my-zsh/master/tools/install.sh | sh
-  ln -sf "$CURRENT_PATH/$SHELL_DIR/$THEME_FILE" "$OH_MY_SH_CONFIG/themes/$THEME_FILE"
+  ln -sf "$CURRENT_PATH/$SHELL_DIR/$THEME_FILE" "$OH_MY_ZSH_CONFIG/themes/$THEME_FILE"
   echo "    Change your default shell to zsh"
   sudo chsh
 }
@@ -64,18 +64,15 @@ symlink_multiple() {
   source_dir="$1"
   files="$2"
 
-  echo "source dir: $source_dir"
-  echo "files: $files"
-
   for file in $files; do
     echo -n "[ $file ]"
-    if [ ! -f "~/.$file" ]; then
+    if [ ! -f "$HOME/.$file" ]; then
       echo "    Creating $file!"
-      ln -sf "$CURRENT_PATH/$source_dir/$file" "~/.$file"
+      ln -sf "$CURRENT_PATH/$source_dir/$file" "$HOME/.$file"
     elif $REPLACE_FILES; then
       echo "    Deleting old $file!"
-      rm -f "~/.$file"
-      ln -sf "$CURRENT_PATH/$source_dir/$file" "~/.$file"
+      rm -f "$HOME/.$file"
+      ln -sf "$CURRENT_PATH/$source_dir/$file" "$HOME/.$file"
     else
       echo "    Keeing existing $file!"
     fi
@@ -106,7 +103,7 @@ symlink_multiple $SHELL_DIR $ZSH_FILES
 echo -n "[ oh-my-zsh ]"
 
 if command_exists zsh; then
-  if [ ! -d $OH_MY_SH_CONFIG ]; then
+  if [ ! -d $OH_MY_ZSH_CONFIG ]; then
     echo "    Installing Oh my zsh"
     install_oh_my_zsh
   fi
@@ -136,13 +133,13 @@ fi
 
 echo -n "[ Neovim config ]"
 
-if [ ! -d ~/.config/nvim ]; then
+if [ ! -d "$HOME/.config/nvim" ]; then
   echo "    Creating nvim folder!"
-  mkdir ~/.config/nvim
+  mkdir "$HOME/.config/nvim"
   install_nvim_folder
 elif $REPLACE_FILES; then
   echo "    Deleting old nvim folder!"
-  rm -rf ~/.config/nvim
+  rm -rf "$HOME/.config/nvim"
   install_nvim_folder
 else
   echo "    Keeping existing nvim folder!"
@@ -161,9 +158,9 @@ symlink_multiple $TMUX_DIR $TMUX_FILES
 echo -n "[ Ag ]"
 
 if command_exists ag; then
-  if [ ! -f ~/.agignore ]; then
+  if [ ! -f "$HOME/.agignore"]; then
     echo "   Creating agignore!"
-    ln -sf $CURRENT_PATH/other/agignore ~/.agignore
+    ln -sf "$CURRENT_PATH/other/agignore" "$HOME/.agignore"
   else
     echo "   Keeping existing agignore!"
   fi
@@ -171,7 +168,7 @@ else
   echo "   Installing Ag!"
   brew install the_silver_searcher
   echo "   Creating agignore!"
-  ln -sf $CURRENT_PATH/other/agignore ~/.agignore
+  ln -sf "$CURRENT_PATH/other/agignore" "$HOME/.agignore"
 fi
 
 #-----------------------------------------------------
@@ -180,11 +177,11 @@ fi
 echo -n "[ Eslint ]"
 
 if command_exists eslint; then
-  ln -sf $CURRENT_PATH/linters/eslintrc ~/.eslintrc
+  ln -sf "$CURRENT_PATH/linters/eslintrc" "$HOME/.eslintrc"
 else
   if command_exists npm; then
     npm install -g eslint
-    ln -sf $CURRENT_PATH/linters/eslintrc ~/dev/.eslintrc
+    ln -sf "$CURRENT_PATH/linters/eslintrc" "$HOME/dev/.eslintrc"
   else
     echo "   Install node and npm, then rerun script again!"
     exit

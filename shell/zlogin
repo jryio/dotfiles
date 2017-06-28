@@ -1,7 +1,4 @@
-# Add ssh key to keychain on startup
-ssh-add -K ~/.ssh/id_rsa
-
 # Bind Node Version Manager and load it
 export NVM_DIR="$HOME/.nvm"
-[ -s "$NVM_DIR/nvm.sh" ] && . "$NVM_DIR/nvm.sh" # This loads nvm
+[ -s "$NVM_DIR/nvm.sh" ] && . "$NVM_DIR/nvm.sh" --no-use # This loads nvm
 

@@ -43,16 +43,17 @@ Plug 'tpope/vim-sleuth'
 Plug 'pangloss/vim-javascript'
 " JSX syntax
 Plug 'mxw/vim-jsx'
-" Typescript syntax
-Plug 'leafgarland/typescript-vim'
 " JSON syntax
 Plug 'sheerun/vim-json'
 " Autocomplete (npm install -g tern)
 Plug 'carlitux/deoplete-ternjs'
 " Autocomplete using flow (npm install -g flow-bin)
 Plug 'steelsojka/deoplete-flow'
-" JS Documentation comments
-Plug 'heavenshell/vim-jsdoc', { 'on': ['JsDoc'] }
+
+" --------------------------------------------------
+" 1.2.1 Elm
+" --------------------------------------------------
+Plug 'elmcast/elm-vim'
 
 " --------------------------------------------------
 " 1.3 HTML/CSS
@@ -61,7 +62,9 @@ Plug 'heavenshell/vim-jsdoc', { 'on': ['JsDoc'] }
 " HTML5 syntax
 Plug 'othree/html5.vim'
 " Emmett HTML completion
-Plug 'mattn/emmet-vim'
+" Plug 'mattn/emmet-vim'
+" HTML Tag Closing
+Plug 'alvan/vim-closetag'
 " SCSS syntax
 Plug 'cakebaker/scss-syntax.vim'
 " Color highlighter
@@ -116,8 +119,6 @@ Plug 'ap/vim-buftabline'
 
 " Git changes showed on line numbers
 Plug 'airblade/vim-gitgutter'
-" REST Console
-Plug 'diepm/vim-rest-console', { 'for': 'rest' }
 
 " --------------------------------------------------
 " 1.8 Text insertion/manipulation
@@ -692,9 +693,16 @@ let g:lightline = {
       \ }
 
 " -----------------------------------------------------
+" 4.8.0 Elm Settings
+" -----------------------------------------------------
+let g:elm_format_autosave = 1
+" Disable all default Elm-vim keybdindings (redefine them below)
+let g:elm_setup_keybindings = 0
+"
+" -----------------------------------------------------
 " 4.8 Neomake settings
 " -----------------------------------------------------
-let g:neomake_verbose=3
+" let g:neomake_verbose=3
 let g:neomake_warning_sign = {
       \ 'text': '❯',
       \ 'texthl': 'WarningMsg',
@@ -703,7 +711,8 @@ let g:neomake_error_sign = {
       \ 'text': '❯',
       \ 'texthl': 'ErrorMsg',
       \ }
-
+let g:neomake_javascript_enabled_makers = ["eslint"]
+let g:neomake_javascript_jsx_enabled_makers = ["eslint"]
 " -----------------------------------------------------
 " 4.9 Vim Markdown settings
 " -----------------------------------------------------
@@ -918,9 +927,15 @@ nnoremap <leader>C :Bonly<CR>
 vnoremap <leader>a :Tabularize /
 
 " -----------------------------------------------------
-" 5.12 JsDoc
+" 5.12 Elm
 " -----------------------------------------------------
-nnoremap <leader>d :JsDoc<CR>
+" Custom Elm-vim keybindings
+au FileType elm nmap <leader>em <Plug>(elm-make)
+au FileType elm nmap <leader>eb <Plug>(elm-make-main)
+au FileType elm nmap <leader>et <Plug>(elm-test)
+au FileType elm nmap <leader>ee <Plug>(elm-error-details)
+au FileType elm nmap <leader>ed <Plug>(elm-show-docs)
+au FileType elm nmap <leader>ew <Plug>(elm-browse-docs)
 
 " ==================================================
 " 6.0 Color and highlighting settings
@@ -988,15 +1003,13 @@ augroup END
 " Run checktime in buffers, but avoiding the "Command Line" (q:) window
 autocmd CursorHold * if getcmdwintype() == '' | checktime | endif
 
-
 " -----------------------------------------------------
 " 7.1 Run linters after save
 " -----------------------------------------------------
-
-" npm install -g
-" autocmd BufWritePost *.js Neomake eslint
-" npm install -g
-" autocmd BufWritePost *.jsx Neomake eslint
+" npm install -g eslint
+autocmd BufWritePost *.js Neomake eslint
+" npm install -g eslint
+autocmd BufWritePost *.jsx Neomake eslint
 " npm install -g jsonlint
 autocmd BufWritePost *.json Neomake jsonlint
 " sudo apt-get install elixir

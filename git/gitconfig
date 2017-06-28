@@ -16,6 +16,7 @@
 [alias]
   showtool = "!f() { git difftool $1^ $1; }; f"
   added = difftool --cached
+  commit = git commit -v
 [diff]
   tool = icdiff
 [difftool]

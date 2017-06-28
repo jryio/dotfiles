@@ -116,10 +116,12 @@ export SSH_KEY_PATH="~/.ssh/id_rsa"
 # plugins, and themes. Aliases can be placed here, though oh-my-zsh
 # users are encouraged to define aliases within the ZSH_CUSTOM folder.
 # For a full list of active aliases, run `alias`.
+alias cd='cs'
+alias irb='irb --simple-prompt'
+alias n='nvim'
+alias r='ruby'
 alias gc='git commit -v -S'
 alias gd='git difftool'
-alias n='nvim'
-alias cd='cs'
 alias kk='clear'
 alias bgrep='/usr/bin/grep --color=auto --exclude-dir={.bzr,CVS,.git,.hg,.svn}'
 alias ggpush='git push -u origin $(git_current_branch)'
