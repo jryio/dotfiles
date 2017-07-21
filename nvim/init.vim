@@ -32,6 +32,7 @@ Plug 'jiangmiao/auto-pairs'
 Plug 'tpope/vim-commentary'
 " CamelCase and snake_case motions
 Plug 'bkad/CamelCaseMotion'
+
 " Heuristically set indent settings
 Plug 'tpope/vim-sleuth'
 
@@ -88,19 +89,10 @@ Plug 'keith/tmux.vim'
 Plug 'honza/dockerfile.vim'
 
 " --------------------------------------------------
-" 1.5 Unite fuzzy searcher
+" 1.5  FZF Fuzzy Searcher
 " --------------------------------------------------
 
-" Unite files, buffers, etc. sources
-Plug 'Shougo/unite.vim'
-" Outline source
-Plug 'Shougo/unite-outline'
-" History/yank source
-Plug 'Shougo/neoyank.vim'
-" Tag source
-Plug 'tsukkee/unite-tag'
-" Ag wrapper (Unite grep alternative) search and edit
-Plug 'dyng/ctrlsf.vim', { 'on': ['CtrlSF', 'CtrlSFToggle'] }
+Plug '/usr/local/opt/fzf' | Plug 'junegunn/fzf.vim'
 
 " --------------------------------------------------
 " 1.6 Interface improving
@@ -478,10 +470,10 @@ nnoremap <F12> :call utils#showToggles()<CR>
 " -----------------------------------------------------
 
 " Intelligent windows resizing using ctrl + arrow keys
-nnoremap <silent> <S-Right> :call utils#intelligentVerticalResize('right')<CR>
-nnoremap <silent> <S-Left> :call utils#intelligentVerticalResize('left')<CR>
-nnoremap <silent> <S-Up> :resize +1<CR>
-nnoremap <silent> <S-Down> :resize -1<CR>
+" nnoremap <silent> <S-Right> :call utils#intelligentVerticalResize('right')<CR>
+" nnoremap <silent> <S-Left> :call utils#intelligentVerticalResize('left')<CR>
+" nnoremap <silent> <S-Up> :resize +1<CR>
+" nnoremap <silent> <S-Down> :resize -1<CR>
 
 " Buffers navigation and management
 nnoremap <silent> + :bn<CR>
@@ -499,29 +491,29 @@ cnoremap qq qall
 " 3.8 Custom commands and functions
 " -----------------------------------------------------
 
-" Generate tags definitions
-command! GTags :call utils#generateCtags()
+" " Generate tags definitions
+" command! GTags :call utils#generateCtags()
 
-" Open notes
-command! Notes :call utils#openNotes()
+" " Open notes
+" command! Notes :call utils#openNotes()
 
-" Run current file
-command! Run :call utils#runCurrentFile()
-nnoremap <silent> ,r :Run<CR>
+" " Run current file
+" command! Run :call utils#runCurrentFile()
+" nnoremap <silent> ,r :Run<CR>
 
-" Reformat whole or selection from file
-command! Format :call utils#formatFile()
-nnoremap <silent> ,f :Format<CR>
+" " Reformat whole or selection from file
+" command! Format :call utils#formatFile()
+" nnoremap <silent> ,f :Format<CR>
 
-" Annotate file (show values in special # => comments)
-command! Annotate :call utils#annotateFile()
-nnoremap <silent> ,A :Annotate<CR>
+" " Annotate file (show values in special # => comments)
+" command! Annotate :call utils#annotateFile()
+" nnoremap <silent> ,A :Annotate<CR>
 
-" Profile
-command! Profile :call utils#profile()
+" " Profile
+" command! Profile :call utils#profile()
 
-" Retab
-command! Retab :call utils#retabToFourSpaces()
+" " Retab
+" command! Retab :call utils#retabToFourSpaces()
 
 " ==================================================
 " 4.0 Plugins settings
@@ -533,103 +525,30 @@ command! Retab :call utils#retabToFourSpaces()
 let g:utils_autoswitch_kb_layout=0
 
 " -----------------------------------------------------
-" 4.2 Unite
+" 4.2 FZF
 " -----------------------------------------------------
+"
+" Default fzf layout
+" - down / up / left / right
+let g:fzf_layout = { 'down': '~40%' }
 
-" Matcher settings
-call unite#filters#matcher_default#use(['matcher_fuzzy', 'matcher_hide_current_file'])
-call unite#filters#sorter_default#use(['sorter_rank'])
+" Customize fzf colors to match your color scheme
+let g:fzf_colors =
+      \ { 'fg':      ['fg', 'Normal'],
+      \ 'bg':      ['bg', 'Normal'],
+      \ 'hl':      ['fg', 'Comment'],
+      \ 'info':    ['fg', 'PreProc'],
+      \ 'prompt':  ['fg', 'Conditional'],
+      \ 'pointer': ['fg', 'Exception'],
+      \ 'marker':  ['fg', 'Keyword'],
+      \ 'spinner': ['fg', 'Label'],
+      \ 'header':  ['fg', 'Comment'] }
 
-" Use ag if available
-if executable('ag')
-  let g:unite_source_grep_command='ag'
-  let g:unite_source_grep_default_opts='--nocolor --line-numbers --nogroup -S -C0'
-  let g:unite_source_grep_recursive_opt=''
-
-  " Set rec source command
-  let g:unite_source_rec_async_command = ['ag', '--follow', '--nocolor', '--nogroup', '--hidden', '-g', '']
-endif
-
-" Custom profile
-call unite#custom#profile('default', 'context', {
-      \   'prompt': '» ',
-      \   'winheight': 15,
-      \ })
-
-" Add syntax highlighting
-let g:unite_source_line_enable_highlight=1
-
-" Dont override status line
-let g:unite_force_overwrite_statusline=0
-
-" Custom unite menus
-let g:unite_source_menu_menus = {}
-
-" Utils menu
-let g:unite_source_menu_menus.utils = {
-      \     'description' : 'Utility commands',
-      \ }
-let g:unite_source_menu_menus.utils.command_candidates = [
-      \       ['Run XMPFilter', 'Annotate'],
-      \       ['Format file', 'Format'],
-      \       ['Run file', 'Run'],
-      \       ['Generate Ctags', 'GTags'],
-      \       ['Show notes', 'Notes'],
-      \     ]
-
-" Git menu
-let g:unite_source_menu_menus.git = {
-      \     'description' : 'Git commands',
-      \ }
-let g:unite_source_menu_menus.git.command_candidates = [
-      \       ['Stage hunk', 'GitGutterStageHunk'],
-      \       ['Unstage hunk', 'GitGutterRevertHunk'],
-      \       ['Stage', 'Gwrite'],
-      \       ['Status', 'Gstatus'],
-      \       ['Diff', 'Gvdiff'],
-      \       ['Commit', 'Gcommit --verbose'],
-      \       ['Revert', 'Gread'],
-      \       ['Log', 'Glog'],
-      \       ['Visual log', 'Gitv'],
-      \       ['Current file visual log', 'Gitv!'],
-      \     ]
-
-" Plug menu
-let g:unite_source_menu_menus.plug = {
-      \     'description' : 'Plugin management commands',
-      \ }
-let g:unite_source_menu_menus.plug.command_candidates = [
-      \       ['Install plugins', 'PlugInstall'],
-      \       ['Update plugins', 'PlugUpdate'],
-      \       ['Clean plugins', 'PlugClean'],
-      \       ['Upgrade vim-plug', 'PlugUpgrade'],
-      \     ]
-
-" My unite menu
-let g:unite_source_menu_menus.unite = {
-      \     'description' : 'My Unite sources',
-      \ }
-let g:unite_source_menu_menus.unite.command_candidates = [
-      \       ['Unite MRUs', 'call utils#uniteMRUs()'],
-      \       ['Unite buffers', 'call utils#uniteBuffers()'],
-      \       ['Unite file browse', 'call utils#uniteFileBrowse()'],
-      \       ['Unite file search', 'call utils#uniteFileRec()'],
-      \       ['Unite history', 'call utils#uniteHistory()'],
-      \       ['Unite line search', 'call utils#uniteLineSearch()'],
-      \       ['Unite menu', 'call utils#uniteCustomMenu()'],
-      \       ['Unite registers', 'call utils#uniteRegisters()'],
-      \       ['Unite snippets', 'call utils#uniteSnippets()'],
-      \       ['Unite sources', 'call utils#uniteSources()'],
-      \       ['Unite file tags (symbols)', 'call utils#uniteOutline()'],
-      \       ['Unite tags', 'call utils#uniteTags()'],
-      \       ['Unite windows', 'call utils#uniteWindows()'],
-      \       ['Unite yank history', 'call utils#uniteYankHistory()'],
-      \       ['Unite jump history', 'call utils#uniteJumps()'],
-      \     ]
-
-" Tag source settings
-let g:unite_source_tag_max_name_length=40
-let g:unite_source_tag_max_fname_length=50
+" Enable per-command history.
+" CTRL-N and CTRL-P will be automatically bound to next-history and
+" previous-history instead of down and up. If you don't like the change,
+" explicitly bind the keys to down and up in your $FZF_DEFAULT_OPTS.
+let g:fzf_history_dir = '~/.local/share/fzf-history'
 
 " -----------------------------------------------------
 " 4.3 NERDTree
@@ -799,54 +718,18 @@ let g:javascript_plugin_flow=1
 " ==================================================
 
 " -----------------------------------------------------
-" 5.1 Unite and extensions
+" 5.1 FZF mapings
 " -----------------------------------------------------
+" Search files
+nnoremap <space>f :Files<CR>
 
-" Custom mappings for the unite buffer
-autocmd FileType unite call s:unite_settings()
-function! s:unite_settings()
-  " Enable navigation with control-j and control-k in insert mode
-  imap <silent> <buffer> <C-j> <Plug>(unite_select_next_line)
-  imap <silent> <buffer> <C-k> <Plug>(unite_select_previous_line)
-  " Runs 'splits' action by <C-s> and <C-v>
-  imap <silent> <buffer> <expr> <C-s> unite#do_action('split')
-  imap <silent> <buffer> <expr> <C-v> unite#do_action('vsplit')
-  " Exit with escape
-  nmap <silent> <buffer> <ESC> <Plug>(unite_exit)
-  " Mark candidates
-  vmap <silent> <buffer> m <Plug>(unite_toggle_mark_selected_candidates)
-  nmap <silent> <buffer> m <Plug>(unite_toggle_mark_current_candidate)
-endfunction
+" Mapping selecting mappings
+nmap <leader><tab> <plug>(fzf-maps-n)
+xmap <leader><tab> <plug>(fzf-maps-x)
+omap <leader><tab> <plug>(fzf-maps-o)
 
-" Search files recursively ([o]pen file)
-nnoremap <silent> <Space>o :call utils#uniteFileRec()<CR>
-" Browse [f]iles in CWD
-nnoremap <silent> <Space>f :call utils#uniteFileBrowse()<CR>
-" [U]nite sources
-nnoremap <silent> <Space>u :call utils#uniteSources()<CR>
-" Search between open files - [b]uffers
-nnoremap <silent> <Space>b :call utils#uniteBuffers()<CR>
-" Search in current file ou[t]line (tags in current file)
-nnoremap <silent> <Space>t :call utils#uniteTags()<CR>
-" Search in [l]ines on current buffer
-nnoremap <silent> <Space>l :call utils#uniteLineSearch()<CR>
-" Search in [y]ank history
-nnoremap <silent> <Space>y :call utils#uniteYankHistory()<CR>
-" Search in outlines
-nnoremap <silent> <Space>r :call utils#uniteOutline()<CR>
-" Search in registers
-nnoremap <silent> <Space>" :call utils#uniteRegisters()<CR>
-" Search in opened [w]indow splits
-nnoremap <silent> <Space>w :call utils#uniteWindows()<CR>
-" Search in latest [j]ump positions
-nnoremap <silent> <Space>j :call utils#uniteJumps()<CR>
-" Search in my custom unite [m]enu with my commands
-nnoremap <silent> <Space>m :call utils#uniteCustomMenu()<CR>
-" Seach in help menu for commands
-nnoremap <silent> <Space>hc :call utils#uniteCommands()<CR>
-" Seach in help menu for mappings
-nnoremap <silent> <Space>hm :call utils#uniteMappings()<CR>
 
+autocmd! FileType fzf tnoremap <buffer> <Esc> <C-c>
 " -----------------------------------------------------
 " 5.2 Isolate
 " -----------------------------------------------------
