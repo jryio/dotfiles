@@ -2,6 +2,7 @@
 tmp/**
 dist/
 node_modules/**
+elm-stuff/**
 bower_components/**
 .git
 .svn
