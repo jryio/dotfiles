@@ -32,7 +32,6 @@ Plug 'jiangmiao/auto-pairs'
 Plug 'tpope/vim-commentary'
 " CamelCase and snake_case motions
 Plug 'bkad/CamelCaseMotion'
-
 " Heuristically set indent settings
 Plug 'tpope/vim-sleuth'
 
@@ -43,7 +42,7 @@ Plug 'tpope/vim-sleuth'
 " Moder JS support (indent, syntax, etc)
 Plug 'pangloss/vim-javascript'
 " JSX syntax
-Plug 'mxw/vim-jsx'
+Plug 'mxw/vim-jsx', { 'for': ['jsx', 'javascript.jsx'] }
 " JSON syntax
 Plug 'sheerun/vim-json'
 " Autocomplete (npm install -g tern)
@@ -63,7 +62,7 @@ Plug 'elmcast/elm-vim'
 " HTML5 syntax
 Plug 'othree/html5.vim'
 " Emmett HTML completion
-" Plug 'mattn/emmet-vim'
+Plug 'mattn/emmet-vim', { 'for': ['javascript.jsx', 'html', 'css'] }
 " HTML Tag Closing
 Plug 'alvan/vim-closetag'
 " SCSS syntax
@@ -77,6 +76,16 @@ Plug 'lilydjwg/colorizer', { 'for': ['css', 'sass', 'scss', 'less', 'html', 'xde
 
 " Elixir syntax
 Plug 'elixir-lang/vim-elixir'
+" Ruby
+Plug 'vim-ruby/vim-ruby'
+" Ruby Deoplete
+Plug 'fishbullet/deoplete-ruby'
+" Rust
+Plug 'rust-lang/rust.vim'
+" Rust Deoplete
+Plug 'sebastianmarkow/deoplete-rust'
+" Ruby end completion
+Plug 'tpope/vim-endwise'
 " Yaml indentation
 Plug 'martin-svk/vim-yaml'
 " Markdown syntax
@@ -143,6 +152,7 @@ call plug#end()
 set shell=/bin/zsh                          " Setting shell to zsh
 set number                                  " Line numbers on
 set showmode                                " Always show mode
+set nowrap                                  " Do not wrap long line
 set showcmd                                 " Show commands as you type them
 set cmdheight=1                             " Command line height
 set pumheight=10                            " Completion window max size
@@ -278,7 +288,7 @@ nnoremap Q <NOP>
 
 " Easier window switching
 " nmap <silent> <C-w><C-w> :call utils#intelligentCycling()<CR>
-nnoremap <BS> <C-w>h
+nnoremap <C-h> <C-w>h
 nnoremap <C-j> <C-w>j
 nnoremap <C-k> <C-w>k
 nnoremap <C-l> <C-w>l
@@ -479,6 +489,16 @@ nnoremap <F12> :call utils#showToggles()<CR>
 nnoremap <silent> + :bn<CR>
 nnoremap <silent> _ :bp<CR>
 
+" 10x horizontal window resize
+map <silent> <M-l> 10<C-w>>
+map <silent> <M-h> 10<C-w><
+map <silent> <M-j> 10<C-w>-
+map <silent> <M-k> 10<C-w>+
+
+" 10x vertical window resize
+" nnoremap <silent> <C-w>+ 5<C-w>+
+" nnoremap <silent> <C-w>- 5<C-w>-
+
 " -----------------------------------------------------
 " 3.7 Command abbreviations and mappings
 " -----------------------------------------------------
@@ -530,7 +550,7 @@ let g:utils_autoswitch_kb_layout=0
 "
 " Default fzf layout
 " - down / up / left / right
-let g:fzf_layout = { 'down': '~40%' }
+let g:fzf_layout = { 'down': '~20%' }
 
 " Customize fzf colors to match your color scheme
 let g:fzf_colors =
@@ -651,14 +671,18 @@ let g:deoplete#enable_at_startup=1
 let g:deoplete#enable_refresh_always=0
 let g:deoplete#file#enable_buffer_path=1
 
+autocmd InsertLeave,CompleteDone * if pumvisible() == 0 | pclose | endif
+
 let g:deoplete#sources={}
-let g:deoplete#sources._    = ['buffer', 'file', 'ultisnips']
-let g:deoplete#sources.ruby = ['buffer', 'member', 'file', 'ultisnips']
-let g:deoplete#sources.vim  = ['buffer', 'member', 'file', 'ultisnips']
-let g:deoplete#sources['javascript.jsx'] = ['buffer', 'file', 'ultisnips', 'ternjs']
-let g:deoplete#sources.css  = ['buffer', 'member', 'file', 'omni', 'ultisnips']
-let g:deoplete#sources.scss = ['buffer', 'member', 'file', 'omni', 'ultisnips']
-let g:deoplete#sources.html = ['buffer', 'member', 'file', 'omni', 'ultisnips']
+let g:deoplete#sources._= ['around', 'buffer', 'file']
+let g:deoplete#sources#rust#racer_binary='/Users/CASE/.cargo/bin/racer'
+let g:deoplete#sources#rust#rust_source_path='/Users/CASE/.rust/rust/src'
+let g:deoplete#sources.ruby=['around', 'buffer', 'member', 'file' ]
+let g:deoplete#sources.vim=['around', 'buffer', 'member', 'file']
+let g:deoplete#sources['javascript.jsx']=['around', 'buffer', 'file', 'ternjs']
+let g:deoplete#sources.css=['around', 'buffer', 'member', 'file', 'omni']
+let g:deoplete#sources.scss=['around', 'buffer', 'member', 'file', 'omni']
+let g:deoplete#sources.html=['around', 'buffer', 'member', 'file', 'omni']
 
 " -----------------------------------------------------
 " 4.12 Ctrl-SF settings
@@ -699,19 +723,36 @@ let g:jsdoc_allow_input_prompt=1
 let g:jsdoc_input_description=1
 let g:jsdoc_enable_es6=1
 
-"" -----------------------------------------------------
-"" 4.17 Deoplete-tern settings
-"" -----------------------------------------------------
+" -----------------------------------------------------
+" 4.17 Deoplete-tern settings
+" -----------------------------------------------------
 let g:tern_request_timeout=1
 let g:tern_show_signature_in_pum=1
 ""
 
-"" -----------------------------------------------------
-"" 4.18 vim-javascript settings
-"" -----------------------------------------------------
+" -----------------------------------------------------
+" 4.18 vim-javascript settings
+" -----------------------------------------------------
 let g:javascript_plugin_jsdoc=1
 let g:javascript_plugin_flow=1
-""
+
+
+" -----------------------------------------------------
+" 4.18 vim-javascript settings
+" -----------------------------------------------------
+
+" Sets emmet to use JSX despite the javascript file extension
+let g:user_emmet_install_global=0
+let g:user_emmet_settings = {
+\  'javascript.jsx' : {
+\      'extends' : 'jsx',
+\  },
+\  'javascript': {
+\      'extends' : 'jsx',
+\  },
+\}
+
+autocmd FileType html,css,javascript.jsx EmmetInstall
 
 " ==================================================
 " 5.0 Plugin mappings

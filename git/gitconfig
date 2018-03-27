@@ -10,7 +10,7 @@
 	smudge = git lfs smudge %f
 	required = true
 [credential]
-	helper = cache --timeout=3600
+	helper = osxkeychain
 [push]
 	defualt = simple
 [alias]

@@ -127,15 +127,6 @@ function! g:utils#tabComplete() abort
   endif
 endfunction
 
-" Manual Tag complete
-function! g:utils#manualTagComplete() abort
-  if pumvisible()
-    return g:deoplete#mappings#close_popup()
-  else
-    return g:deoplete#mappings#manual_complete('tag')
-  endif
-endfunction
-
 " Simple notes management
 function! g:utils#openNotes() abort
   execute ':e ~/dev/notes/vim-notes.md'
