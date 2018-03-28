@@ -1,6 +1,9 @@
-# !/bin/bash
+#!/bin/bash
 
 # Copyright Jacob Young 2018
+
+# Have to manually set grep to be GNU Grep because Alfred Workflows default to BSD Grep
+# alias grep='/usr/local/bin/grep'
 
 # Script
 # Takes input from the clipboard (pbcopy on macOS)
@@ -44,7 +47,7 @@ function group () {
 }
 
 function format_all () {
-  local final=()
+  final=""
   for pair in ${grouped[@]}; do
     # Take all the text before the first blank line
     quote="$(echo "$pair" | sed '/^$/q')"
@@ -57,8 +60,13 @@ function format_all () {
     note="$(echo "$note" | sed '/^ *$/d;s/\(^.*$\)/\*\*\1\*\*\\n/g')"
 
     res="$quote\n\n$note"
-    echo "$res\n---\n"
+    if [[ -z $final ]]; then
+      final="$res"
+    else
+      final="$final\n\n---\n\n$res"
+    fi
   done
+  printf "$final"
 }
 
 
@@ -75,5 +83,4 @@ QUOTES_AND_NOTES="$(\
 
 grouped=""
 group "$QUOTES_AND_NOTES"
-format_all
-
+format_all | pbcopy
