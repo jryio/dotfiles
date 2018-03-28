@@ -153,6 +153,7 @@ export FZF_DEFAULT_COMMAND='rg --files --hidden --smart-case --follow --glob "!.
 
 test -e "${HOME}/.iterm2_shell_integration.zsh" && source "${HOME}/.iterm2_shell_integration.zsh"
 
+eval "$(pyenv init -)"
 
 # # ===============================================
 
