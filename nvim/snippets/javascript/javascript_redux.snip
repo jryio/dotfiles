@@ -1,0 +1,159 @@
+snippet ercc
+      export default class ${1:ClassName} extends React.Component {
+        render() {
+          return (
+            ${0:<div />}
+          );
+        }
+    }
+# ===============================================
+# Containers declarations
+# ===============================================
+snippet scont "React (Redux) container component"
+    import React, { Component } from 'react'
+    import {  } from 'prop-types'
+    import { connect } from 'react-redux'
+    import { bindActionCreators } from 'redux'
+
+
+    const mapStateToProps = (state) => (
+      {
+      }
+    )
+
+    const mapDispatchToProps = (dispatch) => (
+      {
+        actions: bindActionCreators()
+      }
+    )
+
+    class $1 extends Component {
+      static propTypes = {
+
+      }
+
+      render () {
+        return (
+          ${3:<Data data={this.props.data} />}
+        )
+      }
+    }
+
+
+    export default connect(
+      mapStateToProps,
+      mapDispatchToProps
+    )($1)
+
+snippet fcont "React (Redux) function container"
+    import React from 'react'
+    import {  } from 'prop-types'
+    import { connect } from 'react-redux'
+    import { bindActionCreators } from 'redux'
+
+    const mapStateToProps = (state) => (
+      {
+      }
+    )
+
+    const mapDispatchToProps = (dispatch) => (
+      {
+        actions: bindActionCreators()
+      }
+    )
+
+    const ${1:Component} = (props) => {
+      const { ${2:prop} } = props.$2
+      return (
+        ${3:<Data data={data} />}
+      )
+    }
+
+    $1.propTypes = {}
+
+    export default connect(
+      mapStateToProps,
+      mapDispatchToProps
+    )($1)
+
+# ===============================================
+# Action creators/types
+# ===============================================
+snippet acp "Redux action creator (w/payload)"
+    export const ${1:actionName} = ($2) => ({
+      type: ActionTypes.${3:ACTION_TYPE},
+      error: false,
+      payload: $2
+    })
+
+snippet acs "Redux action creator (simple)"
+    export const ${1:actionName} = () => ({
+      type: ActionTypes.${3:ACTION_TYPE}
+    })
+
+snippet at "Action type" b
+    ${1:KEY}: '$1'
+
+# ===============================================
+# Reducers
+# ===============================================
+snippet rred "Redux root reducer"
+    import { combineReducers } from 'redux'
+    import { routerReducer } from 'react-router-redux'
+    import dataReducer from './dataReducer'
+
+    const rootReducer = combineReducers({
+      data: dataReducer
+    })
+
+    export default rootReducer
+
+snippet red "Redux reducer"
+    import ActionTypes from 'constants/ActionTypes'
+
+    const initialState = {
+      data: [],
+      fetching: false
+    }
+
+    const ${1:dataReducer} = (state = initialState, action) => {
+      switch (action.type) {
+        case ActionTypes.${2:ACTION_TYPE}: {
+          return state
+        }
+        default: {
+          return state
+        }
+      }
+    }
+
+    export default $1
+
+# ===============================================
+# Selectors
+# ===============================================
+snippet sel "Redux state selector"
+    ${1:export} const ${2:selectorName} = state => state.$3
+
+snippet rsel "Redux computed state re-selector (using reselect)"
+    export const ${1:computedSelectorName} = createSelector(
+      [ ${2:usedSelector}, ${3:usedSelector2} ],
+      ($2, $3) => {
+        $4
+      }
+    )
+
+# ===============================================
+# Misc
+# ===============================================
+snippet mstp "Map state to props (Redux)"
+    const mapStateToProps = (state, _ownProps) => ({
+      ${1:prop}: state.prop
+    })
+
+snippet mdtp "Map dispatch to props (Redux)"
+    const mapDispatchToProps = (dispatch, _ownProps) => ({
+      onEvent() {
+        dispatch(${1:action()})
+      }
+    })

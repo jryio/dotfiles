@@ -1,24 +1,33 @@
 # Path to your oh-my-zsh installation.
 export ZSH=~/.oh-my-zsh
 
+# neovim master race
+export EDITOR="nvim"
+export MYNVIMRC=$HOME/.config/nvim/init.vim
+
 # ssh
 export SSH_KEY_PATH="~/.ssh/id_rsa"
+
+# PATH
 export PATH=$PATH:/usr/local/bin
 export PATH=$PATH:/usr/local/sbin
 export PATH=$PATH:/usr/local/MacGPG2/bin
-export PATH=$PATH:$PYTHONPATH
-export PATH=$PATH:"$HOME/Library/Python/3.6/bin"
+export PATH="$HOME/.pyenv/bin:$PATH"
+export PATH="$HOME/.yarn/bin:$PATH"
 
+export GOPATH="$HOME/go/"
+
+# Manpages path
 export MANPATH="/usr/local/share/man:$MANPATH"
 
+# Tell homebrew to install cask applications to root applications folder
 export HOMEBREW_CASK_OPTS="--appdir=/Applications"
 
-export EDITOR="nvim"
+# FZF should search hidden files and ignore case
+export FZF_DEFAULT_COMMAND='rg --files --hidden --smart-case --follow --glob "!.git/*"'
 
-export MYNVIMRC=$HOME/.config/nvim/init.vim
-
-
-export PATH="$HOME/.yarn/bin:$PATH"
+# Disable annoying pyenv prompt
+export VIRTUAL_ENV_DISABLE_PROMPT=1
 
 # Set name of the theme to load.
 # Look in ~/.oh-my-zsh/themes/
@@ -134,9 +143,6 @@ alias rez='tmux attach || { (while ! tmux run-shell ~/.tmux/plugins/tmux-resurre
 
 # alias cd='cs'
 alias irb='irb --simple-prompt'
-# alias python='python3'
-# alias pip='pip3'
-
 
 # Don't autocorrect ripgrep to `gr`, which is Git Remote alias from git plugin
 # -uu searches hidden files and directories
@@ -144,16 +150,17 @@ alias irb='irb --simple-prompt'
 
 alias gc='git commit -v -S'
 alias gd='git difftool'
+alias grbsign="git rebase --exec 'git commit --amend --no-edit -n -S' -i"
 alias kk='clear'
 alias bgrep='/usr/bin/grep --color=auto --exclude-dir={.bzr,CVS,.git,.hg,.svn}'
 alias ggpush='git push -u origin $(git_current_branch)'
 
 
-export FZF_DEFAULT_COMMAND='rg --files --hidden --smart-case --follow --glob "!.git/*"'
 
 test -e "${HOME}/.iterm2_shell_integration.zsh" && source "${HOME}/.iterm2_shell_integration.zsh"
 
 eval "$(pyenv init -)"
+eval "$(pyenv virtualenv-init -)"
 
 # # ===============================================
 

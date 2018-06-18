@@ -20,3 +20,6 @@ load-nvmrc() {
 add-zsh-hook chpwd load-nvmrc
 load-nvmrc
 
+# Dont check for mail when logging into the terminal
+unset MAILCHECK
+

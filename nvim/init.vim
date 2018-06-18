@@ -1,5 +1,4 @@
 " --------------------------------------------------
-"  Author               : thebearjew <Jacob Young>
 "  Created On           : August 4th, 2015
 "  Converted to Vim by  : Daniel Awai
 "  Forked from          : martin-svk/dot-files
@@ -13,6 +12,8 @@ if empty(glob('~/.config/nvim/autoload/plug.vim'))
 endif
 
 call plug#begin('~/.config/nvim/plugged')
+
+let kb_flow='/Users/CASE/go/src/github.com/keybase/client/shared/node_modules/.bin/flow'
 
 " 1.0 Plug List
 " ==================================================
@@ -34,6 +35,8 @@ Plug 'tpope/vim-commentary'
 Plug 'bkad/CamelCaseMotion'
 " Heuristically set indent settings
 Plug 'tpope/vim-sleuth'
+" Snippet support
+Plug 'Shougo/neosnippet.vim'
 
 " --------------------------------------------------
 " 1.2 JavaScript
@@ -45,10 +48,10 @@ Plug 'pangloss/vim-javascript'
 Plug 'mxw/vim-jsx', { 'for': ['jsx', 'javascript.jsx'] }
 " JSON syntax
 Plug 'sheerun/vim-json'
-" Autocomplete (npm install -g tern)
-Plug 'carlitux/deoplete-ternjs'
 " Autocomplete using flow (npm install -g flow-bin)
 Plug 'steelsojka/deoplete-flow'
+" Add flow typing support
+Plug 'flowtype/vim-flow'
 
 " --------------------------------------------------
 " 1.2.1 Elm
@@ -132,14 +135,22 @@ Plug 'godlygeek/tabular', { 'on':  'Tabularize' }
 " Titlecase motion (gt)
 Plug 'christoomey/vim-titlecase'
 
+
 " --------------------------------------------------
-" 1.9 Other tools
+" 1.9 Text insertion/manipulation
+" --------------------------------------------------
+Plug 'vivien/vim-linux-coding-style'
+
+" --------------------------------------------------
+" 1.10 Other tools
 " --------------------------------------------------
 
 " Easily expand selected region
 Plug 'terryma/vim-expand-region'
 " Intelligent buffer closing
 Plug 'mhinz/vim-sayonara', { 'on': 'Sayonara' }
+" Tmux ressurect using vim sessions
+Plug 'tpope/vim-obsession'
 
 call plug#end()
 
@@ -159,7 +170,9 @@ set pumheight=10                            " Completion window max size
 set noswapfile                              " New buffers will be loaded without creating a swapfile
 set hidden                                  " Enables to switch between unsaved buffers and keep undo history
 set clipboard+=unnamed                      " Allow to use system clipboard
-set lazyredraw                              " Don't redraw while executing macros (better performance)
+                                            " As it turns out, there is a negative performce issue when having lazy redraw
+                                            " on while use tmux. It causes an ugly redraw that makes the entire pane blank
+set nolazyredraw                            " Don't redraw while executing macros (better performance)
 set showmatch                               " Show matching brackets when text indicator is over them
 set matchtime=2                             " How many tenths of a second to blink when matching brackets
 set nostartofline                           " Prevent cursor from moving to beginning of line when switching buffers
@@ -253,7 +266,6 @@ set wildignore+=tmp/**
 let $NVIM_TUI_ENABLE_CURSOR_SHAPE=1         " Set an environment variable to use the t_SI/t_EI hack
 let g:loaded_python_provider=1              " Disable python 2 interface
 let g:python_host_skip_check=1              " Skip python 2 host check
-let g:python3_host_prog='/usr/local/bin/python3'  " Set python 3 host program
 
 " ==================================================
 " 3.0 Mapping settings
@@ -581,9 +593,14 @@ let g:NERDTreeHighlightCursorline=0
 let g:NERDTreeRespectWildIgnore=1
 
 " -----------------------------------------------------
-" 4.4 Ultisnips settings
+" 4.4 Neosnippet settings
 " -----------------------------------------------------
-let g:UltiSnipsUsePythonVersion=3
+let g:neosnippet#snippets_directory='~/.config/nvim/snippets'
+let g:neosnippet#enable_completed_snippet = 1
+let g:neosnippet#disable_runtime_snippets = {
+    \   '_' : 1
+\ }
+
 
 " -----------------------------------------------------
 " 4.5 Gitgutter settings
@@ -611,7 +628,7 @@ let g:lightline = {
       \   'inactive': [ 'filename' ]
       \ },
       \ 'active': {
-      \   'left': [ [ 'mode', 'paste' ], [ 'readonly', 'filename' ] ],
+      \   'left': [ [ 'mode', 'paste' ], [ 'readonly', 'filename' ], [ 'session' ] ],
       \   'right': [ [ 'lineinfo' ], [ 'percent' ], [ 'filetype', 'fileencoding', 'fileformat' ] ]
       \ },
       \ 'component': {
@@ -623,6 +640,9 @@ let g:lightline = {
       \   'filetype': 'utils#lightLineFiletype',
       \   'fileformat': 'utils#lightLineFileformat',
       \   'fileencoding': 'utils#lightLineFileencoding'
+      \ },
+      \ 'component_expand': {
+      \   'session': 'utils#lightLineSession'
       \ },
       \ 'component_visible_condition': {
       \   'readonly': '(&readonly)'
@@ -652,6 +672,8 @@ let g:neomake_error_sign = {
       \ }
 let g:neomake_javascript_enabled_makers = ["eslint"]
 let g:neomake_javascript_jsx_enabled_makers = ["eslint"]
+
+let g:neomake_c_enabled_makers = ["gcc"]
 " -----------------------------------------------------
 " 4.9 Vim Markdown settings
 " -----------------------------------------------------
@@ -671,15 +693,17 @@ let g:deoplete#enable_at_startup=1
 let g:deoplete#enable_refresh_always=0
 let g:deoplete#file#enable_buffer_path=1
 
-autocmd InsertLeave,CompleteDone * if pumvisible() == 0 | pclose | endif
+let g:deoplete#soruces#flow#flow_bin=g:kb_flow
+
+" autocmd InsertLeave,CompleteDone * if pumvisible() == 0 | pclose | endif
 
 let g:deoplete#sources={}
-let g:deoplete#sources._= ['around', 'buffer', 'file']
+let g:deoplete#sources._= ['around', 'member', 'buffer', 'file']
 let g:deoplete#sources#rust#racer_binary='/Users/CASE/.cargo/bin/racer'
 let g:deoplete#sources#rust#rust_source_path='/Users/CASE/.rust/rust/src'
-let g:deoplete#sources.ruby=['around', 'buffer', 'member', 'file' ]
-let g:deoplete#sources.vim=['around', 'buffer', 'member', 'file']
-let g:deoplete#sources['javascript.jsx']=['around', 'buffer', 'file', 'ternjs']
+let g:deoplete#sources.ruby=['around', 'buffer', 'member', 'file', 'neosnippet' ]
+let g:deoplete#sources.vim=['around', 'buffer', 'member', 'file', 'neosnippet' ]
+let g:deoplete#sources['javascript.jsx']=['flow', 'neosnippet' ]
 let g:deoplete#sources.css=['around', 'buffer', 'member', 'file', 'omni']
 let g:deoplete#sources.scss=['around', 'buffer', 'member', 'file', 'omni']
 let g:deoplete#sources.html=['around', 'buffer', 'member', 'file', 'omni']
@@ -726,16 +750,14 @@ let g:jsdoc_enable_es6=1
 " -----------------------------------------------------
 " 4.17 Deoplete-tern settings
 " -----------------------------------------------------
-let g:tern_request_timeout=1
-let g:tern_show_signature_in_pum=1
-""
+" let g:tern_request_timeout=1
+" let g:tern_show_signature_in_pum=1
 
 " -----------------------------------------------------
 " 4.18 vim-javascript settings
 " -----------------------------------------------------
 let g:javascript_plugin_jsdoc=1
-let g:javascript_plugin_flow=1
-
+let g:javascript_plugin_flow=0
 
 " -----------------------------------------------------
 " 4.18 vim-javascript settings
@@ -754,6 +776,12 @@ let g:user_emmet_settings = {
 
 autocmd FileType html,css,javascript.jsx EmmetInstall
 
+" -----------------------------------------------------
+" 4.18 vim-javascript settings
+" -----------------------------------------------------
+let g:flow#enable=0
+let g:flow#flowpath=g:kb_flow
+
 " ==================================================
 " 5.0 Plugin mappings
 " ==================================================
@@ -764,6 +792,12 @@ autocmd FileType html,css,javascript.jsx EmmetInstall
 " Search files
 nnoremap <space>f :Files<CR>
 
+" Search between open files - [b]uffers
+nnoremap <space>b :Buffers<CR>
+
+" Search Neosnippets
+" nnoremap <space>S :NeoSnippetEdit<CR>
+
 " Mapping selecting mappings
 nmap <leader><tab> <plug>(fzf-maps-n)
 xmap <leader><tab> <plug>(fzf-maps-x)
@@ -772,8 +806,12 @@ omap <leader><tab> <plug>(fzf-maps-o)
 
 autocmd! FileType fzf tnoremap <buffer> <Esc> <C-c>
 " -----------------------------------------------------
-" 5.2 Isolate
+" 5.2 Neosnippet
 " -----------------------------------------------------
+" Note: It must be "imap" and "smap".  It uses <Plug> mappings.
+imap <C-J> <Plug>(neosnippet_expand_or_jump)
+smap <C-J> <Plug>(neosnippet_expand_or_jump)
+xmap <C-J> <Plug>(neosnippet_expand_target)
 
 " -----------------------------------------------------
 " 5.3 Gitgutter
@@ -861,6 +899,14 @@ au FileType elm nmap <leader>ee <Plug>(elm-error-details)
 au FileType elm nmap <leader>ed <Plug>(elm-show-docs)
 au FileType elm nmap <leader>ew <Plug>(elm-browse-docs)
 
+
+" -----------------------------------------------------
+" 5.13 Flow
+" -----------------------------------------------------
+nnoremap <leader>t <Plug>(FlowTypeAtPos)
+nnoremap <leader>td <Plug>(FlowGetDef)
+nnoremap <leader>tc <Plug>(FlowCoverageToggle)
+
 " ==================================================
 " 6.0 Color and highlighting settings
 " ==================================================
@@ -897,14 +943,20 @@ hi! link BufTabLineActive Comment
 hi! link BufTabLineHidden Comment
 hi! link BufTabLineFill Comment
 
+" ==================================================
 " 7.0 Autocommands
 " ==================================================
+" autocmd VimEnter * setlocal term=$TERM
 
 " Keywordprg settings
 autocmd FileType vim setlocal keywordprg=:help
 
+" Set *.flow files to be javascript.jsx filetypes
+autocmd BufNewFile,BufRead,BufReadPost *.flow set filetype=javascript.jsx
+
 " Turn spellcheck on for markdown files
 autocmd BufNewFile,BufRead *.md setlocal spell
+autocmd BufNewFile,BufRead *.md setlocal tw=80
 
 " Two space tabs for all file types
 autocmd FileType * setlocal tabstop=2 softtabstop=0 expandtab shiftwidth=2 smarttab
@@ -938,6 +990,8 @@ autocmd BufWritePost *.jsx Neomake eslint
 autocmd BufWritePost *.json Neomake jsonlint
 " sudo apt-get install elixir
 autocmd BufWritePost *.ex Neomake elixir
+" gcc
+autocmd BufWritePost *.c Neomake gcc
 " apt-get install tidy
 autocmd BufWritePost *.html Neomake tidy
 " gem install mdl
