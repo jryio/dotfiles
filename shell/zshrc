@@ -152,7 +152,7 @@ alias irb='irb --simple-prompt'
 # -uu searches hidden files and directories
 # Useful when looking for .directories
 
-alias gc='git commit -v'
+alias gc='git commit -v -S'
 alias gd='git difftool'
 alias grbsign="git rebase --exec 'git commit --amend --no-edit -n -S' -i"
 alias kk='clear'

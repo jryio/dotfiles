@@ -1,7 +1,7 @@
 [user]
 	name = Jacob Young
 	email = jacob@jry.io
-	signingkey = 715CED2327899E28
+	signingkey = E533BA94ED4FFA82
 [core]
 	editor = nvim
 	excludesfile = ~/.gitignore
