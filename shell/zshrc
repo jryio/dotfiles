@@ -29,6 +29,10 @@ export FZF_DEFAULT_COMMAND='rg --files --hidden --smart-case --follow --glob "!.
 # Disable annoying pyenv prompt
 export VIRTUAL_ENV_DISABLE_PROMPT=1
 
+# Keybase Developer Tools Chrome Extension
+export KEYBASE_DEV_TOOL_ROOTS="$HOME/Library/Application Support/Google/Chrome/Default/Extensions/fmkadmapgofadopljbjfkapdkoienihi,$HOME/Library/Application Support/Google/Chrome/Default/Extensions/hgldghadipiblonfkkicmgcbbijnpeog"
+
+
 # Set name of the theme to load.
 # Look in ~/.oh-my-zsh/themes/
 # Optionally, if you set this to "random", it'll load a random theme each
@@ -148,7 +152,7 @@ alias irb='irb --simple-prompt'
 # -uu searches hidden files and directories
 # Useful when looking for .directories
 
-alias gc='git commit -v -S'
+alias gc='git commit -v'
 alias gd='git difftool'
 alias grbsign="git rebase --exec 'git commit --amend --no-edit -n -S' -i"
 alias kk='clear'
@@ -308,3 +312,7 @@ SPACESHIP_GIT_STATUS_DIVERGED="⇕"
 # SPACESHIP_EXIT_CODE_SYMBOl="✘ "
 # SPACESHIP_EXIT_CODE_COLOR="red"
 
+
+export NVM_DIR="$HOME/.nvm"
+[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
+[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion

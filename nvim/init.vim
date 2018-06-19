@@ -266,6 +266,8 @@ set wildignore+=tmp/**
 let $NVIM_TUI_ENABLE_CURSOR_SHAPE=1         " Set an environment variable to use the t_SI/t_EI hack
 let g:loaded_python_provider=1              " Disable python 2 interface
 let g:python_host_skip_check=1              " Skip python 2 host check
+let g:python_host_prog='/Users/jacobyoung/.pyenv/versions/neovim2/bin/python'
+let g:python3_host_prog='/Users/jacobyoung/.pyenv/versions/neovim3/bin/python'
 
 " ==================================================
 " 3.0 Mapping settings
@@ -689,6 +691,7 @@ let g:vrc_output_buffer_name='__RESPONSE__.rest'
 " -----------------------------------------------------
 " 4.11 Deoplete autocomplete settings
 " -----------------------------------------------------
+set runtimepath+=~/.config/nvim/plugged/deoplete.nvim/
 let g:deoplete#enable_at_startup=1
 let g:deoplete#enable_refresh_always=0
 let g:deoplete#file#enable_buffer_path=1
