@@ -14,6 +14,7 @@ endif
 call plug#begin('~/.config/nvim/plugged')
 
 let kb_flow='/Users/CASE/go/src/github.com/keybase/client/shared/node_modules/.bin/flow'
+let kb_prettier='/Users/CASE/go/src/github.com/keybase/client/shared/node_modules/.bin/prettier'
 
 " 1.0 Plug List
 " ==================================================
@@ -52,6 +53,8 @@ Plug 'sheerun/vim-json'
 Plug 'steelsojka/deoplete-flow'
 " Add flow typing support
 Plug 'flowtype/vim-flow'
+" Prettier vim
+Plug 'prettier/vim-prettier', { 'for': ['javascript', 'javascript.jsx', 'typescript', 'css', 'less', 'scss', 'json'] }
 
 " --------------------------------------------------
 " 1.2.1 Elm
@@ -785,6 +788,15 @@ autocmd FileType html,css,javascript.jsx EmmetInstall
 let g:flow#enable=0
 let g:flow#flowpath=g:kb_flow
 
+
+" -----------------------------------------------------
+" 4.19 vim-prettier
+" -----------------------------------------------------
+let g:prettier#exec_cmd_path=g:kb_prettier
+let g:prettier#exec_cmd_async=1
+let g:prettier#quickfix_enabled=0
+let g:prettier#quickfix_auto_focus=0
+
 " ==================================================
 " 5.0 Plugin mappings
 " ==================================================
@@ -989,6 +1001,8 @@ autocmd CursorHold * if getcmdwintype() == '' | checktime | endif
 autocmd BufWritePost *.js Neomake eslint
 " npm install -g eslint
 autocmd BufWritePost *.jsx Neomake eslint
+" Run Prettier on javascript files
+autocmd BufWritePre *.js,*.jsx,*.json PrettierAsync
 " npm install -g jsonlint
 autocmd BufWritePost *.json Neomake jsonlint
 " sudo apt-get install elixir
