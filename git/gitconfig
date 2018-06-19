@@ -1,6 +1,6 @@
 [user]
 	name = Jacob Young
-	email = jacob@jry.io
+	email = jacob@keyba.se
 	signingkey = E533BA94ED4FFA82
 [core]
 	editor = nvim
