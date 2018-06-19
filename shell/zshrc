@@ -12,7 +12,7 @@ export SSH_KEY_PATH="~/.ssh/id_rsa"
 export PATH=$PATH:/usr/local/bin
 export PATH=$PATH:/usr/local/sbin
 export PATH=$PATH:/usr/local/MacGPG2/bin
-export PATH="$HOME/.pyenv/bin:$PATH"
+# export PATH="$HOME/.pyenv/bin:$PATH"
 export PATH="$HOME/.yarn/bin:$PATH"
 
 export GOPATH="$HOME/go/"
@@ -163,8 +163,8 @@ alias ggpush='git push -u origin $(git_current_branch)'
 
 test -e "${HOME}/.iterm2_shell_integration.zsh" && source "${HOME}/.iterm2_shell_integration.zsh"
 
-eval "$(pyenv init -)"
-eval "$(pyenv virtualenv-init -)"
+# eval "$(pyenv init -)"
+# eval "$(pyenv virtualenv-init -)"
 
 # # ===============================================
 
@@ -186,7 +186,7 @@ SPACESHIP_PROMPT_ORDER=(
   haskell
   docker
   venv
-  pyenv
+  # pyenv
   exec_time
   line_sep
   vi_mode

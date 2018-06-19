@@ -27,7 +27,7 @@ Plug 'benekastah/neomake', { 'on': ['Neomake'] }
 " Prefer local install of eslint over global
 Plug 'benjie/neomake-local-eslint.vim'
 " Autocomplete
-Plug 'Shougo/deoplete.nvim'
+Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
 " Automatically closing pair stuff
 Plug 'jiangmiao/auto-pairs'
 " Commenting support (gc)
@@ -38,6 +38,9 @@ Plug 'bkad/CamelCaseMotion'
 Plug 'tpope/vim-sleuth'
 " Snippet support
 Plug 'Shougo/neosnippet.vim'
+" Language Server Client
+" yarn global add flow-language-server
+Plug 'autozimu/LanguageClient-neovim', { 'branch': 'next', 'do': 'bash install.sh' }
 
 " --------------------------------------------------
 " 1.2 JavaScript
@@ -50,7 +53,8 @@ Plug 'mxw/vim-jsx', { 'for': ['jsx', 'javascript.jsx'] }
 " JSON syntax
 Plug 'sheerun/vim-json'
 " Autocomplete using flow (npm install -g flow-bin)
-Plug 'steelsojka/deoplete-flow'
+" Plug 'steelsojka/deoplete-flow'
+Plug 'wokalski/autocomplete-flow'
 " Add flow typing support
 Plug 'flowtype/vim-flow'
 " Prettier vim
@@ -266,11 +270,9 @@ set wildignore+=tmp/**
 " 2.10 Neovim specific settings
 " --------------------------------------------------
 
-let $NVIM_TUI_ENABLE_CURSOR_SHAPE=1         " Set an environment variable to use the t_SI/t_EI hack
+" let $NVIM_TUI_ENABLE_CURSOR_SHAPE=1         " Set an environment variable to use the t_SI/t_EI hack
 let g:loaded_python_provider=1              " Disable python 2 interface
 let g:python_host_skip_check=1              " Skip python 2 host check
-let g:python_host_prog='/Users/jacobyoung/.pyenv/versions/neovim2/bin/python'
-let g:python3_host_prog='/Users/jacobyoung/.pyenv/versions/neovim3/bin/python'
 
 " ==================================================
 " 3.0 Mapping settings
@@ -699,17 +701,16 @@ let g:deoplete#enable_at_startup=1
 let g:deoplete#enable_refresh_always=0
 let g:deoplete#file#enable_buffer_path=1
 
-let g:deoplete#soruces#flow#flow_bin=g:kb_flow
-
 " autocmd InsertLeave,CompleteDone * if pumvisible() == 0 | pclose | endif
-
+let g:deoplete#soruces#flow#flow_bin=g:kb_flow
 let g:deoplete#sources={}
 let g:deoplete#sources._= ['around', 'member', 'buffer', 'file']
 let g:deoplete#sources#rust#racer_binary='/Users/CASE/.cargo/bin/racer'
 let g:deoplete#sources#rust#rust_source_path='/Users/CASE/.rust/rust/src'
 let g:deoplete#sources.ruby=['around', 'buffer', 'member', 'file', 'neosnippet' ]
 let g:deoplete#sources.vim=['around', 'buffer', 'member', 'file', 'neosnippet' ]
-let g:deoplete#sources['javascript.jsx']=['flow', 'neosnippet' ]
+let g:deoplete#sources['javascript.jsx']=['flow', 'neosnippet', 'member', 'buffer', 'file']
+let g:deoplete#sources.javascript=['flow', 'neosnippet', 'member', 'buffer', 'file']
 let g:deoplete#sources.css=['around', 'buffer', 'member', 'file', 'omni']
 let g:deoplete#sources.scss=['around', 'buffer', 'member', 'file', 'omni']
 let g:deoplete#sources.html=['around', 'buffer', 'member', 'file', 'omni']
@@ -780,14 +781,35 @@ let g:user_emmet_settings = {
 \  },
 \}
 
-autocmd FileType html,css,javascript.jsx EmmetInstall
+autocmd FileType html,css,'javascript.jsx' EmmetInstall
 
 " -----------------------------------------------------
-" 4.18 vim-javascript settings
+" 4.18 Flow Settings
 " -----------------------------------------------------
 let g:flow#enable=0
-let g:flow#flowpath=g:kb_flow
 
+"Use locally installed flow
+let g:flow#flowpath=g:kb_flow
+let local_flow = finddir('node_modules', '.;') . '/.bin/flow'
+if matchstr(local_flow, "^\/\\w") == ''
+    let local_flow= getcwd() . "/" . local_flow
+endif
+if executable(local_flow)
+  let g:flow#flowpath = local_flow
+endif
+
+let g:LanguageClient_serverCommands = {
+    \ 'javascript': ['flow-language-server', '--flow-path=' . kb_flow, '--stdio', '--no-auto-download'],
+    \ 'javascript.jsx': ['flow-language-server', '--flow-path=' . kb_flow, '--stdio', '--no-auto-download'],
+    \ }
+
+let g:LanguageClient_rootMarkers = {
+      \ 'javascript': ['.flowconfig']
+      \ }
+" Use fzf as the selection UI
+let g:LanguageClient_selectionUI = 'fzf'
+" This will display a location-list window detailing the issues in the file.
+let g:LanguageClient_diagnosticsList = 'Location'
 
 " -----------------------------------------------------
 " 4.19 vim-prettier
@@ -918,9 +940,9 @@ au FileType elm nmap <leader>ew <Plug>(elm-browse-docs)
 " -----------------------------------------------------
 " 5.13 Flow
 " -----------------------------------------------------
-nnoremap <leader>t <Plug>(FlowTypeAtPos)
-nnoremap <leader>td <Plug>(FlowGetDef)
-nnoremap <leader>tc <Plug>(FlowCoverageToggle)
+" nnoremap <leader>t <Plug>(FlowTypeAtPos)
+" nnoremap <leader>td <Plug>(FlowGetDef)
+" nnoremap <leader>tc <Plug>(FlowCoverageToggle)
 
 " ==================================================
 " 6.0 Color and highlighting settings
