@@ -13,8 +13,8 @@ endif
 
 call plug#begin('~/.config/nvim/plugged')
 
-let kb_flow='/Users/CASE/go/src/github.com/keybase/client/shared/node_modules/.bin/flow'
-let kb_prettier='/Users/CASE/go/src/github.com/keybase/client/shared/node_modules/.bin/prettier'
+let kb_flow='/Users/jacobyoung/go/src/github.com/keybase/client/shared/node_modules/.bin/flow'
+let kb_prettier='/Users/jacobyoung/go/src/github.com/keybase/client/shared/node_modules/.bin/prettier'
 
 " 1.0 Plug List
 " ==================================================
@@ -24,6 +24,8 @@ let kb_prettier='/Users/CASE/go/src/github.com/keybase/client/shared/node_module
 " --------------------------------------------------
 
 Plug 'benekastah/neomake', { 'on': ['Neomake'] }
+" Async linting
+Plug 'w0rp/ale'
 " Prefer local install of eslint over global
 Plug 'benjie/neomake-local-eslint.vim'
 " Autocomplete
@@ -58,7 +60,7 @@ Plug 'wokalski/autocomplete-flow'
 " Add flow typing support
 Plug 'flowtype/vim-flow'
 " Prettier vim
-Plug 'prettier/vim-prettier', { 'for': ['javascript', 'javascript.jsx', 'typescript', 'css', 'less', 'scss', 'json'] }
+" Plug 'prettier/vim-prettier', { 'for': ['javascript', 'javascript.jsx', 'typescript', 'css', 'less', 'scss', 'json'] }
 
 " --------------------------------------------------
 " 1.2.1 Elm
@@ -786,17 +788,17 @@ autocmd FileType html,css,'javascript.jsx' EmmetInstall
 " -----------------------------------------------------
 " 4.18 Flow Settings
 " -----------------------------------------------------
-let g:flow#enable=0
-
-"Use locally installed flow
 let g:flow#flowpath=g:kb_flow
-let local_flow = finddir('node_modules', '.;') . '/.bin/flow'
-if matchstr(local_flow, "^\/\\w") == ''
-    let local_flow= getcwd() . "/" . local_flow
-endif
-if executable(local_flow)
-  let g:flow#flowpath = local_flow
-endif
+let g:flow#enable=0
+let g:flow#autoclose=1
+
+" let local_flow = finddir('node_modules', '.;') . '/.bin/flow'
+" if matchstr(local_flow, "^\/\\w") == ''
+"     let local_flow= getcwd() . "/" . local_flow
+" endif
+" if executable(local_flow)
+"   let g:flow#flowpath = local_flow
+" endif
 
 let g:LanguageClient_serverCommands = {
     \ 'javascript': ['flow-language-server', '--flow-path=' . kb_flow, '--stdio', '--no-auto-download'],
@@ -804,12 +806,17 @@ let g:LanguageClient_serverCommands = {
     \ }
 
 let g:LanguageClient_rootMarkers = {
-      \ 'javascript': ['.flowconfig']
+      \ 'javascript': ['.flowconfig'],
+      \ 'javascript.jsx': ['.flowconfig']
       \ }
 " Use fzf as the selection UI
 let g:LanguageClient_selectionUI = 'fzf'
 " This will display a location-list window detailing the issues in the file.
 let g:LanguageClient_diagnosticsList = 'Location'
+
+" let g:LanguageClient_loggingLevel = 'DEBUG'
+" let g:LanguageClient_loggingFile = '/tmp/LanguageClient.log'
+" let g:LanguageClient_serverStderr = '/tmp/LanguageServer.log'
 
 " -----------------------------------------------------
 " 4.19 vim-prettier
@@ -818,6 +825,31 @@ let g:prettier#exec_cmd_path=g:kb_prettier
 let g:prettier#exec_cmd_async=1
 let g:prettier#quickfix_enabled=0
 let g:prettier#quickfix_auto_focus=0
+
+" -----------------------------------------------------
+" 4.19 ALE
+" -----------------------------------------------------
+
+" Set this setting in vimrc if you want to fix files automatically on save.
+" This is off by default.
+let g:ale_fix_on_save = 1
+
+let g:ale_sign_warning = '❯'
+let g:ale_sign_error = '❯'
+
+highlight link ALEWarningSign String
+highlight link ALEErrorSign Title
+
+let g:ale_javascript_prettier_use_local_config = 1
+let g:ale_linters = {
+\   'javascript': ['eslint'],
+\}
+" Put this in vimrc or a plugin file of your own.
+" After this is configured, :ALEFix will try and fix your JS code with ESLint.
+let g:ale_fixers = {
+\   'javascript': ['eslint', 'prettier'],
+\}
+
 
 " ==================================================
 " 5.0 Plugin mappings
@@ -936,13 +968,18 @@ au FileType elm nmap <leader>ee <Plug>(elm-error-details)
 au FileType elm nmap <leader>ed <Plug>(elm-show-docs)
 au FileType elm nmap <leader>ew <Plug>(elm-browse-docs)
 
-
 " -----------------------------------------------------
 " 5.13 Flow
 " -----------------------------------------------------
 " nnoremap <leader>t <Plug>(FlowTypeAtPos)
 " nnoremap <leader>td <Plug>(FlowGetDef)
 " nnoremap <leader>tc <Plug>(FlowCoverageToggle)
+
+" -----------------------------------------------------
+" 5.14 ALE
+" -----------------------------------------------------
+nnoremap <leader>an :ALENextWrap<cr>
+nnoremap <leader>ap :ALEPreviousWrap<cr>
 
 " ==================================================
 " 6.0 Color and highlighting settings
@@ -1019,12 +1056,15 @@ autocmd CursorHold * if getcmdwintype() == '' | checktime | endif
 " -----------------------------------------------------
 " 7.1 Run linters after save
 " -----------------------------------------------------
+
 " npm install -g eslint
-autocmd BufWritePost *.js Neomake eslint
+" autocmd BufWritePost *.js Neomake eslint
 " npm install -g eslint
-autocmd BufWritePost *.jsx Neomake eslint
+" autocmd BufWritePost *.jsx Neomake eslint
+
 " Run Prettier on javascript files
-autocmd BufWritePre *.js,*.jsx,*.json PrettierAsync
+" autocmd BufWritePre *.js,*.jsx,*.json PrettierAsync
+
 " npm install -g jsonlint
 autocmd BufWritePost *.json Neomake jsonlint
 " sudo apt-get install elixir
