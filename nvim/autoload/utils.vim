@@ -329,3 +329,25 @@ function! g:utils#blockHeading(width, word) abort
   :put =l:word_line
   :put =l:comment_line
 endfunction
+
+" Wrap calls to :ln, :ln, :cn, :cp
+" Source: https://github.com/romainl/vim-qf
+function! utils#wrapErrors(direction, prefix)
+    if a:direction == "up"
+        try
+            execute a:prefix . "previous"
+        catch /^Vim\%((\a\+)\)\=:E553/
+            execute a:prefix . "last"
+        catch /^Vim\%((\a\+)\)\=:E\%(325\|776\|42\):/
+        endtry
+    else
+        try
+            execute a:prefix . "next"
+        catch /^Vim\%((\a\+)\)\=:E553/
+            execute a:prefix . "first"
+        catch /^Vim\%((\a\+)\)\=:E\%(325\|776\|42\):/
+        endtry
+    endif
+endfunction
+
+

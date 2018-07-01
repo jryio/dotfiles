@@ -23,6 +23,9 @@ let kb_prettier='/Users/jacobyoung/go/src/github.com/keybase/client/shared/node_
 " 1.1 General tools - linters, formatting, etc.
 " --------------------------------------------------
 
+" Better quickfix/locationlist bindings
+Plug 'romainl/vim-qf'
+" Async maker for different file types
 Plug 'benekastah/neomake', { 'on': ['Neomake'] }
 " Async linting
 Plug 'w0rp/ale'
@@ -41,7 +44,6 @@ Plug 'tpope/vim-sleuth'
 " Snippet support
 Plug 'Shougo/neosnippet.vim'
 " Language Server Client
-" yarn global add flow-language-server
 Plug 'autozimu/LanguageClient-neovim', { 'branch': 'next', 'do': 'bash install.sh' }
 
 " --------------------------------------------------
@@ -55,7 +57,6 @@ Plug 'mxw/vim-jsx', { 'for': ['jsx', 'javascript.jsx'] }
 " JSON syntax
 Plug 'sheerun/vim-json'
 " Autocomplete using flow (npm install -g flow-bin)
-" Plug 'steelsojka/deoplete-flow'
 Plug 'wokalski/autocomplete-flow'
 " Add flow typing support
 Plug 'flowtype/vim-flow'
@@ -179,9 +180,11 @@ set pumheight=10                            " Completion window max size
 set noswapfile                              " New buffers will be loaded without creating a swapfile
 set hidden                                  " Enables to switch between unsaved buffers and keep undo history
 set clipboard+=unnamed                      " Allow to use system clipboard
+
                                             " As it turns out, there is a negative performce issue when having lazy redraw
                                             " on while use tmux. It causes an ugly redraw that makes the entire pane blank
-set nolazyredraw                            " Don't redraw while executing macros (better performance)
+" set nolazyredraw                            " Don't redraw while executing macros (better performance)
+
 set showmatch                               " Show matching brackets when text indicator is over them
 set matchtime=2                             " How many tenths of a second to blink when matching brackets
 set nostartofline                           " Prevent cursor from moving to beginning of line when switching buffers
@@ -190,6 +193,7 @@ set nojoinspaces                            " No extra space when joining a line
 set scrolloff=5                             " Scroll when closing to top or bottom of the screen
 set updatetime=1000                         " Update time used to create swap file or other things
 set suffixesadd+=.js,.rb                    " Add js and ruby files to suffixes
+set cursorline                              " Highlight the active line but only style the line number highlight
 
 " --------------------------------------------------
 " 2.1 Split settings (more natural)
@@ -426,17 +430,6 @@ nnoremap [t :tp<CR>
 nnoremap <leader>ts :ts<CR>
 nnoremap <leader>tg :GTags<CR>
 
-" QuickFix navigation
-nnoremap ]q :cnext<CR>
-nnoremap [q :cprevious<CR>
-
-" Location list navigation
-nnoremap ]l :lnext<CR>
-nnoremap [l :lprevious<CR>
-
-" Error mnemonic (Neomake uses location list)
-nnoremap ]e :lnext<CR>
-nnoremap [e :lprevious<CR>
 
 " Reselect last-pasted text
 nnoremap gp `[v`]
@@ -766,7 +759,7 @@ let g:jsdoc_enable_es6=1
 " 4.18 vim-javascript settings
 " -----------------------------------------------------
 let g:javascript_plugin_jsdoc=1
-let g:javascript_plugin_flow=0
+let g:javascript_plugin_flow=1
 
 " -----------------------------------------------------
 " 4.18 vim-javascript settings
@@ -800,21 +793,26 @@ let g:flow#autoclose=1
 "   let g:flow#flowpath = local_flow
 " endif
 
-let g:LanguageClient_serverCommands = {
-    \ 'javascript': ['flow-language-server', '--flow-path=' . kb_flow, '--stdio', '--no-auto-download'],
-    \ 'javascript.jsx': ['flow-language-server', '--flow-path=' . kb_flow, '--stdio', '--no-auto-download'],
-    \ }
+" let g:LanguageClient_loadSettings=0
+" let g:LanguageClient_serverCommands = {
+"     \ 'javascript': ['flow-language-server', '--flow-path=' . kb_flow, '--stdio', '--no-auto-download'],
+"     \ 'javascript.jsx': ['flow-language-server', '--flow-path=' . kb_flow, '--stdio', '--no-auto-download'],
+"     \ }
 
-let g:LanguageClient_rootMarkers = {
-      \ 'javascript': ['.flowconfig'],
-      \ 'javascript.jsx': ['.flowconfig']
-      \ }
-" Use fzf as the selection UI
-let g:LanguageClient_selectionUI = 'fzf'
-" This will display a location-list window detailing the issues in the file.
-let g:LanguageClient_diagnosticsList = 'Location'
+" let g:LanguageClient_rootMarkers = ['.flowconfig']
 
-" let g:LanguageClient_loggingLevel = 'DEBUG'
+" " Use fzf as the selection UI
+" let g:LanguageClient_selectionUI = 'fzf'
+" " This will display a location-list window detailing the issues in the file.
+" let g:LanguageClient_diagnosticsList = 'Location'
+" let g:LanguageClient_diagnosticsDisplay = {
+"     \ '1': { "name": "Error", "texthl": "ALEError", "signText": "❯", "signTexthl": "ALEErrorSign" },
+"     \ '2': { "name": "Warning", "texthl": "ALEWarning", "signText": "❯", "signTexthl": "ALEWarningSign" },
+"     \ '3': { "name": "Info", "texthl": "ALEInfo", "signText": "ℹ", "signTexthl": "ALEInfoSign" },
+"     \ '4': { "name": "Hint", "texthl": "ALEInfo", "signText": "ℹ", "signTexthl": "ALEInfoSign", },
+"     \ }
+
+" let g:LanguageClient_loggingLevel = 'INFO'
 " let g:LanguageClient_loggingFile = '/tmp/LanguageClient.log'
 " let g:LanguageClient_serverStderr = '/tmp/LanguageServer.log'
 
@@ -832,17 +830,26 @@ let g:prettier#quickfix_auto_focus=0
 
 " Set this setting in vimrc if you want to fix files automatically on save.
 " This is off by default.
+let g:ale_lint_on_text_changed = 'never'
 let g:ale_fix_on_save = 1
+
+let g:ale_set_loclist = 0
+let g:ale_set_quickfix = 1
+let g:ale_open_list = 1
+let g:ale_keep_list_window_open = 1
 
 let g:ale_sign_warning = '❯'
 let g:ale_sign_error = '❯'
+
+let g:ale_echo_msg_format=''
+let g:ale_loclist_msg_format='%linter%: [%severity%|%code%] %s'
 
 highlight link ALEWarningSign String
 highlight link ALEErrorSign Title
 
 let g:ale_javascript_prettier_use_local_config = 1
 let g:ale_linters = {
-\   'javascript': ['eslint'],
+\   'javascript': ['eslint', 'flow'],
 \}
 " Put this in vimrc or a plugin file of your own.
 " After this is configured, :ALEFix will try and fix your JS code with ESLint.
@@ -850,6 +857,17 @@ let g:ale_fixers = {
 \   'javascript': ['eslint', 'prettier'],
 \}
 
+
+" -----------------------------------------------------
+" 4.20 (Blaze it) Vim Quickfix
+" -----------------------------------------------------
+let g:qf_window_bottom = 1
+let g:qf_loclist_window_bottom = 1
+
+let g:qf_auto_open_quickfix = 0
+let g:qf_auto_open_loclist = 0
+
+let g:qf_auto_quit = 0
 
 " ==================================================
 " 5.0 Plugin mappings
@@ -971,15 +989,33 @@ au FileType elm nmap <leader>ew <Plug>(elm-browse-docs)
 " -----------------------------------------------------
 " 5.13 Flow
 " -----------------------------------------------------
-" nnoremap <leader>t <Plug>(FlowTypeAtPos)
-" nnoremap <leader>td <Plug>(FlowGetDef)
-" nnoremap <leader>tc <Plug>(FlowCoverageToggle)
+nnoremap <leader>fm :call FlowMake
+nnoremap <leader>fd :call LanguageClient#textDocument_definition()<CR>
+nnoremap <leader>fh :call LanguageClient#textDocument_hover()<CR>
 
 " -----------------------------------------------------
 " 5.14 ALE
 " -----------------------------------------------------
-nnoremap <leader>an :ALENextWrap<cr>
-nnoremap <leader>ap :ALEPreviousWrap<cr>
+
+
+" -----------------------------------------------------
+" 5.14 Vim-Quickfix
+" -----------------------------------------------------
+
+" Jump to quickfix/loclist menu
+nnoremap <leader>e <Plug>(qf_qf_switch)
+
+" QuickFix navigation
+nnoremap [f <Plug>(qf_qf_next)
+nnoremap ]f <Plug>(qf_qf_previous)
+
+" Location list navigation
+nnoremap [l <Plug>(qf_loc_next)
+nnoremap ]l <Plug>(qf_loc_previous)
+
+" Error mnemonic (ALE, Vim-Flow, and Neomake use locatin-list)
+nnoremap [e <Plug>(qf_loc_next)
+nnoremap ] <Plug>(qf_loc_previous)
 
 " ==================================================
 " 6.0 Color and highlighting settings
@@ -1004,18 +1040,21 @@ match ErrorMsg '^\(<\|=\|>\)\{7\}\([^=].\+\)\?$'
 " Highlight term cursor differently
 highlight TermCursor ctermfg=green guifg=green
 
+
 " Listchars highlighting
 highlight NonText ctermfg=8 guifg=gray
 highlight SpecialKey ctermfg=8 guifg=gray
 
 " Remove underline in folded lines
-hi! Folded term=NONE cterm=NONE gui=NONE ctermbg=NONE
+highlight! Folded term=NONE cterm=NONE gui=NONE ctermbg=NONE
 
 " Link highlight groups to improve buftabline colors
-hi! link BufTabLineCurrent Identifier
-hi! link BufTabLineActive Comment
-hi! link BufTabLineHidden Comment
-hi! link BufTabLineFill Comment
+highlight! link BufTabLineCurrent Identifier
+highlight! link BufTabLineActive Comment
+highlight! link BufTabLineHidden Comment
+highlight! link BufTabLineFill Comment
+
+
 
 " ==================================================
 " 7.0 Autocommands
