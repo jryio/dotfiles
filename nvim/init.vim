@@ -183,7 +183,7 @@ set clipboard+=unnamed                      " Allow to use system clipboard
 
                                             " As it turns out, there is a negative performce issue when having lazy redraw
                                             " on while use tmux. It causes an ugly redraw that makes the entire pane blank
-" set nolazyredraw                            " Don't redraw while executing macros (better performance)
+set lazyredraw                              " Don't redraw while executing macros (better performance)
 
 set showmatch                               " Show matching brackets when text indicator is over them
 set matchtime=2                             " How many tenths of a second to blink when matching brackets
@@ -776,7 +776,7 @@ let g:user_emmet_settings = {
 \  },
 \}
 
-autocmd FileType html,css,'javascript.jsx' EmmetInstall
+autocmd FileType html,css,javascript,'javascript.jsx' EmmetInstall
 
 " -----------------------------------------------------
 " 4.18 Flow Settings
@@ -1060,6 +1060,9 @@ highlight! link BufTabLineFill Comment
 " 7.0 Autocommands
 " ==================================================
 " autocmd VimEnter * setlocal term=$TERM
+
+" Always move quickfix to the very bottom split
+au FileType qf wincmd J
 
 " Keywordprg settings
 autocmd FileType vim setlocal keywordprg=:help
