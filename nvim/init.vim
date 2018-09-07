@@ -56,6 +56,8 @@ Plug 'pangloss/vim-javascript'
 Plug 'mxw/vim-jsx', { 'for': ['jsx', 'javascript.jsx'] }
 " JSON syntax
 Plug 'sheerun/vim-json'
+" JSON5 syntax
+Plug 'GutenYe/json5.vim'
 " Autocomplete using flow (npm install -g flow-bin)
 Plug 'wokalski/autocomplete-flow'
 " Add flow typing support
@@ -776,7 +778,7 @@ let g:user_emmet_settings = {
 \  },
 \}
 
-autocmd FileType html,css,javascript,'javascript.jsx' EmmetInstall
+autocmd FileType html,css,javascript.jsx EmmetInstall
 
 " -----------------------------------------------------
 " 4.18 Flow Settings
@@ -834,20 +836,21 @@ let g:ale_lint_on_text_changed = 'never'
 let g:ale_fix_on_save = 1
 
 let g:ale_set_loclist = 0
-let g:ale_set_quickfix = 1
-let g:ale_open_list = 1
-let g:ale_keep_list_window_open = 1
+let g:ale_set_quickfix = 0
+let g:ale_open_list = 0
+let g:ale_keep_list_window_open = 0
 
-let g:ale_sign_warning = '❯'
-let g:ale_sign_error = '❯'
+let g:ale_sign_warning = 'W'
+let g:ale_sign_error = 'X'
 
-let g:ale_echo_msg_format=''
+let g:ale_echo_msg_format='%linter%: [%severity%|%code%] %s'
 let g:ale_loclist_msg_format='%linter%: [%severity%|%code%] %s'
 
 highlight link ALEWarningSign String
 highlight link ALEErrorSign Title
 
 let g:ale_javascript_prettier_use_local_config = 1
+
 let g:ale_linters = {
 \   'javascript': ['eslint', 'flow'],
 \}
