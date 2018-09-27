@@ -864,8 +864,8 @@ let g:ale_fixers = {
 " -----------------------------------------------------
 " 4.20 (Blaze it) Vim Quickfix
 " -----------------------------------------------------
-let g:qf_window_bottom = 1
-let g:qf_loclist_window_bottom = 1
+let g:qf_window_bottom = 0
+let g:qf_loclist_window_bottom = 0
 
 let g:qf_auto_open_quickfix = 0
 let g:qf_auto_open_loclist = 0
