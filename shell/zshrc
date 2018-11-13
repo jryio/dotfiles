@@ -35,7 +35,7 @@ export FZF_DEFAULT_COMMAND='rg --files --hidden --smart-case --follow --glob "!.
 export VIRTUAL_ENV_DISABLE_PROMPT=1
 
 # Keybase Developer Tools Chrome Extension
-export KEYBASE_DEV_TOOL_ROOTS="$HOME/Library/Application Support/Google/Chrome/Profile 1/Extensions/fmkadmapgofadopljbjfkapdkoienihi,$HOME/Library/Application Support/Google/Chrome/Profile 1/Extensions/hgldghadipiblonfkkicmgcbbijnpeog"
+export KEYBASE_DEV_TOOL_ROOTS="$HOME/Library/Application Support/Google/Chrome/Profile 3/Extensions/fmkadmapgofadopljbjfkapdkoienihi,$HOME/Library/Application Support/Google/Chrome/Profile 3/Extensions/hgldghadipiblonfkkicmgcbbijnpeog"
 
 
 # Set name of the theme to load.
@@ -165,11 +165,26 @@ alias grbsign="git rebase --exec 'git commit --amend --no-edit -n -S' -i"
 alias ggpush='git push -u origin $(git_current_branch)'
 alias bgrep='/usr/bin/grep --color=auto --exclude-dir={.bzr,CVS,.git,.hg,.svn}'
 
+# Keybase ZSHRC scripts for setup
+source ~/.zshrc.keybase
+
+# Iterm iterm shell integration
 test -e "${HOME}/.iterm2_shell_integration.zsh" && source "${HOME}/.iterm2_shell_integration.zsh"
 
+# Python Environment initialization
 eval "$(pyenv init -)"
 eval "$(pyenv virtualenv-init -)"
 
+# Node Version Manager
+export NVM_DIR="$HOME/.nvm"
+[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
+[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
+
+# Ruby Environment initialization
+eval "$(rbenv init -)"
+
+# # ===============================================
+# THEME
 # # ===============================================
 
 # # ORDER
@@ -315,10 +330,5 @@ SPACESHIP_GIT_STATUS_DIVERGED="⇕"
 # SPACESHIP_EXIT_CODE_SYMBOl="✘ "
 # SPACESHIP_EXIT_CODE_COLOR="red"
 
-export NVM_DIR="$HOME/.nvm"
-[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
-[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
-
-eval "$(rbenv init -)"
 
 

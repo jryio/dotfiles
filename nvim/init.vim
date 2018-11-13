@@ -857,7 +857,16 @@ let g:ale_linters = {
 " Put this in vimrc or a plugin file of your own.
 " After this is configured, :ALEFix will try and fix your JS code with ESLint.
 let g:ale_fixers = {
-\   'javascript': ['eslint', 'prettier'],
+\   'javascript': ['eslint', 'prettier_eslint'],
+\}
+
+" ALE Pattern Options allow for custom settings based on the path of the file
+" this is used for custom settings for specific projects.
+"
+" This is a sepcial case setting for skilltype projects that use
+" eslint-config-prettier for formatting (thus there is no .prettierrc).
+let g:ale_pattern_options = {
+\    'jry/professional/skilltype/.*\.js': {'ale_fixers': ['eslint'], 'ale_linters': ['eslint'] }
 \}
 
 
