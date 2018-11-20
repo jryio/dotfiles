@@ -195,7 +195,7 @@ set nojoinspaces                            " No extra space when joining a line
 set scrolloff=5                             " Scroll when closing to top or bottom of the screen
 set updatetime=1000                         " Update time used to create swap file or other things
 set suffixesadd+=.js,.rb                    " Add js and ruby files to suffixes
-set cursorline                              " Highlight the active line but only style the line number highlight
+" set cursorline                              " Highlight the active line but only style the line number highlight
 
 " --------------------------------------------------
 " 2.1 Split settings (more natural)
@@ -857,7 +857,7 @@ let g:ale_linters = {
 " Put this in vimrc or a plugin file of your own.
 " After this is configured, :ALEFix will try and fix your JS code with ESLint.
 let g:ale_fixers = {
-\   'javascript': ['eslint', 'prettier_eslint'],
+\   'javascript': ['eslint', 'prettier'],
 \}
 
 " ALE Pattern Options allow for custom settings based on the path of the file

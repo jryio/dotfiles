@@ -1757,10 +1757,12 @@
 	<key>MaxVertically</key>
 	<true/>
 	<key>NSFontPanelAttributes</key>
-	<string>1, 4</string>
+	<string>1, 1</string>
 	<key>NSNavLastRootDirectory</key>
-	<string>~/dotfiles/iterm-prefs</string>
+	<string>~/Documents</string>
 	<key>NSNavPanelExpandedSizeForOpenMode</key>
+	<string>{712, 448}</string>
+	<key>NSNavPanelExpandedSizeForSaveMode</key>
 	<string>{712, 448}</string>
 	<key>NSQuotedKeystrokeBinding</key>
 	<string></string>
@@ -1770,6 +1772,11 @@
 	<false/>
 	<key>NSScrollViewShouldScrollUnderTitlebar</key>
 	<false/>
+	<key>NSSplitView Subview Frames NSColorPanelSplitView</key>
+	<array>
+		<string>0.000000, 0.000000, 224.000000, 263.000000, NO, NO</string>
+		<string>0.000000, 264.000000, 224.000000, 43.000000, NO, NO</string>
+	</array>
 	<key>NSTableView Columns v2 KeyBingingTable</key>
 	<data>
 	YnBsaXN0MDDUAQIDBAUGNjdYJHZlcnNpb25YJG9iamVjdHNZJGFyY2hpdmVyVCR0b3AS
@@ -1793,18 +1800,25 @@
 	</data>
 	<key>NSTableView Supports v2 KeyBingingTable</key>
 	<true/>
+	<key>NSToolbar Configuration com.apple.NSColorPanel</key>
+	<dict>
+		<key>TB Is Shown</key>
+		<integer>1</integer>
+	</dict>
 	<key>NSWindow Frame NSFontPanel</key>
-	<string>1168 111 445 455 0 0 1680 1050 </string>
+	<string>1157 229 696 832 0 0 3360 1890 </string>
+	<key>NSWindow Frame ProfilesPanel</key>
+	<string>1845 1314 735 382 0 0 3360 1890 </string>
 	<key>NSWindow Frame SUStatusFrame</key>
-	<string>901 1289 400 129 0 0 2560 1418 </string>
+	<string>1480 1321 400 129 0 0 3360 1890 </string>
 	<key>NSWindow Frame SUUpdateAlert</key>
-	<string>970 539 620 622 0 0 2560 1418 </string>
+	<string>1330 973 700 592 0 0 3360 1890 </string>
+	<key>NSWindow Frame SessionsPreferences</key>
+	<string>1872 1172 606 469 0 0 3360 1890 </string>
 	<key>NSWindow Frame SharedPreferences</key>
-	<string>1254 338 796 486 0 0 2560 1440 </string>
-	<key>NSWindow Frame UKCrashReporter</key>
-	<string>-10 45 1326 1373 0 0 2560 1418 </string>
+	<string>840 1021 770 420 0 0 3360 1890 </string>
 	<key>NSWindow Frame iTerm Window 0</key>
-	<string>842 0 836 1028 0 0 1680 1028 </string>
+	<string>0 700 730 435 0 0 3360 1890 </string>
 	<key>NeverWarnAboutShortLivedSessions_6ED05561-7299-45EE-B175-9C6D3C5FD6AE</key>
 	<true/>
 	<key>NeverWarnAboutShortLivedSessions_8ACD07CD-E30F-48DA-9A8A-B82568D102DC</key>
@@ -2433,12 +2447,20 @@
 			<string>~/jry</string>
 		</dict>
 	</array>
+	<key>NoSyncCommandHistoryHasEverBeenUsed</key>
+	<true/>
+	<key>NoSyncHaveRequestedFullDiskAccess</key>
+	<true/>
+	<key>NoSyncHaveUsedCopyMode</key>
+	<true/>
 	<key>NoSyncHaveWarnedAboutIncompatibleSoftware</key>
 	<true/>
 	<key>NoSyncHaveWarnedAboutPasteConfirmationChange</key>
 	<true/>
 	<key>NoSyncInstallationId</key>
-	<string>6AC668A0-CF4F-424C-A3B8-6B5AF5D17DCA</string>
+	<string>DBF7938E-7660-49AD-AD42-37A7F3E8DFA4</string>
+	<key>NoSyncNeverAskAboutSettingAlternateMouseScroll</key>
+	<true/>
 	<key>NoSyncNeverRemindPrefsChangesLostForFile</key>
 	<true/>
 	<key>NoSyncNeverRemindPrefsChangesLostForFile_selection</key>
@@ -2451,13 +2473,17 @@
 		<array>
 			<string>session.jobName</string>
 			<string>session.id</string>
-			<string>session.profileName</string>
-			<string>session.name</string>
-			<string>session.tmuxClientName</string>
+			<string>session.badge</string>
 			<string>session.terminalIconName</string>
+			<string>session.profileName</string>
+			<string>session.tmuxClientName</string>
+			<string>session.name</string>
 			<string>session.termid</string>
+			<string>session.triggerName</string>
+			<string>session.tmuxWindowPane</string>
 			<string>session.hostname</string>
 			<string>session.username</string>
+			<string>session.tmuxStatusRight</string>
 			<string>session.tmuxRole</string>
 			<string>session.path</string>
 			<string>session.autoName</string>
@@ -2467,31 +2493,77 @@
 			<string>session.tty</string>
 			<string>session.autoLogId</string>
 			<string>session.terminalWindowName</string>
+			<string>iterm2</string>
+			<string>session.jobPid</string>
+			<string>session.tmuxStatusLeft</string>
+			<string>session.lastCommand</string>
+			<string>session.mouseReportingMode</string>
+			<string>session.pid</string>
 			<string>session.presentationName</string>
 			<string>session.columns</string>
+			<string>session.autoNameFormat</string>
+		</array>
+		<key>16</key>
+		<array>
+			<string>currentTab.currentSession.session.rows</string>
+			<string>currentTab.currentSession.session.tty</string>
+			<string>currentTab.currentSession.session.username</string>
+			<string>currentTab.currentSession.session.name</string>
+			<string>currentTab.currentSession.session.hostname</string>
+			<string>currentTab.currentSession.session.termid</string>
+			<string>currentTab</string>
+			<string>currentTab.currentSession.session.pid</string>
+			<string>currentTab.currentSession.session.path</string>
+			<string>currentTab.currentSession</string>
+			<string>titleOverride</string>
+			<string>currentTab.currentSession.session.terminalWindowName</string>
+			<string>currentTab.currentSession.session.autoName</string>
+			<string>currentTab.currentSession.session.jobPid</string>
+			<string>currentTab.currentSession.session.autoNameFormat</string>
+			<string>iterm2</string>
+			<string>currentTab.currentSession.session.presentationName</string>
+			<string>currentTab.currentSession.session.columns</string>
+			<string>currentTab.currentSession.session.terminalIconName</string>
+			<string>currentTab.currentSession.session.jobName</string>
+			<string>currentTab.currentSession.session.mouseReportingMode</string>
 		</array>
 		<key>2</key>
 		<array>
+			<string>currentSession.session.jobName</string>
 			<string>currentSession.session.termid</string>
+			<string>currentSession.session.pid</string>
+			<string>currentSession.session.hostname</string>
+			<string>currentSession.session.name</string>
+			<string>currentSession.session.mouseReportingMode</string>
+			<string>currentSession.session.presentationName</string>
+			<string>currentSession.session.username</string>
+			<string>currentSession.session.jobPid</string>
 			<string>currentSession.session.terminalIconName</string>
 			<string>currentSession.session.rows</string>
-			<string>currentSession.session.presentationName</string>
-			<string>currentSession.session.terminalWindowName</string>
-			<string>currentSession.session.jobName</string>
-			<string>tmuxWindow</string>
-			<string>currentSession.session.columns</string>
-			<string>currentSession</string>
-			<string>currentSession.session.name</string>
+			<string>titleOverride</string>
 			<string>currentSession.session.tty</string>
+			<string>currentSession.session.terminalWindowName</string>
+			<string>currentSession.session.path</string>
+			<string>currentSession.session.autoNameFormat</string>
+			<string>iterm2</string>
 			<string>currentSession.session.autoName</string>
+			<string>tmuxWindow</string>
+			<string>currentSession</string>
+			<string>currentSession.session.columns</string>
 		</array>
 		<key>4</key>
 		<array>
 			<string>pid</string>
+			<string>localhostName</string>
+			<string>effectiveTheme</string>
 		</array>
 	</dict>
 	<key>NoSyncTimeOfFirstLaunchOfVersionWithTip</key>
-	<real>551022451.05290794</real>
+	<real>501381296.33490402</real>
+	<key>NoSyncVeryOldNightlyBuildWarning_SilenceUntil</key>
+	<real>560796071.01858604</real>
+	<key>NoSyncVeryOldNightlyBuildWarning_selection</key>
+	<integer>1</integer>
 	<key>OnlyWhenMoreTabs</key>
 	<false/>
 	<key>OpenArrangementAtStartup</key>
@@ -2554,7 +2626,7 @@
 		</dict>
 	</dict>
 	<key>PrefsCustomFolder</key>
-	<string>/Users/jacobyoung/dotfiles/iterm-prefs</string>
+	<string>/Users/case/dotfiles/iterm-prefs</string>
 	<key>Print In Black And White</key>
 	<true/>
 	<key>PromptOnClose</key>
@@ -2576,19 +2648,21 @@
 	<key>SUFeedAlternateAppNameKey</key>
 	<string>iTerm</string>
 	<key>SUFeedURL</key>
-	<string>https://iterm2.com/appcasts/nightly.xml?shard=33</string>
+	<string>https://iterm2.com/appcasts/nightly.xml?shard=76</string>
 	<key>SUHasLaunchedBefore</key>
 	<true/>
 	<key>SULastCheckTime</key>
-	<date>2018-08-04T23:57:51Z</date>
+	<date>2018-11-16T18:28:11Z</date>
 	<key>SUSendProfileInfo</key>
 	<false/>
 	<key>SavePasteHistory</key>
 	<true/>
+	<key>Secure Input</key>
+	<false/>
 	<key>ShowBookmarkName</key>
 	<true/>
 	<key>ShowFullScreenTabBar</key>
-	<true/>
+	<false/>
 	<key>ShowNewOutputIndicator</key>
 	<true/>
 	<key>ShowPaneTitles</key>
@@ -2602,6 +2676,8 @@
 	<key>SwitchWindowModifier</key>
 	<integer>6</integer>
 	<key>TabStyle</key>
+	<integer>1</integer>
+	<key>TabStyleWithAutomaticOption</key>
 	<integer>1</integer>
 	<key>TabViewType</key>
 	<integer>0</integer>
@@ -2643,8 +2719,6 @@
 	</array>
 	<key>TripleClickSelectsFullWrappedLines</key>
 	<false/>
-	<key>UKCrashReporterLastCrashReportDate</key>
-	<real>1531925504</real>
 	<key>URLHandlers</key>
 	<dict/>
 	<key>URLHandlersByGuid</key>
@@ -2674,7 +2748,7 @@
 	<key>findRegex_iTerm</key>
 	<false/>
 	<key>iTerm Version</key>
-	<string>3.2.20180717-nightly</string>
+	<string>3.3.20181116-nightly</string>
 	<key>kCPKSelectionViewPreferredModeKey</key>
 	<integer>0</integer>
 	<key>kCPKSelectionViewShowHSBTextFieldsKey</key>
