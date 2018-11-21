@@ -149,13 +149,10 @@ man() {
 alias n='nvim'
 alias reattach='tmux attach-session -t'
 alias rez='tmux attach || { (while ! tmux run-shell ~/.tmux/plugins/tmux-resurrect/scripts/restore.sh; do sleep 0.2; done)& tmux ; }'
+alias ssh-add='eval $(ssh-agent -s) > /dev/null && ssh-add'
 
 # alias cd='cs'
 alias irb='irb --simple-prompt'
-
-# Don't autocorrect ripgrep to `gr`, which is Git Remote alias from git plugin
-# -uu searches hidden files and directories
-# Useful when looking for .directories
 
 alias kk='clear'
 alias gc='git commit -v -S'
