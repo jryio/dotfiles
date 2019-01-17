@@ -163,6 +163,8 @@ Plug 'terryma/vim-expand-region'
 Plug 'mhinz/vim-sayonara', { 'on': 'Sayonara' }
 " Tmux ressurect using vim sessions
 Plug 'tpope/vim-obsession'
+" Vim Maximizer will make the current window 'fullscreen'
+Plug 'szw/vim-maximizer'
 
 call plug#end()
 
@@ -510,6 +512,9 @@ map <silent> <M-l> 10<C-w>>
 map <silent> <M-h> 10<C-w><
 map <silent> <M-j> 10<C-w>-
 map <silent> <M-k> 10<C-w>+
+
+nnoremap <silent> <C-w>z :MaximizerToggle<CR>
+inoremap <silent> <C-w>z :MaximizerToggle<CR>
 
 " 10x vertical window resize
 " nnoremap <silent> <C-w>+ 5<C-w>+
