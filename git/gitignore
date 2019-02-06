@@ -30,6 +30,7 @@
 # OS generated files
 # ===========================
 
+.metadata_never_index
 .DS_Store
 .DS_Store?
 ._*

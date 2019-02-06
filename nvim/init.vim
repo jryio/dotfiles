@@ -826,10 +826,10 @@ let g:flow#autoclose=1
 " -----------------------------------------------------
 " 4.19 vim-prettier
 " -----------------------------------------------------
-let g:prettier#exec_cmd_path=g:kb_prettier
-let g:prettier#exec_cmd_async=1
-let g:prettier#quickfix_enabled=0
-let g:prettier#quickfix_auto_focus=0
+" let g:prettier#exec_cmd_path=g:kb_prettier
+" let g:prettier#exec_cmd_async=1
+" let g:prettier#quickfix_enabled=0
+" let g:prettier#quickfix_auto_focus=0
 
 " -----------------------------------------------------
 " 4.19 ALE
@@ -862,7 +862,7 @@ let g:ale_linters = {
 " Put this in vimrc or a plugin file of your own.
 " After this is configured, :ALEFix will try and fix your JS code with ESLint.
 let g:ale_fixers = {
-\   'javascript': ['eslint', 'prettier'],
+\   'javascript': ['eslint', 'prettier', 'prettier_eslint'],
 \}
 
 " ALE Pattern Options allow for custom settings based on the path of the file
