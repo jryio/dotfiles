@@ -1816,9 +1816,9 @@
 	<key>NSWindow Frame SessionsPreferences</key>
 	<string>1872 1172 606 469 0 0 3360 1890 </string>
 	<key>NSWindow Frame SharedPreferences</key>
-	<string>1664 1138 814 486 0 0 3360 1867 </string>
+	<string>715 510 814 486 0 0 1920 1200 </string>
 	<key>NSWindow Frame iTerm Window 0</key>
-	<string>1773 321 1557 1122 0 0 3360 1867 </string>
+	<string>965 578 1072 741 0 0 1920 1200 </string>
 	<key>NeverWarnAboutShortLivedSessions_6ED05561-7299-45EE-B175-9C6D3C5FD6AE</key>
 	<true/>
 	<key>NeverWarnAboutShortLivedSessions_8ACD07CD-E30F-48DA-9A8A-B82568D102DC</key>
@@ -2048,9 +2048,9 @@
 				<key>Blue Component</key>
 				<real>0.0</real>
 				<key>Color Space</key>
-				<string>Calibrated</string>
+				<string>sRGB</string>
 				<key>Green Component</key>
-				<real>0.0</real>
+				<real>0.1491314172744751</real>
 				<key>Red Component</key>
 				<real>1</real>
 			</dict>
@@ -2087,16 +2087,14 @@
 			<real>0.0</real>
 			<key>Cursor Color</key>
 			<dict>
-				<key>Alpha Component</key>
-				<real>1</real>
 				<key>Blue Component</key>
-				<real>0.4351503849029541</real>
+				<real>0.80784313725490198</real>
 				<key>Color Space</key>
-				<string>Calibrated</string>
+				<string>sRGB</string>
 				<key>Green Component</key>
-				<real>0.12651854753494263</real>
+				<real>0.77254901960784317</real>
 				<key>Red Component</key>
-				<real>0.76829981803894043</real>
+				<real>0.75294117647058822</real>
 			</dict>
 			<key>Cursor Guide Color</key>
 			<dict>
@@ -2105,11 +2103,11 @@
 				<key>Blue Component</key>
 				<real>1</real>
 				<key>Color Space</key>
-				<string>Calibrated</string>
+				<string>sRGB</string>
 				<key>Green Component</key>
-				<real>0.91000000000000003</real>
+				<real>0.9268307089805603</real>
 				<key>Red Component</key>
-				<real>0.65000000000000002</real>
+				<real>0.70213186740875244</real>
 			</dict>
 			<key>Cursor Text Color</key>
 			<dict>
@@ -2239,13 +2237,13 @@
 				<key>Alpha Component</key>
 				<real>1</real>
 				<key>Blue Component</key>
-				<real>0.67800000000000005</real>
+				<real>0.73423302173614502</real>
 				<key>Color Space</key>
-				<string>Calibrated</string>
+				<string>sRGB</string>
 				<key>Green Component</key>
-				<real>0.27000000000000002</real>
+				<real>0.35916060209274292</real>
 				<key>Red Component</key>
-				<real>0.023</real>
+				<real>0.0</real>
 			</dict>
 			<key>Log Directory</key>
 			<string></string>
@@ -2653,7 +2651,7 @@
 	<key>SUHasLaunchedBefore</key>
 	<true/>
 	<key>SULastCheckTime</key>
-	<date>2018-11-26T08:08:04Z</date>
+	<date>2019-03-04T08:13:11Z</date>
 	<key>SUSendProfileInfo</key>
 	<false/>
 	<key>SavePasteHistory</key>
