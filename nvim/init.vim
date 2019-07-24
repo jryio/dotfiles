@@ -13,8 +13,8 @@ endif
 
 call plug#begin('~/.config/nvim/plugged')
 
-let kb_flow='/Users/jacobyoung/go/src/github.com/keybase/client/shared/node_modules/.bin/flow'
-let kb_prettier='/Users/jacobyoung/go/src/github.com/keybase/client/shared/node_modules/.bin/prettier'
+let kb_flow='/Users/CASE/go/src/github.com/keybase/client/shared/node_modules/.bin/flow'
+let kb_prettier='/Users/CASE/go/src/github.com/keybase/client/shared/node_modules/.bin/prettier'
 
 " 1.0 Plug List
 " ==================================================
@@ -58,10 +58,12 @@ Plug 'mxw/vim-jsx', { 'for': ['jsx', 'javascript.jsx'] }
 Plug 'sheerun/vim-json'
 " JSON5 syntax
 Plug 'GutenYe/json5.vim'
+"Typescript syntax support
+Plug 'leafgarland/typescript-vim'
 " Autocomplete using flow (npm install -g flow-bin)
-Plug 'wokalski/autocomplete-flow'
+" Plug 'wokalski/autocomplete-flow'
 " Add flow typing support
-Plug 'flowtype/vim-flow'
+" Plug 'flowtype/vim-flow'
 " Prettier vim
 " Plug 'prettier/vim-prettier', { 'for': ['javascript', 'javascript.jsx', 'typescript', 'css', 'less', 'scss', 'json'] }
 
@@ -283,6 +285,10 @@ set wildignore+=tmp/**
 " let $NVIM_TUI_ENABLE_CURSOR_SHAPE=1         " Set an environment variable to use the t_SI/t_EI hack
 let g:loaded_python_provider=1              " Disable python 2 interface
 let g:python_host_skip_check=1              " Skip python 2 host check
+
+" Creates a special virtualenvironment for neovim so packages do not need to
+" be reinstalled in each new virtual environment
+let g:python3_host_prog="/Users/CASE/.pyenv/versions/neovim_python_venv/bin/python"
 
 " ==================================================
 " 3.0 Mapping settings
@@ -704,7 +710,6 @@ let g:deoplete#enable_refresh_always=0
 let g:deoplete#file#enable_buffer_path=1
 
 " autocmd InsertLeave,CompleteDone * if pumvisible() == 0 | pclose | endif
-let g:deoplete#soruces#flow#flow_bin=g:kb_flow
 let g:deoplete#sources={}
 let g:deoplete#sources._= ['around', 'member', 'buffer', 'file']
 let g:deoplete#sources#rust#racer_binary='/Users/CASE/.cargo/bin/racer'
@@ -765,6 +770,7 @@ let g:jsdoc_enable_es6=1
 " -----------------------------------------------------
 " 4.18 vim-javascript settings
 " -----------------------------------------------------
+" Syntax highlighting
 let g:javascript_plugin_jsdoc=1
 let g:javascript_plugin_flow=1
 
@@ -786,42 +792,42 @@ let g:user_emmet_settings = {
 autocmd FileType html,css,javascript.jsx EmmetInstall
 
 " -----------------------------------------------------
-" 4.18 Flow Settings
+" 4.18 Language Server
 " -----------------------------------------------------
-let g:flow#flowpath=g:kb_flow
-let g:flow#enable=0
-let g:flow#autoclose=1
 
-" let local_flow = finddir('node_modules', '.;') . '/.bin/flow'
-" if matchstr(local_flow, "^\/\\w") == ''
-"     let local_flow= getcwd() . "/" . local_flow
-" endif
-" if executable(local_flow)
-"   let g:flow#flowpath = local_flow
-" endif
+" Use fzf as the selection UI
+let g:LanguageClient_selectionUI = 'fzf'
 
-" let g:LanguageClient_loadSettings=0
-" let g:LanguageClient_serverCommands = {
-"     \ 'javascript': ['flow-language-server', '--flow-path=' . kb_flow, '--stdio', '--no-auto-download'],
-"     \ 'javascript.jsx': ['flow-language-server', '--flow-path=' . kb_flow, '--stdio', '--no-auto-download'],
-"     \ }
+" This will display a location-list window detailing the issues in the file.
+let g:LanguageClient_selectionUI = 'location-list'
+let g:LanguageClient_diagnosticsList = 'Location'
+let g:LanguageClient_diagnosticsDisplay = {
+    \ '1': { "name": "Error", "texthl": "ALEError", "signText": "❯", "signTexthl": "ALEErrorSign" },
+    \ '2': { "name": "Warning", "texthl": "ALEWarning", "signText": "❯", "signTexthl": "ALEWarningSign" },
+    \ '3': { "name": "Info", "texthl": "ALEInfo", "signText": "ℹ", "signTexthl": "ALEInfoSign" },
+    \ '4': { "name": "Hint", "texthl": "ALEInfo", "signText": "ℹ", "signTexthl": "ALEInfoSign", },
+    \ }
+"
+"
+let g:LanguageClient_autoStart = 1
+let g:LanguageClient_rootMarkers = {
+\ 'javascript': ['.tsconfig.json'],
+\ 'javascript.jsx': ['.tsconfig.json'],
+\ 'typescript': ['.tsconfig.json'],
+\ 'typescript.jsx': ['.tsconfig.json'],
+\ 'typescript.tsx': ['.tsconfig.json'],
+\ }
+let g:LanguageClient_serverCommands = {
+\ 'javascript': ['typescript-language-server', '--stdio'],
+\ 'javascript.jsx': ['typescript-language-server', '--stdio'],
+\ 'typescript': ['typescript-language-server', '--stdio'],
+\ 'typescript.jsx': ['typescript-language-server', '--stdio'],
+\ 'typescript.tsx': ['typescript-language-server', '--stdio']
+\ }
 
-" let g:LanguageClient_rootMarkers = ['.flowconfig']
-
-" " Use fzf as the selection UI
-" let g:LanguageClient_selectionUI = 'fzf'
-" " This will display a location-list window detailing the issues in the file.
-" let g:LanguageClient_diagnosticsList = 'Location'
-" let g:LanguageClient_diagnosticsDisplay = {
-"     \ '1': { "name": "Error", "texthl": "ALEError", "signText": "❯", "signTexthl": "ALEErrorSign" },
-"     \ '2': { "name": "Warning", "texthl": "ALEWarning", "signText": "❯", "signTexthl": "ALEWarningSign" },
-"     \ '3': { "name": "Info", "texthl": "ALEInfo", "signText": "ℹ", "signTexthl": "ALEInfoSign" },
-"     \ '4': { "name": "Hint", "texthl": "ALEInfo", "signText": "ℹ", "signTexthl": "ALEInfoSign", },
-"     \ }
-
-" let g:LanguageClient_loggingLevel = 'INFO'
-" let g:LanguageClient_loggingFile = '/tmp/LanguageClient.log'
-" let g:LanguageClient_serverStderr = '/tmp/LanguageServer.log'
+let g:LanguageClient_loggingLevel = 'DEBUG'
+let g:LanguageClient_loggingFile = '/tmp/LanguageClient.log'
+let g:LanguageClient_serverStderr = '/tmp/LanguageServer.log'
 
 " -----------------------------------------------------
 " 4.19 vim-prettier
@@ -857,11 +863,17 @@ highlight link ALEErrorSign Title
 let g:ale_javascript_prettier_use_local_config = 1
 
 let g:ale_linters = {
-\   'javascript': ['eslint', 'flow'],
+\   'typescript': ['eslint'],
+\   'typescript.jsx': ['eslint'],
+\   'typescript.tsx': ['eslint'],
+\   'javascript': ['eslint'],
 \}
 " Put this in vimrc or a plugin file of your own.
 " After this is configured, :ALEFix will try and fix your JS code with ESLint.
 let g:ale_fixers = {
+\   '*': ['remove_trailing_lines', 'trim_whitespace'],
+\   'typescript': ['eslint', 'prettier'],
+\   'typescript.tsx': ['eslint', 'prettier'],
 \   'javascript': ['eslint', 'prettier', 'prettier_eslint'],
 \}
 
@@ -1004,11 +1016,10 @@ au FileType elm nmap <leader>ed <Plug>(elm-show-docs)
 au FileType elm nmap <leader>ew <Plug>(elm-browse-docs)
 
 " -----------------------------------------------------
-" 5.13 Flow
+" 5.13 TypeScript
 " -----------------------------------------------------
-nnoremap <leader>fm :call FlowMake
-nnoremap <leader>fd :call LanguageClient#textDocument_definition()<CR>
-nnoremap <leader>fh :call LanguageClient#textDocument_hover()<CR>
+nnoremap <leader>ld :call LanguageClient_contextMenu()<CR>
+nnoremap <leader>lh :call LanguageClient#textDocument_hover()<CR>
 
 " -----------------------------------------------------
 " 5.14 ALE
@@ -1134,4 +1145,3 @@ autocmd BufWritePost *.c Neomake gcc
 autocmd BufWritePost *.html Neomake tidy
 " gem install mdl
 autocmd BufWritePost *.md Neomake mdl
-

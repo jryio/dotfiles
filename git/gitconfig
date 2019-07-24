@@ -2,6 +2,10 @@
 	name = Jacob Young
 	email = jacob@jry.io
 	signingkey = 715CED2327899E28
+[gpg]
+	program = gpg
+[commit]
+	gpgsign = true
 [core]
 	editor = nvim
 	excludesfile = ~/.gitignore
