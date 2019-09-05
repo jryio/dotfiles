@@ -13,8 +13,8 @@ endif
 
 call plug#begin('~/.config/nvim/plugged')
 
-let kb_flow='/Users/CASE/go/src/github.com/keybase/client/shared/node_modules/.bin/flow'
-let kb_prettier='/Users/CASE/go/src/github.com/keybase/client/shared/node_modules/.bin/prettier'
+let kb_flow=$HOME."/go/src/github.com/keybase/client/shared/node_modules/.bin/flow"
+let kb_prettier=$HOME."/go/src/github.com/keybase/client/shared/node_modules/.bin/prettier"
 
 " 1.0 Plug List
 " ==================================================
@@ -305,7 +305,7 @@ let g:python_host_skip_check=1              " Skip python 2 host check
 
 " Creates a special virtualenvironment for neovim so packages do not need to
 " be reinstalled in each new virtual environment
-let g:python3_host_prog="/Users/CASE/.pyenv/versions/neovim_python_venv/bin/python"
+let g:python3_host_prog=$HOME."/.pyenv/versions/neovim_python_venv/bin/python"
 
 " ==================================================
 " 3.0 Mapping settings
@@ -729,8 +729,8 @@ let g:deoplete#file#enable_buffer_path=1
 " autocmd InsertLeave,CompleteDone * if pumvisible() == 0 | pclose | endif
 let g:deoplete#sources={}
 let g:deoplete#sources._= ['around', 'member', 'buffer', 'file']
-let g:deoplete#sources#rust#racer_binary='/Users/CASE/.cargo/bin/racer'
-let g:deoplete#sources#rust#rust_source_path='/Users/CASE/.rust/rust/src'
+let g:deoplete#sources#rust#racer_binary=$HOME."/.cargo/bin/racer"
+let g:deoplete#sources#rust#rust_source_path=$HOME."/.rust/rust/src"
 let g:deoplete#sources.ruby=['around', 'buffer', 'member', 'file', 'neosnippet' ]
 let g:deoplete#sources.vim=['around', 'buffer', 'member', 'file', 'neosnippet' ]
 let g:deoplete#sources['javascript.jsx']=['flow', 'neosnippet', 'member', 'buffer', 'file']
