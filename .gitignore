@@ -4,6 +4,7 @@ vim/
 *~
 .*.swp
 *.bak
+*zshrc.keybase
 shell/.zshrc.keybase
 oh-my-zsh
 nvim/tmp/undo/*

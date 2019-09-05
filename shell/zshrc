@@ -168,7 +168,9 @@ alias bgrep='/usr/bin/grep --color=auto --exclude-dir={.bzr,CVS,.git,.hg,.svn}'
 # ===============================================
 
 # Keybase ZSHRC scripts for setup
-source ~/.zshrc.keybase
+# Note: This file is stored in a pricvate keybase directory. In order for ZSH
+# to pick up on this file, the KBFS volume will need to be mounted
+source /keybase/private/jacobyoung/dotfiles/.zshrc.keybase
 
 # Iterm iterm shell integration
 test -e "${HOME}/.iterm2_shell_integration.zsh" && source "${HOME}/.iterm2_shell_integration.zsh"
@@ -244,5 +246,3 @@ SPACESHIP_GIT_STATUS_UNMERGED="="
 SPACESHIP_GIT_STATUS_AHEAD="⇡"
 SPACESHIP_GIT_STATUS_BEHIND="⇣"
 SPACESHIP_GIT_STATUS_DIVERGED="⇕"
-
-

@@ -44,7 +44,10 @@ Plug 'tpope/vim-sleuth'
 " Snippet support
 Plug 'Shougo/neosnippet.vim'
 " Language Server Client
-Plug 'autozimu/LanguageClient-neovim', { 'branch': 'next', 'do': 'bash install.sh' }
+Plug 'autozimu/LanguageClient-neovim', {
+    \ 'branch': 'next',
+    \ 'do': 'bash install.sh',
+    \ }
 
 " --------------------------------------------------
 " 1.2 JavaScript
@@ -53,13 +56,27 @@ Plug 'autozimu/LanguageClient-neovim', { 'branch': 'next', 'do': 'bash install.s
 " Moder JS support (indent, syntax, etc)
 Plug 'pangloss/vim-javascript'
 " JSX syntax
-Plug 'mxw/vim-jsx', { 'for': ['jsx', 'javascript.jsx'] }
-" JSON syntax
+" This repository does not seem to support the newest JSX syntax
+" So I decided to follow the suggestion of a member of the OSS community and
+" use his package instead
+"   source: https://github.com/mxw/vim-jsx/issues/152#issuecomment-466856462
+"   new package: https://github.com/amadeus/vim-jsx
+"
+" Plug 'mxw/vim-jsx', { 'for': ['jsx', 'javascript.jsx'] }
+Plug 'amadeus/vim-jsx', { 'for': ['jsx', 'javascript.jsx', 'typescript.tsx'] }
+Plug 'amadeus/vim-xml'
+
+"JSON syntax
 Plug 'sheerun/vim-json'
 " JSON5 syntax
 Plug 'GutenYe/json5.vim'
 "Typescript syntax support
 Plug 'leafgarland/typescript-vim'
+" JSX in Typescript syntax
+" This syntax highlighter also handles the react fragments syntax as well
+Plug 'peitalin/vim-jsx-typescript'
+
+
 " Autocomplete using flow (npm install -g flow-bin)
 " Plug 'wokalski/autocomplete-flow'
 " Add flow typing support
@@ -825,9 +842,9 @@ let g:LanguageClient_serverCommands = {
 \ 'typescript.tsx': ['typescript-language-server', '--stdio']
 \ }
 
-let g:LanguageClient_loggingLevel = 'DEBUG'
-let g:LanguageClient_loggingFile = '/tmp/LanguageClient.log'
-let g:LanguageClient_serverStderr = '/tmp/LanguageServer.log'
+" let g:LanguageClient_loggingLevel = 'DEBUG'
+" let g:LanguageClient_loggingFile = '/tmp/LanguageClient.log'
+" let g:LanguageClient_serverStderr = '/tmp/LanguageServer.log'
 
 " -----------------------------------------------------
 " 4.19 vim-prettier
@@ -861,6 +878,7 @@ highlight link ALEWarningSign String
 highlight link ALEErrorSign Title
 
 let g:ale_javascript_prettier_use_local_config = 1
+let g:ale_javascript_eslint_suppress_missing_config = 1
 
 let g:ale_linters = {
 \   'typescript': ['eslint'],
@@ -1097,6 +1115,9 @@ autocmd FileType vim setlocal keywordprg=:help
 
 " Set *.flow files to be javascript.jsx filetypes
 autocmd BufNewFile,BufRead,BufReadPost *.flow set filetype=javascript.jsx
+
+" Set *.tsx files to be tsx filetype
+autocmd BufNewFile,BufRead *.tsx set filetype=typescript.tsx
 
 " Turn spellcheck on for markdown files
 autocmd BufNewFile,BufRead *.md setlocal spell
