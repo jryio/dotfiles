@@ -818,12 +818,16 @@ let g:LanguageClient_selectionUI = 'fzf'
 " This will display a location-list window detailing the issues in the file.
 let g:LanguageClient_selectionUI = 'location-list'
 let g:LanguageClient_diagnosticsList = 'Location'
+" Diagnostics display
 let g:LanguageClient_diagnosticsDisplay = {
-    \ '1': { "name": "Error", "texthl": "ALEError", "signText": "❯", "signTexthl": "ALEErrorSign" },
-    \ '2': { "name": "Warning", "texthl": "ALEWarning", "signText": "❯", "signTexthl": "ALEWarningSign" },
-    \ '3': { "name": "Info", "texthl": "ALEInfo", "signText": "ℹ", "signTexthl": "ALEInfoSign" },
-    \ '4': { "name": "Hint", "texthl": "ALEInfo", "signText": "ℹ", "signTexthl": "ALEInfoSign", },
+    \ '1': { "name": "Error", "texthl": "ALEError", "signText": "❯", "signTexthl": "ALEErrorSign", "virtualTexthl": "Error" },
+    \ '2': { "name": "Warning", "texthl": "ALEWarning", "signText": "❯", "signTexthl": "ALEWarningSign", "virtualTexthl": "Todo" },
+    \ '3': { "name": "Info", "texthl": "ALEInfo", "signText": "ℹ", "signTexthl": "ALEInfoSign", "virtualTexthl": "Todo" },
+    \ '4': { "name": "Hint", "texthl": "ALEInfo", "signText": "ℹ", "signTexthl": "ALEInfoSign", "virtualTexthl": "Todo" },
     \ }
+
+let g:LanguageClient_hoverPreview = 'Always'
+let g:LanguageClient_useVirtualText = 1
 "
 "
 let g:LanguageClient_autoStart = 1
@@ -858,8 +862,7 @@ let g:LanguageClient_serverCommands = {
 " 4.19 ALE
 " -----------------------------------------------------
 
-" Set this setting in vimrc if you want to fix files automatically on save.
-" This is off by default.
+" Set this setting in vimrc if you want to fix files automatically on save. This is off by default.
 let g:ale_lint_on_text_changed = 'never'
 let g:ale_fix_on_save = 1
 
@@ -867,6 +870,10 @@ let g:ale_set_loclist = 0
 let g:ale_set_quickfix = 0
 let g:ale_open_list = 0
 let g:ale_keep_list_window_open = 0
+
+" ALE will show virtual text inline with buffer if there id an error
+" Example:
+" let g:ale_virtualtext_cursor = 1
 
 let g:ale_sign_warning = 'W'
 let g:ale_sign_error = 'X'
