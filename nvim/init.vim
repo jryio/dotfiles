@@ -55,15 +55,17 @@ Plug 'autozimu/LanguageClient-neovim', {
 
 " Moder JS support (indent, syntax, etc)
 Plug 'pangloss/vim-javascript'
+
 " JSX syntax
 " This repository does not seem to support the newest JSX syntax
 " So I decided to follow the suggestion of a member of the OSS community and
 " use his package instead
 "   source: https://github.com/mxw/vim-jsx/issues/152#issuecomment-466856462
 "   new package: https://github.com/amadeus/vim-jsx
-"
 " Plug 'mxw/vim-jsx', { 'for': ['jsx', 'javascript.jsx'] }
+
 Plug 'amadeus/vim-jsx', { 'for': ['jsx', 'javascript.jsx', 'typescript.tsx'] }
+Plug 'leafgarland/typescript-vim'
 Plug 'amadeus/vim-xml'
 
 "JSON syntax
@@ -816,15 +818,15 @@ autocmd FileType html,css,javascript.jsx EmmetInstall
 let g:LanguageClient_selectionUI = 'fzf'
 
 " This will display a location-list window detailing the issues in the file.
-let g:LanguageClient_selectionUI = 'location-list'
 let g:LanguageClient_diagnosticsList = 'Location'
 " Diagnostics display
-let g:LanguageClient_diagnosticsDisplay = {
-    \ '1': { "name": "Error", "texthl": "ALEError", "signText": "❯", "signTexthl": "ALEErrorSign", "virtualTexthl": "Error" },
-    \ '2': { "name": "Warning", "texthl": "ALEWarning", "signText": "❯", "signTexthl": "ALEWarningSign", "virtualTexthl": "Todo" },
-    \ '3': { "name": "Info", "texthl": "ALEInfo", "signText": "ℹ", "signTexthl": "ALEInfoSign", "virtualTexthl": "Todo" },
-    \ '4': { "name": "Hint", "texthl": "ALEInfo", "signText": "ℹ", "signTexthl": "ALEInfoSign", "virtualTexthl": "Todo" },
-    \ }
+" let g:LanguageClient_diagnosticsDisplay = {
+"     \ '1': { "name": "Error", "texthl": "ALEError", "signText": "❯", "signTexthl": "ALEErrorSign", "virtualTexthl": "Error" },
+"     \ '2': { "name": "Warning", "texthl": "ALEWarning", "signText": "❯", "signTexthl": "ALEWarningSign", "virtualTexthl": "Todo" },
+"     \ '3': { "name": "Info", "texthl": "ALEInfo", "signText": "ℹ", "signTexthl": "ALEInfoSign", "virtualTexthl": "Todo" },
+"     \ '4': { "name": "Hint", "texthl": "ALEInfo", "signText": "ℹ", "signTexthl": "ALEInfoSign", "virtualTexthl": "Todo" },
+"     \ }
+let g:LanguageClient_diagnosticsDisplay = {}
 
 let g:LanguageClient_hoverPreview = 'Always'
 let g:LanguageClient_useVirtualText = 1
