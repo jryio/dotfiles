@@ -29,8 +29,6 @@ Plug 'romainl/vim-qf'
 Plug 'benekastah/neomake', { 'on': ['Neomake'] }
 " Async linting
 Plug 'w0rp/ale'
-" Prefer local install of eslint over global
-Plug 'benjie/neomake-local-eslint.vim'
 " Autocomplete
 Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
 " Automatically closing pair stuff
@@ -62,21 +60,24 @@ Plug 'pangloss/vim-javascript'
 " use his package instead
 "   source: https://github.com/mxw/vim-jsx/issues/152#issuecomment-466856462
 "   new package: https://github.com/amadeus/vim-jsx
-" Plug 'mxw/vim-jsx', { 'for': ['jsx', 'javascript.jsx'] }
+Plug 'mxw/vim-jsx', { 'for': ['jsx', 'javascript.jsx'] }
 
-Plug 'amadeus/vim-jsx', { 'for': ['jsx', 'javascript.jsx', 'typescript.tsx'] }
+"Plug 'amadeus/vim-jsx', { 'for': ['jsx', 'javascript.jsx', 'typescript.tsx'] }
 Plug 'leafgarland/typescript-vim'
-Plug 'amadeus/vim-xml'
+
+" TESTING if this actually works
+Plug 'ianks/vim-tsx'
+
+"" This syntax highlighter also handles the react fragments syntax as well
+Plug 'peitalin/vim-jsx-typescript'
+""Typescript syntax support
+" Plug 'amadeus/vim-xml'
 
 "JSON syntax
 Plug 'sheerun/vim-json'
 " JSON5 syntax
 Plug 'GutenYe/json5.vim'
-"Typescript syntax support
-Plug 'leafgarland/typescript-vim'
-" JSX in Typescript syntax
-" This syntax highlighter also handles the react fragments syntax as well
-Plug 'peitalin/vim-jsx-typescript'
+
 
 
 " Autocomplete using flow (npm install -g flow-bin)
@@ -704,8 +705,6 @@ let g:neomake_error_sign = {
       \ 'text': '❯',
       \ 'texthl': 'ErrorMsg',
       \ }
-let g:neomake_javascript_enabled_makers = ["eslint"]
-let g:neomake_javascript_jsx_enabled_makers = ["eslint"]
 
 let g:neomake_c_enabled_makers = ["gcc"]
 " -----------------------------------------------------
@@ -817,16 +816,17 @@ autocmd FileType html,css,javascript.jsx EmmetInstall
 " Use fzf as the selection UI
 let g:LanguageClient_selectionUI = 'fzf'
 
+" Enable / Disable LangaugeClient diagnostics
 " This will display a location-list window detailing the issues in the file.
 let g:LanguageClient_diagnosticsList = 'Location'
 " Diagnostics display
+let g:LanguageClient_diagnosticsDisplay = {}
 " let g:LanguageClient_diagnosticsDisplay = {
 "     \ '1': { "name": "Error", "texthl": "ALEError", "signText": "❯", "signTexthl": "ALEErrorSign", "virtualTexthl": "Error" },
 "     \ '2': { "name": "Warning", "texthl": "ALEWarning", "signText": "❯", "signTexthl": "ALEWarningSign", "virtualTexthl": "Todo" },
 "     \ '3': { "name": "Info", "texthl": "ALEInfo", "signText": "ℹ", "signTexthl": "ALEInfoSign", "virtualTexthl": "Todo" },
 "     \ '4': { "name": "Hint", "texthl": "ALEInfo", "signText": "ℹ", "signTexthl": "ALEInfoSign", "virtualTexthl": "Todo" },
 "     \ }
-let g:LanguageClient_diagnosticsDisplay = {}
 
 let g:LanguageClient_hoverPreview = 'Always'
 let g:LanguageClient_useVirtualText = 1
@@ -891,7 +891,6 @@ let g:ale_javascript_eslint_suppress_missing_config = 1
 
 let g:ale_linters = {
 \   'typescript': ['eslint'],
-\   'typescript.jsx': ['eslint'],
 \   'typescript.tsx': ['eslint'],
 \   'javascript': ['eslint'],
 \}
