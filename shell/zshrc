@@ -37,7 +37,7 @@ export VIRTUAL_ENV_DISABLE_PROMPT=1
 # Keybase Developer Tools Chrome Extension
 unset KEYBASE_PERF
 export KEYBASE_LOCAL_DEBUG=1
-export KEYBASE_DEV_TOOL_ROOTS="$HOME/Library/Application Support/Google/Chrome/Profile 3/Extensions/hgldghadipiblonfkkicmgcbbijnpeog,$HOME/Library/Application Support/Google/Chrome/Profile 3/Extensions/fmkadmapgofadopljbjfkapdkoienihi"
+export KEYBASE_DEV_TOOL_ROOTS="$HOME/Library/Application Support/Google/Chrome/Default/Extensions/hgldghadipiblonfkkicmgcbbijnpeog,$HOME/Library/Application Support/Google/Chrome/Default/Extensions/fmkadmapgofadopljbjfkapdkoienihi"
 
 # Set name of the theme to load.
 # Look in ~/.oh-my-zsh/themes/
