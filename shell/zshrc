@@ -16,6 +16,7 @@ export PATH="$HOME/.pyenv/bin:$PATH"
 export PATH="$HOME/.yarn/bin:$PATH"
 # Android
 export ANDROID_HOME=$HOME/Library/Android/sdk
+export PATH=$PATH:$ANDROID_HOME/emulator
 export PATH=$PATH:$ANDROID_HOME/tools
 export PATH=$PATH:$ANDROID_HOME/tools/bin
 export PATH=$PATH:$ANDROID_HOME/platform-tools
@@ -129,17 +130,20 @@ jobscount() {
   echo "${total}"
 }
 
+# Forwhatever reason, ZSH has an alias to `nocorrect man` in macOS catalina
+unalias man
+
 # Customize man pages color
 man() {
-    env \
-        LESS_TERMCAP_mb=$'\e[1;31m' \
-        LESS_TERMCAP_md=$'\e[1;31m' \
-        LESS_TERMCAP_me=$'\e[0m' \
-        LESS_TERMCAP_se=$'\e[0m' \
-        LESS_TERMCAP_so=$'\e[1;44;33m' \
-        LESS_TERMCAP_ue=$'\e[0m' \
-        LESS_TERMCAP_us=$'\e[1;32m' \
-            man "$@"
+  env \
+      LESS_TERMCAP_mb=$'\e[1;31m' \
+      LESS_TERMCAP_md=$'\e[1;31m' \
+      LESS_TERMCAP_me=$'\e[0m' \
+      LESS_TERMCAP_se=$'\e[0m' \
+      LESS_TERMCAP_so=$'\e[1;44;33m' \
+      LESS_TERMCAP_ue=$'\e[0m' \
+      LESS_TERMCAP_us=$'\e[1;32m' \
+          man "$@"
 }
 
 # Set personal aliases, overriding those provided by oh-my-zsh libs,
@@ -163,6 +167,7 @@ alias ggpush='git push -u origin $(git_current_branch)'
 alias bgrep='/usr/bin/grep --color=auto --exclude-dir={.bzr,CVS,.git,.hg,.svn}'
 
 
+
 # ===============================================
 # SOURCES
 # ===============================================
@@ -170,7 +175,7 @@ alias bgrep='/usr/bin/grep --color=auto --exclude-dir={.bzr,CVS,.git,.hg,.svn}'
 # Keybase ZSHRC scripts for setup
 # Note: This file is stored in a pricvate keybase directory. In order for ZSH
 # to pick up on this file, the KBFS volume will need to be mounted
-source /keybase/private/jacobyoung/dotfiles/.zshrc.keybase
+source /Volumes/Keybase/private/jacobyoung/dotfiles/.zshrc.keybase*
 
 # Iterm iterm shell integration
 test -e "${HOME}/.iterm2_shell_integration.zsh" && source "${HOME}/.iterm2_shell_integration.zsh"

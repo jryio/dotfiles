@@ -197,7 +197,7 @@ call plug#end()
 " ==================================================
 
 set shell=/bin/zsh                          " Setting shell to zsh
-set number                                  " Line numbers on
+set number norelativenumber                 " Just absolute numbers
 set showmode                                " Always show mode
 set nowrap                                  " Do not wrap long line
 set showcmd                                 " Show commands as you type them
@@ -219,7 +219,7 @@ set nojoinspaces                            " No extra space when joining a line
 set scrolloff=5                             " Scroll when closing to top or bottom of the screen
 set updatetime=1000                         " Update time used to create swap file or other things
 set suffixesadd+=.js,.rb                    " Add js and ruby files to suffixes
-" set cursorline                              " Highlight the active line but only style the line number highlight
+set cursorline                              " Highlight the active line but only style the line number highlight
 
 " --------------------------------------------------
 " 2.1 Split settings (more natural)
@@ -594,10 +594,32 @@ let g:utils_autoswitch_kb_layout=0
 " -----------------------------------------------------
 " 4.2 FZF
 " -----------------------------------------------------
-"
-" Default fzf layout
-" - down / up / left / right
-let g:fzf_layout = { 'down': '~20%' }
+
+
+let $FZF_DEFAULT_OPTS='--layout=reverse'
+
+" https://kassioborges.dev/2019/04/10/neovim-fzf-with-a-floating-window.html
+function! FloatingFZF()
+  let buf = nvim_create_buf(v:false, v:true)
+  call setbufvar(buf, '&signcolumn', 'no')
+
+  let height = &lines - 3
+  let width = float2nr(&columns - (&columns * 2 / 4))
+  let col = float2nr((&columns - width) / 2)
+
+  let opts = {
+        \ 'relative': 'editor',
+        \ 'row': height * 0.25,
+        \ 'col': col + 30,
+        \ 'width': width * 2 / 3,
+        \ 'height': height / 3
+        \ }
+
+  call nvim_open_win(buf, v:true, opts)
+endfunction
+
+" Tell fzf to layout upside down
+let g:fzf_layout = { 'window': 'call FloatingFZF()' }
 
 " Customize fzf colors to match your color scheme
 let g:fzf_colors =
@@ -820,32 +842,27 @@ let g:LanguageClient_selectionUI = 'fzf'
 " This will display a location-list window detailing the issues in the file.
 let g:LanguageClient_diagnosticsList = 'Location'
 " Diagnostics display
-let g:LanguageClient_diagnosticsDisplay = {}
-" let g:LanguageClient_diagnosticsDisplay = {
-"     \ '1': { "name": "Error", "texthl": "ALEError", "signText": "❯", "signTexthl": "ALEErrorSign", "virtualTexthl": "Error" },
-"     \ '2': { "name": "Warning", "texthl": "ALEWarning", "signText": "❯", "signTexthl": "ALEWarningSign", "virtualTexthl": "Todo" },
-"     \ '3': { "name": "Info", "texthl": "ALEInfo", "signText": "ℹ", "signTexthl": "ALEInfoSign", "virtualTexthl": "Todo" },
-"     \ '4': { "name": "Hint", "texthl": "ALEInfo", "signText": "ℹ", "signTexthl": "ALEInfoSign", "virtualTexthl": "Todo" },
-"     \ }
+" let g:LanguageClient_diagnosticsDisplay = {}
+let g:LanguageClient_diagnosticsDisplay = {
+    \ '1': { "name": "Error", "texthl": "ALEError", "signText": "❯", "signTexthl": "ALEErrorSign", "virtualTexthl": "Error" },
+    \ '2': { "name": "Warning", "texthl": "ALEWarning", "signText": "❯", "signTexthl": "ALEWarningSign", "virtualTexthl": "Todo" },
+    \ '3': { "name": "Info", "texthl": "ALEInfo", "signText": "ℹ", "signTexthl": "ALEInfoSign", "virtualTexthl": "Todo" },
+    \ '4': { "name": "Hint", "texthl": "ALEInfo", "signText": "ℹ", "signTexthl": "ALEInfoSign", "virtualTexthl": "Todo" },
+    \ }
 
 let g:LanguageClient_hoverPreview = 'Always'
 let g:LanguageClient_useVirtualText = 1
-"
-"
 let g:LanguageClient_autoStart = 1
 let g:LanguageClient_rootMarkers = {
 \ 'javascript': ['.tsconfig.json'],
 \ 'javascript.jsx': ['.tsconfig.json'],
 \ 'typescript': ['.tsconfig.json'],
-\ 'typescript.jsx': ['.tsconfig.json'],
 \ 'typescript.tsx': ['.tsconfig.json'],
 \ }
 let g:LanguageClient_serverCommands = {
 \ 'javascript': ['typescript-language-server', '--stdio'],
 \ 'javascript.jsx': ['typescript-language-server', '--stdio'],
-\ 'typescript': ['typescript-language-server', '--stdio'],
-\ 'typescript.jsx': ['typescript-language-server', '--stdio'],
-\ 'typescript.tsx': ['typescript-language-server', '--stdio']
+\ 'typescript.tsx': ['typescript-language-server', '--stdio'],
 \ }
 
 " let g:LanguageClient_loggingLevel = 'DEBUG'
@@ -898,6 +915,7 @@ let g:ale_linters = {
 " After this is configured, :ALEFix will try and fix your JS code with ESLint.
 let g:ale_fixers = {
 \   '*': ['remove_trailing_lines', 'trim_whitespace'],
+\   'json': ['prettier'],
 \   'typescript': ['eslint', 'prettier'],
 \   'typescript.tsx': ['eslint', 'prettier'],
 \   'javascript': ['eslint', 'prettier', 'prettier_eslint'],
@@ -1165,7 +1183,7 @@ autocmd CursorHold * if getcmdwintype() == '' | checktime | endif
 " autocmd BufWritePre *.js,*.jsx,*.json PrettierAsync
 
 " npm install -g jsonlint
-autocmd BufWritePost *.json Neomake jsonlint
+" autocmd BufWritePost *.json Neomake jsonlint
 " sudo apt-get install elixir
 autocmd BufWritePost *.ex Neomake elixir
 " gcc
