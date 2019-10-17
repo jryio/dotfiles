@@ -16,6 +16,7 @@ export PATH="$HOME/.pyenv/bin:$PATH"
 export PATH="$HOME/.yarn/bin:$PATH"
 # Android
 export ANDROID_HOME=$HOME/Library/Android/sdk
+export PATH=$PATH:$ANDROID_HOME/emulator
 export PATH=$PATH:$ANDROID_HOME/tools
 export PATH=$PATH:$ANDROID_HOME/tools/bin
 export PATH=$PATH:$ANDROID_HOME/platform-tools
@@ -37,7 +38,7 @@ export VIRTUAL_ENV_DISABLE_PROMPT=1
 # Keybase Developer Tools Chrome Extension
 unset KEYBASE_PERF
 export KEYBASE_LOCAL_DEBUG=1
-export KEYBASE_DEV_TOOL_ROOTS="$HOME/Library/Application Support/Google/Chrome/Profile 3/Extensions/hgldghadipiblonfkkicmgcbbijnpeog,$HOME/Library/Application Support/Google/Chrome/Profile 3/Extensions/fmkadmapgofadopljbjfkapdkoienihi"
+export KEYBASE_DEV_TOOL_ROOTS="$HOME/Library/Application Support/Google/Chrome/Default/Extensions/hgldghadipiblonfkkicmgcbbijnpeog,$HOME/Library/Application Support/Google/Chrome/Default/Extensions/fmkadmapgofadopljbjfkapdkoienihi"
 
 # Set name of the theme to load.
 # Look in ~/.oh-my-zsh/themes/
@@ -129,18 +130,19 @@ jobscount() {
   echo "${total}"
 }
 
+# Forwhatever reason, ZSH has an alias to `nocorrect man` in macOS catalina
 unalias man
 # Customize man pages color
 man() {
-    env \
-        LESS_TERMCAP_mb=$'\e[1;31m' \
-        LESS_TERMCAP_md=$'\e[1;31m' \
-        LESS_TERMCAP_me=$'\e[0m' \
-        LESS_TERMCAP_se=$'\e[0m' \
-        LESS_TERMCAP_so=$'\e[1;44;33m' \
-        LESS_TERMCAP_ue=$'\e[0m' \
-        LESS_TERMCAP_us=$'\e[1;32m' \
-            man "$@"
+  env \
+      LESS_TERMCAP_mb=$'\e[1;31m' \
+      LESS_TERMCAP_md=$'\e[1;31m' \
+      LESS_TERMCAP_me=$'\e[0m' \
+      LESS_TERMCAP_se=$'\e[0m' \
+      LESS_TERMCAP_so=$'\e[1;44;33m' \
+      LESS_TERMCAP_ue=$'\e[0m' \
+      LESS_TERMCAP_us=$'\e[1;32m' \
+          man "$@"
 }
 
 # Set personal aliases, overriding those provided by oh-my-zsh libs,
@@ -162,6 +164,7 @@ alias gdc='git difftool --cached'
 alias grbsign="git rebase --exec 'git commit --amend --no-edit -n -S' -i"
 alias ggpush='git push -u origin $(git_current_branch)'
 alias bgrep='/usr/bin/grep --color=auto --exclude-dir={.bzr,CVS,.git,.hg,.svn}'
+
 
 
 # ===============================================
