@@ -219,7 +219,7 @@ set nojoinspaces                            " No extra space when joining a line
 set scrolloff=5                             " Scroll when closing to top or bottom of the screen
 set updatetime=1000                         " Update time used to create swap file or other things
 set suffixesadd+=.js,.rb                    " Add js and ruby files to suffixes
-" set cursorline                              " Highlight the active line but only style the line number highlight
+set cursorline                              " Highlight the active line but only style the line number highlight
 
 " --------------------------------------------------
 " 2.1 Split settings (more natural)
@@ -843,22 +843,12 @@ let g:LanguageClient_rootMarkers = {
 let g:LanguageClient_serverCommands = {
 \ 'javascript': ['typescript-language-server', '--stdio'],
 \ 'javascript.jsx': ['typescript-language-server', '--stdio'],
-\ 'typescript': ['typescript-language-server', '--stdio'],
-\ 'typescript.jsx': ['typescript-language-server', '--stdio'],
 \ 'typescript.tsx': ['typescript-language-server', '--stdio']
 \ }
 
 " let g:LanguageClient_loggingLevel = 'DEBUG'
 " let g:LanguageClient_loggingFile = '/tmp/LanguageClient.log'
 " let g:LanguageClient_serverStderr = '/tmp/LanguageServer.log'
-
-" -----------------------------------------------------
-" 4.19 vim-prettier
-" -----------------------------------------------------
-" let g:prettier#exec_cmd_path=g:kb_prettier
-" let g:prettier#exec_cmd_async=1
-" let g:prettier#quickfix_enabled=0
-" let g:prettier#quickfix_auto_focus=0
 
 " -----------------------------------------------------
 " 4.19 ALE
@@ -898,6 +888,7 @@ let g:ale_linters = {
 " After this is configured, :ALEFix will try and fix your JS code with ESLint.
 let g:ale_fixers = {
 \   '*': ['remove_trailing_lines', 'trim_whitespace'],
+\   'json': ['prettier'],
 \   'typescript': ['eslint', 'prettier'],
 \   'typescript.tsx': ['eslint', 'prettier'],
 \   'javascript': ['eslint', 'prettier', 'prettier_eslint'],
@@ -1165,7 +1156,8 @@ autocmd CursorHold * if getcmdwintype() == '' | checktime | endif
 " autocmd BufWritePre *.js,*.jsx,*.json PrettierAsync
 
 " npm install -g jsonlint
-autocmd BufWritePost *.json Neomake jsonlint
+" autocmd BufWritePost *.json Neomake jsonlint
+
 " sudo apt-get install elixir
 autocmd BufWritePost *.ex Neomake elixir
 " gcc

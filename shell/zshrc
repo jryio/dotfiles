@@ -129,6 +129,7 @@ jobscount() {
   echo "${total}"
 }
 
+unalias man
 # Customize man pages color
 man() {
     env \
@@ -170,7 +171,7 @@ alias bgrep='/usr/bin/grep --color=auto --exclude-dir={.bzr,CVS,.git,.hg,.svn}'
 # Keybase ZSHRC scripts for setup
 # Note: This file is stored in a pricvate keybase directory. In order for ZSH
 # to pick up on this file, the KBFS volume will need to be mounted
-source /keybase/private/jacobyoung/dotfiles/.zshrc.keybase
+source /Volumes/Keybase/private/jacobyoung/dotfiles/.zshrc.keybase
 
 # Iterm iterm shell integration
 test -e "${HOME}/.iterm2_shell_integration.zsh" && source "${HOME}/.iterm2_shell_integration.zsh"
