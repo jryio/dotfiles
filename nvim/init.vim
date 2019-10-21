@@ -825,7 +825,7 @@ let g:user_emmet_settings = {
 \  },
 \}
 
-autocmd FileType html,css,javascript.jsx EmmetInstall
+" autocmd FileType html,css,javascript.jsx EmmetInstall
 " -----------------------------------------------------
 " 4.20 Language Server
 " -----------------------------------------------------
