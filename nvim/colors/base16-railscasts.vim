@@ -231,8 +231,10 @@ call <sid>hi("phpParent",          s:gui05, "", s:cterm05, "", "")
 " HTML highlighting
 call <sid>hi("htmlBold",    s:gui0A, "", s:cterm0A, "", "")
 call <sid>hi("htmlItalic",  s:gui0E, "", s:cterm0E, "", "")
-call <sid>hi("htmlEndTag",  s:gui05, "", s:cterm05, "", "")
+call <sid>hi("htmlEndTag",  s:gui05, "", s:cterm09, "", "")
 call <sid>hi("htmlTag",     s:gui05, "", s:cterm05, "", "")
+call <sid>hi("htmlTagName",     s:gui05, "", s:cterm09, "", "")
+call <sid>hi("htmlArg",     s:gui05, "", s:cterm0E, "", "")
 
 " CSS highlighting
 call <sid>hi("cssBraces",      s:gui05, "", s:cterm05, "", "")

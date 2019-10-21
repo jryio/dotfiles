@@ -62,16 +62,10 @@ Plug 'pangloss/vim-javascript'
 "   new package: https://github.com/amadeus/vim-jsx
 Plug 'mxw/vim-jsx', { 'for': ['jsx', 'javascript.jsx'] }
 
-"Plug 'amadeus/vim-jsx', { 'for': ['jsx', 'javascript.jsx', 'typescript.tsx'] }
+" Typescript syntax highlighting
 Plug 'leafgarland/typescript-vim'
-
-" TESTING if this actually works
-Plug 'ianks/vim-tsx'
-
 "" This syntax highlighter also handles the react fragments syntax as well
 Plug 'peitalin/vim-jsx-typescript'
-""Typescript syntax support
-" Plug 'amadeus/vim-xml'
 
 "JSON syntax
 Plug 'sheerun/vim-json'
@@ -99,7 +93,7 @@ Plug 'elmcast/elm-vim'
 " HTML5 syntax
 Plug 'othree/html5.vim'
 " Emmett HTML completion
-Plug 'mattn/emmet-vim', { 'for': ['javascript.jsx', 'html', 'css'] }
+" Plug 'mattn/emmet-vim', { 'for': ['javascript.jsx', 'html', 'css'] }
 " HTML Tag Closing
 Plug 'alvan/vim-closetag'
 " SCSS syntax
@@ -815,7 +809,7 @@ let g:javascript_plugin_jsdoc=1
 let g:javascript_plugin_flow=1
 
 " -----------------------------------------------------
-" 4.18 vim-javascript settings
+" 4.19 vim-javascript settings
 " -----------------------------------------------------
 
 " Sets emmet to use JSX despite the javascript file extension
@@ -823,16 +817,17 @@ let g:user_emmet_install_global=0
 let g:user_emmet_settings = {
 \  'javascript.jsx' : {
 \      'extends' : 'jsx',
+\      'quote_char': "'",
 \  },
 \  'javascript': {
 \      'extends' : 'jsx',
+\      'quote_char': "'",
 \  },
 \}
 
 autocmd FileType html,css,javascript.jsx EmmetInstall
-
 " -----------------------------------------------------
-" 4.18 Language Server
+" 4.20 Language Server
 " -----------------------------------------------------
 
 " Use fzf as the selection UI
@@ -870,7 +865,7 @@ let g:LanguageClient_serverCommands = {
 " let g:LanguageClient_serverStderr = '/tmp/LanguageServer.log'
 
 " -----------------------------------------------------
-" 4.19 ALE
+" 4.21 ALE
 " -----------------------------------------------------
 
 " Set this setting in vimrc if you want to fix files automatically on save. This is off by default.
@@ -924,7 +919,7 @@ let g:ale_pattern_options = {
 
 
 " -----------------------------------------------------
-" 4.20 (Blaze it) Vim Quickfix
+" 4.22 (Blaze it) Vim Quickfix
 " -----------------------------------------------------
 let g:qf_window_bottom = 0
 let g:qf_loclist_window_bottom = 0
@@ -934,6 +929,35 @@ let g:qf_auto_open_loclist = 0
 
 let g:qf_auto_quit = 0
 
+" -----------------------------------------------------
+" 4.23 Closetag
+" -----------------------------------------------------
+" These are the file extensions where this plugin is enabled.
+let g:closetag_filenames = '*.html,*.xhtml,*.jsx,*.tsx'
+
+" This will make the list of non-closing tags self-closing in the specified files.
+let g:closetag_xhtml_filenames = '*.xhtml,*.jsx,*.tsx'
+
+" These are the file types where this plugin is enabled.
+let g:closetag_filetypes = 'html,jsx,tsx,typescript.tsx'
+
+" This will make the list of non-closing tags self-closing in the specified files.
+let g:closetag_xhtml_filetypes = 'xhtml,jsx,typescript.tsx,tsx'
+
+" This will make the list of non-closing tags case-sensitive (e.g. `<Link>` will be closed while `<link>` won't.)
+let g:closetag_emptyTags_caseSensitive = 1
+
+" Disables auto-close if not in a "valid" region (based on filetype)
+let g:closetag_regions = {
+    \ 'typescript.tsx': 'jsxRegion,tsxRegion',
+    \ 'javascript.jsx': 'jsxRegion',
+    \ }
+
+" Shortcut for closing tags, default is '>'
+let g:closetag_shortcut = '>'
+
+" Add > at current position without closing the current tag, default is ''
+" let g:closetag_close_shortcut = '<leader>>'
 " ==================================================
 " 5.0 Plugin mappings
 " ==================================================
@@ -1097,6 +1121,12 @@ hi Tag        ctermfg=04
 hi xmlTag     ctermfg=04
 hi xmlTagName ctermfg=04
 hi xmlEndTag  ctermfg=04
+
+" This is to set OperatorMono font italics on html arguments and comments
+" Source: https://github.com/jwilm/alacritty/issues/489#issuecomment-288074579
+highlight Comment cterm=italic term=italic gui=italic
+highlight htmlArg cterm=italic term=italic gui=italic
+highlight xmlAttrib cterm=italic term=italic gui=italic
 
 " Highlight VCS conflict markers
 match ErrorMsg '^\(<\|=\|>\)\{7\}\([^=].\+\)\?$'

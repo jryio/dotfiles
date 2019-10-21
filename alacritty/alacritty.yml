@@ -10,7 +10,15 @@ env:
   # each instance of Alacritty. If it is not present, alacritty will
   # check the local terminfo database and use 'alacritty' if it is
   # available, otherwise 'xterm-256color' is used.
-  TERM: xterm-256color
+  #
+  # CUSTOM
+  # Decided to use OperatorMono in neovim and terminal.
+  # Made a custom xterm color scheme to set the italics font
+  #
+  # Source: https://github.com/jwilm/alacritty/issues/489#issuecomment-288074579
+  #
+  # Compiled with `tic xterm-256color-italic.terminfo`
+  TERM: xterm-256color-italic
 
 window:
   # Window dimensions (changes require restart)
@@ -77,17 +85,22 @@ scrolling:
 # change the `it` value in terminfo when altering this setting.
 tabspaces: 8
 
+# Example repository
+# https://github.com/nicknisi/dotfiles
 font:
   normal:
-    family: SF Mono
-    style: Light
+    family: Operator Mono
+    style: Book
   bold:
-    family: SF Mono
-    style: Regular
+    family: Operator Mono
+    style: Medium
+  italic:
+    family: Operator Mono
+    style: Book Italic
 
 
   # Point size
-  size: 12.0
+  size: 13.0
 
   # Offset is the extra space around each character. `offset.y` can be thought of
   # as modifying the line spacing, and `offset.x` as modifying the letter spacing.
@@ -112,7 +125,7 @@ font:
 # render_timer: false
 
 # If `true`, bold text is drawn using the bright color variants.
-draw_bold_text_with_bright_colors: false
+draw_bold_text_with_bright_colors: true
 
 
 # Base16 Ocean 256 - alacritty color config
