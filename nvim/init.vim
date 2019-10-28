@@ -592,28 +592,47 @@ let g:utils_autoswitch_kb_layout=0
 
 let $FZF_DEFAULT_OPTS='--layout=reverse'
 
+" Original measurements
 " https://kassioborges.dev/2019/04/10/neovim-fzf-with-a-floating-window.html
-function! FloatingFZF()
-  let buf = nvim_create_buf(v:false, v:true)
-  call setbufvar(buf, '&signcolumn', 'no')
-
+"
+" Borders
+" https://github.com/neovim/neovim/issues/9718#issuecomment-546603628
+function! FloatingFZF(border)
   let height = &lines - 3
-  let width = float2nr(&columns - (&columns * 2 / 4))
+  let width = float2nr(&columns - (&columns * 2 / 3))
   let col = float2nr((&columns - width) / 2)
-
+  let top = ((&lines - height) / 2) - 1
+  let left = (&columns - width) / 2
   let opts = {
         \ 'relative': 'editor',
-        \ 'row': height * 0.25,
-        \ 'col': col + 30,
-        \ 'width': width * 2 / 3,
-        \ 'height': height / 3
+        \ 'row': top,
+        \ 'col': left,
+        \ 'width': width,
+        \ 'height': height,
+        \ 'style': 'minimal'
         \ }
-
-  call nvim_open_win(buf, v:true, opts)
+  if a:border == v:true
+    let top = "╭" . repeat("─", width - 2) . "╮"
+    let mid = "│" . repeat(" ", width - 2) . "│"
+    let bot = "╰" . repeat("─", width - 2) . "╯"
+    let lines = [top] + repeat([mid], height - 2) + [bot]
+    let s:buf = nvim_create_buf(v:false, v:true)
+    call nvim_buf_set_lines(s:buf, 0, -1, v:true, lines)
+    call nvim_open_win(s:buf, v:true, opts)
+    set winhl=Normal:Normal
+    let opts.row += 1
+    let opts.height -= 2
+    let opts.col += 2
+    let opts.width -= 4
+    call nvim_open_win(nvim_create_buf(v:false, v:true), v:true, opts)
+    au BufWipeout <buffer> exe 'bw '.s:buf
+  else
+    call nvim_open_win(nvim_create_buf(v:false, v:true), v:true, opts)
+  endif
 endfunction
 
 " Tell fzf to layout upside down
-let g:fzf_layout = { 'window': 'call FloatingFZF()' }
+let g:fzf_layout = { 'window': 'call FloatingFZF(v:true)' }
 
 " Customize fzf colors to match your color scheme
 let g:fzf_colors =
