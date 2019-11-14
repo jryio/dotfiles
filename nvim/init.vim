@@ -123,6 +123,8 @@ Plug 'martin-svk/vim-yaml'
 Plug 'tpope/vim-markdown'
 " Git syntax
 Plug 'tpope/vim-git'
+" Git Blame (virtualtext support)
+Plug 'tveskag/nvim-blame-line'
 " Tmux syntax
 Plug 'keith/tmux.vim'
 " Dockerfile
@@ -994,9 +996,9 @@ nnoremap <space>b :Buffers<CR>
 " nnoremap <space>S :NeoSnippetEdit<CR>
 
 " Mapping selecting mappings
-nmap <leader><tab> <plug>(fzf-maps-n)
-xmap <leader><tab> <plug>(fzf-maps-x)
-omap <leader><tab> <plug>(fzf-maps-o)
+nmap <space><tab> <plug>(fzf-maps-n)
+xmap <space><tab> <plug>(fzf-maps-x)
+omap <space><tab> <plug>(fzf-maps-o)
 
 
 autocmd! FileType fzf tnoremap <buffer> <Esc> <C-c>

@@ -1,3 +1,10 @@
+# Profiing
+# Reference: https://blog.jonlu.ca/posts/speeding-up-zsh
+# zmodload zsh/zprof
+
+# Important that use of sandboxd is sourced before oh-my-zsh so that it will
+# use the lazy loaded versions of these commands
+source $HOME/sandboxd
 # Path to your oh-my-zsh installation.
 export ZSH=~/.oh-my-zsh
 
@@ -65,17 +72,20 @@ export UPDATE_ZSH_DAYS=4
 DISABLE_AUTO_TITLE="true"
 
 # Uncomment the following line to enable command auto-correction.
-
 ENABLE_CORRECTION="true"
 
 # Uncomment the following line to display red dots whilst waiting for completion.
-
 COMPLETION_WAITING_DOTS="true"
 
 # Uncomment the following line if you want to disable marking untracked files
 # under VCS as dirty. This makes repository status check for large repositories
 # much, much faster.
-# DISABLE_UNTRACKED_FILES_DIRTY="true"
+DISABLE_UNTRACKED_FILES_DIRTY="true"
+
+# Other performance improvements
+# Reference: https://github.com/jonluca/dotfiles/blob/master/.zshrc
+skip_global_compinit=1
+ZSH_DISABLE_COMPFIX=true
 
 # Uncomment the following line if you want to change the command execution time
 # stamp shown in the history command output.
@@ -89,7 +99,6 @@ COMPLETION_WAITING_DOTS="true"
 # Custom plugins may be added to ~/.oh-my-zsh/custom/plugins/
 # Example format: plugins=(rails git textmate ruby lighthouse)
 # Add wisely, as too many plugins slow down shell startup.
-
 plugins=(
   git
   osx
@@ -98,8 +107,6 @@ plugins=(
   jsontools
   mix
   rsync
-  zsh-zyntax-highlighting
-  zsh-autosuggestions
 )
 
 
@@ -165,8 +172,6 @@ alias grbsign="git rebase --exec 'git commit --amend --no-edit -n -S' -i"
 alias ggpush='git push -u origin $(git_current_branch)'
 alias bgrep='/usr/bin/grep --color=auto --exclude-dir={.bzr,CVS,.git,.hg,.svn}'
 
-
-
 # ===============================================
 # SOURCES
 # ===============================================
@@ -189,8 +194,8 @@ eval "$(pyenv virtualenv-init -)"
 
 # Node Version Manager
 export NVM_DIR="$HOME/.nvm"
-[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
-[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
+# [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
+# [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
 
 # Ruby Environment initialization
 eval "$(rbenv init -)"
@@ -250,3 +255,13 @@ SPACESHIP_GIT_STATUS_UNMERGED="="
 SPACESHIP_GIT_STATUS_AHEAD="⇡"
 SPACESHIP_GIT_STATUS_BEHIND="⇣"
 SPACESHIP_GIT_STATUS_DIVERGED="⇕"
+# NODE
+SPACESHIP_NODE_DEFAULT_VERSION="11.10.1"
+
+
+autoload -Uz compinit
+compinit
+
+# Profiing
+# Reference: https://blog.jonlu.ca/posts/speeding-up-zsh
+# zprof
