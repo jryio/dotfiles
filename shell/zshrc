@@ -107,6 +107,8 @@ plugins=(
   jsontools
   mix
   rsync
+  # TODO: Need to handle TMUX env (see README)
+  # notify
 )
 
 
@@ -129,6 +131,7 @@ function cs()
     cd "$*" && ll
   fi
 }
+
 
 jobscount() {
   # local stopped=$(jobs -sp | wc -l)

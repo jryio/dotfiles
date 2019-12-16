@@ -1,0 +1,7 @@
+#!/usr/bin/env bash
+set -e # errexit
+set -u # nounset
+set -x # echo
+
+# go test -v -run "^$1" 2>&1 | tee /tmp/test.log
+go test -v -run "^$1" 2>&1 | tee /tmp/test.log | grep -E "=== RUN|--- FAIL"

@@ -1,0 +1,12 @@
+#!/usr/bin/env bash
+set -e # errexit
+set -u # nounset
+set -x # echo
+
+# ldflags from back when Go and Xcode were feuding.
+# Delete this if it hasn't been a problem for a while.
+# go test -ldflags -s -v -run "^$1\$" 2>&1 | tee /tmp/test.log
+
+query="$1"
+shift
+go test -v -run "^$query\$" $@ 2>&1 | tee /tmp/test.log

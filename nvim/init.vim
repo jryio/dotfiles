@@ -72,19 +72,15 @@ Plug 'sheerun/vim-json'
 " JSON5 syntax
 Plug 'GutenYe/json5.vim'
 
-
-
-" Autocomplete using flow (npm install -g flow-bin)
-" Plug 'wokalski/autocomplete-flow'
-" Add flow typing support
-" Plug 'flowtype/vim-flow'
-" Prettier vim
-" Plug 'prettier/vim-prettier', { 'for': ['javascript', 'javascript.jsx', 'typescript', 'css', 'less', 'scss', 'json'] }
-
 " --------------------------------------------------
 " 1.2.1 Elm
 " --------------------------------------------------
 Plug 'elmcast/elm-vim'
+
+" --------------------------------------------------
+" 1.2.1 Coffee Script
+" --------------------------------------------------
+Plug 'kchmck/vim-coffee-script'
 
 " --------------------------------------------------
 " 1.3 HTML/CSS
@@ -723,6 +719,13 @@ let g:lightline = {
       \ 'subseparator': { 'left': '', 'right': '' }
       \ }
 
+" Changes the lightline middle color for the active buffer
+" This helps a lot with finding out which split is active
+" Howver it's confusing as to which 256 color is magenta (the one set in alacritty.yaml)
+let s:palette = g:lightline#colorscheme#{g:lightline.colorscheme}#palette
+let s:palette.inactive.middle =  [ [ 'NONE', 'NONE', 'NONE', 'NONE', ] ]
+let s:palette.normal.middle = [ [ "#fad07a", "#fad07a", 252, 252 ] ]
+
 " -----------------------------------------------------
 " 4.8.0 Elm Settings
 " -----------------------------------------------------
@@ -1187,6 +1190,8 @@ autocmd BufNewFile,BufRead,BufReadPost *.flow set filetype=javascript.jsx
 
 " Set *.tsx files to be tsx filetype
 autocmd BufNewFile,BufRead *.tsx set filetype=typescript.tsx
+" Set *.ts
+autocmd BufNewFile,BufRead *.iced set filetype=coffee
 
 " Turn spellcheck on for markdown files
 autocmd BufNewFile,BufRead *.md setlocal spell
