@@ -723,8 +723,10 @@ let g:lightline = {
 " This helps a lot with finding out which split is active
 " Howver it's confusing as to which 256 color is magenta (the one set in alacritty.yaml)
 let s:palette = g:lightline#colorscheme#{g:lightline.colorscheme}#palette
-let s:palette.inactive.middle =  [ [ 'NONE', 'NONE', 'NONE', 'NONE', ] ]
-let s:palette.normal.middle = [ [ "#fad07a", "#fad07a", 252, 252 ] ]
+" Active buffer gets yellow middle bar color
+let s:palette.normal.middle = [ [ "#fad07a", "#fad07a", 222, 222 ] ]
+" Inctive buffers get usual middle bar color
+let s:palette.inactive.middle = [ [ "#30302c", "#30302c", 236, 236 ] ]
 
 " -----------------------------------------------------
 " 4.8.0 Elm Settings
