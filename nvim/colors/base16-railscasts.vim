@@ -143,7 +143,7 @@ call <sid>hi("Search",        s:gui03, s:gui0A, s:cterm03, s:cterm0A,  "")
 call <sid>hi("SpecialKey",    s:gui03, "", s:cterm03, "", "")
 call <sid>hi("TooLong",       s:gui08, "", s:cterm08, "", "")
 call <sid>hi("Underlined",    s:gui08, "", s:cterm08, "", "")
-call <sid>hi("Visual",        "", s:gui02, "", s:cterm02, "")
+call <sid>hi("Visual",        "", s:gui02, s:cterm00, s:cterm02, "")
 call <sid>hi("VisualNOS",     s:gui08, "", s:cterm08, "", "")
 call <sid>hi("WarningMsg",    s:gui08, "", s:cterm08, "", "")
 call <sid>hi("WildMenu",      s:gui08, "", s:cterm08, "", "")
@@ -162,8 +162,8 @@ call <sid>hi("ColorColumn",   "", s:gui01, "", s:cterm01, "none")
 call <sid>hi("CursorColumn",  "", s:gui01, "", s:cterm01, "none")
 call <sid>hi("CursorLine",    "", "", "", "", "none")
 call <sid>hi("CursorLineNr",  s:gui00, s:gui0B, s:cterm00, s:cterm0B, "")
-call <sid>hi("PMenu",         s:gui04, s:gui01, s:cterm04, s:cterm01, "none")
-call <sid>hi("PMenuSel",      s:gui01, s:gui04, s:cterm01, s:cterm04, "")
+call <sid>hi("PMenu",         s:gui04, s:gui01, s:cterm05, s:cterm03, "none")
+call <sid>hi("PMenuSel",      s:gui01, s:gui04, s:cterm00, s:cterm02, "")
 call <sid>hi("TabLine",       s:gui03, s:gui01, s:cterm03, s:cterm01, "none")
 call <sid>hi("TabLineFill",   s:gui03, s:gui01, s:cterm03, s:cterm01, "none")
 call <sid>hi("TabLineSel",    s:gui0B, s:gui01, s:cterm0B, s:cterm01, "none")
@@ -277,10 +277,18 @@ call <sid>hi("SignifySignDelete",  s:gui08, s:gui01, s:cterm08, s:cterm01, "")
 call <sid>hi("NERDTreeDirSlash",  s:gui0D, "", s:cterm0D, "", "")
 call <sid>hi("NERDTreeExecFile",  s:gui05, "", s:cterm05, "", "")
 
+" COC Highlighting
+call <sid>hi("CocInfoSign",       s:gui08, "", s:cterm01, "", "")
+call <sid>hi("CocWarningSign",    s:gui08, "", s:cterm02, "", "")
+call <sid>hi("CocErrorSign",      s:gui08, s:gui00, s:cterm08, s:cterm00, "")
+call <sid>hi("CocHighlightText",  "", s:gui02, s:cterm00, s:cterm02, "")
+
+
 " Remove functions
 delf <sid>hi
 delf <sid>gui
 delf <sid>cterm
+
 
 " Remove color variables
 unlet s:gui00 s:gui01 s:gui02 s:gui03  s:gui04  s:gui05  s:gui06  s:gui07  s:gui08  s:gui09 s:gui0A  s:gui0B  s:gui0C  s:gui0D  s:gui0E  s:gui0F

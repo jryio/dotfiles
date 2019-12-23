@@ -169,6 +169,7 @@ alias irb='irb --simple-prompt'
 
 alias kk='clear'
 alias gc='git commit -v -S'
+alias gcob='gco -b'
 alias gd='git difftool'
 alias gdc='git difftool --cached'
 alias grbsign="git rebase --exec 'git commit --amend --no-edit -n -S' -i"

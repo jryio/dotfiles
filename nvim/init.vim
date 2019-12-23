@@ -16,6 +16,7 @@ call plug#begin('~/.config/nvim/plugged')
 let kb_flow=$HOME."/go/src/github.com/keybase/client/shared/node_modules/.bin/flow"
 let kb_prettier=$HOME."/go/src/github.com/keybase/client/shared/node_modules/.bin/prettier"
 
+" ==================================================
 " 1.0 Plug List
 " ==================================================
 
@@ -27,10 +28,6 @@ let kb_prettier=$HOME."/go/src/github.com/keybase/client/shared/node_modules/.bi
 Plug 'romainl/vim-qf'
 " Async maker for different file types
 Plug 'benekastah/neomake', { 'on': ['Neomake'] }
-" Async linting
-Plug 'w0rp/ale'
-" Autocomplete
-Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
 " Automatically closing pair stuff
 Plug 'jiangmiao/auto-pairs'
 " Commenting support (gc)
@@ -41,16 +38,12 @@ Plug 'bkad/CamelCaseMotion'
 Plug 'tpope/vim-sleuth'
 " Snippet support
 Plug 'Shougo/neosnippet.vim'
-" Language Server Client
-Plug 'autozimu/LanguageClient-neovim', {
-    \ 'branch': 'next',
-    \ 'do': 'bash install.sh',
-    \ }
+" Autocomplete COC (Conquerer of Completion)
+Plug 'neoclide/coc.nvim', {'branch': 'release'}
 
 " --------------------------------------------------
 " 1.2 JavaScript
 " --------------------------------------------------
-
 " Moder JS support (indent, syntax, etc)
 Plug 'pangloss/vim-javascript'
 
@@ -66,7 +59,6 @@ Plug 'mxw/vim-jsx', { 'for': ['jsx', 'javascript.jsx'] }
 Plug 'leafgarland/typescript-vim'
 "" This syntax highlighter also handles the react fragments syntax as well
 Plug 'peitalin/vim-jsx-typescript'
-
 "JSON syntax
 Plug 'sheerun/vim-json'
 " JSON5 syntax
@@ -105,14 +97,8 @@ Plug 'lilydjwg/colorizer', { 'for': ['css', 'sass', 'scss', 'less', 'html', 'xde
 Plug 'elixir-lang/vim-elixir'
 " Ruby
 Plug 'vim-ruby/vim-ruby'
-" Ruby Deoplete
-Plug 'fishbullet/deoplete-ruby'
-" Rust
-Plug 'rust-lang/rust.vim'
-" Rust Deoplete
-Plug 'sebastianmarkow/deoplete-rust'
 " Ruby end completion
-Plug 'tpope/vim-endwise'
+" Plug 'tpope/vim-endwise'
 " Yaml indentation
 Plug 'martin-svk/vim-yaml'
 " Markdown syntax
@@ -201,7 +187,7 @@ set clipboard+=unnamed                      " Allow to use system clipboard
 
                                             " As it turns out, there is a negative performce issue when having lazy redraw
                                             " on while use tmux. It causes an ugly redraw that makes the entire pane blank
-set lazyredraw                              " Don't redraw while executing macros (better performance)
+set nolazyredraw                            " Don't redraw while executing macros (better performance)
 
 set showmatch                               " Show matching brackets when text indicator is over them
 set matchtime=2                             " How many tenths of a second to blink when matching brackets
@@ -209,10 +195,10 @@ set nostartofline                           " Prevent cursor from moving to begi
 set virtualedit=block                       " To be able to select past EOL in visual block mode
 set nojoinspaces                            " No extra space when joining a line which ends with . ? !
 set scrolloff=5                             " Scroll when closing to top or bottom of the screen
-set updatetime=1000                         " Update time used to create swap file or other things
+set updatetime=300                          " Update time used to create swap file or other things
 set suffixesadd+=.js,.rb                    " Add js and ruby files to suffixes
 set cursorline                              " Highlight the active line but only style the line number highlight
-
+set shortmess+=c                            " From COC: don't give |ins-completion-menu| messages.
 " --------------------------------------------------
 " 2.1 Split settings (more natural)
 " --------------------------------------------------
@@ -560,10 +546,6 @@ cnoremap qq qall
 " command! Run :call utils#runCurrentFile()
 " nnoremap <silent> ,r :Run<CR>
 
-" " Reformat whole or selection from file
-" command! Format :call utils#formatFile()
-" nnoremap <silent> ,f :Format<CR>
-
 " " Annotate file (show values in special # => comments)
 " command! Annotate :call utils#annotateFile()
 " nnoremap <silent> ,A :Annotate<CR>
@@ -586,8 +568,6 @@ let g:utils_autoswitch_kb_layout=0
 " -----------------------------------------------------
 " 4.2 FZF
 " -----------------------------------------------------
-
-
 let $FZF_DEFAULT_OPTS='--layout=reverse'
 
 " Original measurements
@@ -697,7 +677,8 @@ let g:lightline = {
       \ },
       \ 'active': {
       \   'left': [ [ 'mode', 'paste' ], [ 'readonly', 'filename' ], [ 'session' ] ],
-      \   'right': [ [ 'lineinfo' ], [ 'percent' ], [ 'filetype', 'fileencoding', 'fileformat' ] ]
+      \   'middle': [ ['readonly', 'cocstatus', 'currentfunction'] ],
+      \   'right': [ [ 'lineinfo' ], [ 'percent' ], [ 'filetype', 'fileencoding' ] ]
       \ },
       \ 'component': {
       \   'readonly': '%{&filetype=="help"?"HELP":&readonly?"RO":""}'
@@ -705,9 +686,9 @@ let g:lightline = {
       \ 'component_function': {
       \   'mode': 'utils#lightLineMode',
       \   'filename': 'utils#lightLineFilename',
-      \   'filetype': 'utils#lightLineFiletype',
-      \   'fileformat': 'utils#lightLineFileformat',
-      \   'fileencoding': 'utils#lightLineFileencoding'
+      \   'fileencoding': 'utils#lightLineFileencoding',
+      \   'cocstatus': 'coc#status',
+      \   'currentfunction': 'CocCurrentFunction',
       \ },
       \ 'component_expand': {
       \   'session': 'utils#lightLineSession'
@@ -724,7 +705,7 @@ let g:lightline = {
 " Howver it's confusing as to which 256 color is magenta (the one set in alacritty.yaml)
 let s:palette = g:lightline#colorscheme#{g:lightline.colorscheme}#palette
 " Active buffer gets yellow middle bar color
-let s:palette.normal.middle = [ [ "#fad07a", "#fad07a", 222, 222 ] ]
+let s:palette.normal.middle = [ [ "#30302c", "#fad07a", 236, 222 ] ]
 " Inctive buffers get usual middle bar color
 let s:palette.inactive.middle = [ [ "#30302c", "#30302c", 236, 236 ] ]
 
@@ -762,43 +743,12 @@ let g:vrc_set_default_mapping=0
 let g:vrc_output_buffer_name='__RESPONSE__.rest'
 
 " -----------------------------------------------------
-" 4.11 Deoplete autocomplete settings
-" -----------------------------------------------------
-set runtimepath+=~/.config/nvim/plugged/deoplete.nvim/
-let g:deoplete#enable_at_startup=1
-let g:deoplete#enable_refresh_always=0
-let g:deoplete#file#enable_buffer_path=1
-
-" autocmd InsertLeave,CompleteDone * if pumvisible() == 0 | pclose | endif
-let g:deoplete#sources={}
-let g:deoplete#sources._= ['around', 'member', 'buffer', 'file']
-let g:deoplete#sources#rust#racer_binary=$HOME."/.cargo/bin/racer"
-let g:deoplete#sources#rust#rust_source_path=$HOME."/.rust/rust/src"
-let g:deoplete#sources.ruby=['around', 'buffer', 'member', 'file', 'neosnippet' ]
-let g:deoplete#sources.vim=['around', 'buffer', 'member', 'file', 'neosnippet' ]
-let g:deoplete#sources['javascript.jsx']=['flow', 'neosnippet', 'member', 'buffer', 'file']
-let g:deoplete#sources.javascript=['flow', 'neosnippet', 'member', 'buffer', 'file']
-let g:deoplete#sources.css=['around', 'buffer', 'member', 'file', 'omni']
-let g:deoplete#sources.scss=['around', 'buffer', 'member', 'file', 'omni']
-let g:deoplete#sources.html=['around', 'buffer', 'member', 'file', 'omni']
-
-" -----------------------------------------------------
-" 4.12 Ctrl-SF settings
-" -----------------------------------------------------
-let g:ctrlsf_default_root='project'
-let g:ctrlsf_populate_qflist=0
-let g:ctrlsf_position='bottom'
-let g:ctrlsf_winsize = '30%'
-let g:ctrlsf_auto_close=0
-let g:ctrlsf_regex_pattern=0
-
-" -----------------------------------------------------
-" 4.13 Plug settings
+" 4.12 Plug settings
 " -----------------------------------------------------
 let g:plug_timeout=20
 
 " -----------------------------------------------------
-" 4.14 Vim-markdown settings
+" 4.13 Vim-markdown settings
 " -----------------------------------------------------
 let g:markdown_fenced_languages=[
       \'bash=sh',
@@ -811,141 +761,49 @@ let g:markdown_fenced_languages=[
       \'xdefaults',
       \'zsh']
 
-" 4.15 Colorizer settings
+" -----------------------------------------------------
+" 4.14 Colorizer settings
 " -----------------------------------------------------
 let g:colorizer_nomap=1
 
-" 4.16 JsDoc settings
+" -----------------------------------------------------
+" 4.15 JsDoc settings
 " -----------------------------------------------------
 let g:jsdoc_allow_input_prompt=1
 let g:jsdoc_input_description=1
 let g:jsdoc_enable_es6=1
 
 " -----------------------------------------------------
-" 4.17 Deoplete-tern settings
+" 4.16 Deoplete-tern settings
 " -----------------------------------------------------
 " let g:tern_request_timeout=1
 " let g:tern_show_signature_in_pum=1
 
 " -----------------------------------------------------
-" 4.18 vim-javascript settings
+" 4.17 vim-javascript settings
 " -----------------------------------------------------
 " Syntax highlighting
 let g:javascript_plugin_jsdoc=1
 let g:javascript_plugin_flow=1
 
 " -----------------------------------------------------
-" 4.19 vim-javascript settings
+" 4.18 COC Extensions
 " -----------------------------------------------------
-
-" Sets emmet to use JSX despite the javascript file extension
-let g:user_emmet_install_global=0
-let g:user_emmet_settings = {
-\  'javascript.jsx' : {
-\      'extends' : 'jsx',
-\      'quote_char': "'",
-\  },
-\  'javascript': {
-\      'extends' : 'jsx',
-\      'quote_char': "'",
-\  },
-\}
-
-" autocmd FileType html,css,javascript.jsx EmmetInstall
-" -----------------------------------------------------
-" 4.20 Language Server
-" -----------------------------------------------------
-
-" Use fzf as the selection UI
-let g:LanguageClient_selectionUI = 'fzf'
-
-" Enable / Disable LangaugeClient diagnostics
-" This will display a location-list window detailing the issues in the file.
-let g:LanguageClient_diagnosticsList = 'Location'
-" Diagnostics display
-" let g:LanguageClient_diagnosticsDisplay = {}
-let g:LanguageClient_diagnosticsDisplay = {
-    \ '1': { "name": "Error", "texthl": "ALEError", "signText": "❯", "signTexthl": "ALEErrorSign", "virtualTexthl": "Error" },
-    \ '2': { "name": "Warning", "texthl": "ALEWarning", "signText": "❯", "signTexthl": "ALEWarningSign", "virtualTexthl": "Todo" },
-    \ '3': { "name": "Info", "texthl": "ALEInfo", "signText": "ℹ", "signTexthl": "ALEInfoSign", "virtualTexthl": "Todo" },
-    \ '4': { "name": "Hint", "texthl": "ALEInfo", "signText": "ℹ", "signTexthl": "ALEInfoSign", "virtualTexthl": "Todo" },
-    \ }
-
-let g:LanguageClient_hoverPreview = 'Always'
-let g:LanguageClient_useVirtualText = 1
-let g:LanguageClient_autoStart = 1
-let g:LanguageClient_rootMarkers = {
-\ 'javascript': ['.tsconfig.json'],
-\ 'javascript.jsx': ['.tsconfig.json'],
-\ 'typescript': ['.tsconfig.json'],
-\ 'typescript.tsx': ['.tsconfig.json'],
-\ }
-let g:LanguageClient_serverCommands = {
-\ 'javascript': ['typescript-language-server', '--stdio'],
-\ 'javascript.jsx': ['typescript-language-server', '--stdio'],
-\ 'typescript.tsx': ['typescript-language-server', '--stdio']
-\ }
-
-" let g:LanguageClient_loggingLevel = 'DEBUG'
-" let g:LanguageClient_loggingFile = '/tmp/LanguageClient.log'
-" let g:LanguageClient_serverStderr = '/tmp/LanguageServer.log'
+let g:coc_global_extensions = [
+      \ 'coc-tsserver',
+      \ 'coc-eslint',
+      \ 'coc-prettier',
+      \ 'coc-json',
+      \ 'coc-css',
+      \ 'coc-html',
+      \ 'coc-markdownlint',
+      \ 'coc-git',
+      \ 'coc-dictionary',
+      \ 'coc-word',
+      \ ]
 
 " -----------------------------------------------------
-" 4.21 ALE
-" -----------------------------------------------------
-
-" Set this setting in vimrc if you want to fix files automatically on save. This is off by default.
-let g:ale_lint_on_text_changed = 'never'
-let g:ale_fix_on_save = 1
-
-let g:ale_set_loclist = 0
-let g:ale_set_quickfix = 0
-let g:ale_open_list = 0
-let g:ale_keep_list_window_open = 0
-
-" ALE will show virtual text inline with buffer if there id an error
-" Example:
-" let g:ale_virtualtext_cursor = 1
-
-let g:ale_sign_warning = 'W'
-let g:ale_sign_error = 'X'
-
-let g:ale_echo_msg_format='%linter%: [%severity%|%code%] %s'
-let g:ale_loclist_msg_format='%linter%: [%severity%|%code%] %s'
-
-highlight link ALEWarningSign String
-highlight link ALEErrorSign Title
-
-let g:ale_javascript_prettier_use_local_config = 1
-let g:ale_javascript_eslint_suppress_missing_config = 1
-
-let g:ale_linters = {
-\   'typescript': ['eslint'],
-\   'typescript.tsx': ['eslint'],
-\   'javascript': ['eslint'],
-\}
-" Put this in vimrc or a plugin file of your own.
-" After this is configured, :ALEFix will try and fix your JS code with ESLint.
-let g:ale_fixers = {
-\   '*': ['remove_trailing_lines', 'trim_whitespace'],
-\   'json': ['prettier'],
-\   'typescript': ['eslint', 'prettier'],
-\   'typescript.tsx': ['eslint', 'prettier'],
-\   'javascript': ['eslint', 'prettier', 'prettier_eslint'],
-\}
-
-" ALE Pattern Options allow for custom settings based on the path of the file
-" this is used for custom settings for specific projects.
-"
-" This is a sepcial case setting for skilltype projects that use
-" eslint-config-prettier for formatting (thus there is no .prettierrc).
-let g:ale_pattern_options = {
-\    'jry/professional/skilltype/.*\.js': {'ale_fixers': ['eslint'], 'ale_linters': ['eslint'] }
-\}
-
-
-" -----------------------------------------------------
-" 4.22 (Blaze it) Vim Quickfix
+" 4.19 Vim Quickfix
 " -----------------------------------------------------
 let g:qf_window_bottom = 0
 let g:qf_loclist_window_bottom = 0
@@ -956,7 +814,7 @@ let g:qf_auto_open_loclist = 0
 let g:qf_auto_quit = 0
 
 " -----------------------------------------------------
-" 4.23 Closetag
+" 4.20 Closetag
 " -----------------------------------------------------
 " These are the file extensions where this plugin is enabled.
 let g:closetag_filenames = '*.html,*.xhtml,*.jsx,*.tsx'
@@ -984,6 +842,7 @@ let g:closetag_shortcut = '>'
 
 " Add > at current position without closing the current tag, default is ''
 " let g:closetag_close_shortcut = '<leader>>'
+
 " ==================================================
 " 5.0 Plugin mappings
 " ==================================================
@@ -1036,88 +895,99 @@ nmap [[ <Plug>Markdown_MoveToPreviousHeader
 nmap ]] <Plug>Markdown_MoveToNextHeader
 
 " -----------------------------------------------------
-" 5.6 Deoplete autocomplete
-" -----------------------------------------------------
-" Insert <TAB> or select next match
-inoremap <silent> <expr> <Tab> utils#tabComplete()
-
-" Manually trigger tag autocomplete
-inoremap <silent> <expr> <C-]> utils#manualTagComplete()
-
-" <C-h>, <BS>: close popup and delete backword char
-inoremap <expr><C-h> deolete#mappings#smart_close_popup()."\<C-h>"
-inoremap <expr><BS> deoplete#mappings#smart_close_popup()."\<C-h>"
-
-" -----------------------------------------------------
-" 5.7 CtrlSF
-" -----------------------------------------------------
-nnoremap <leader>gg :CtrlSF<Space>
-nnoremap <leader>gG :CtrlSFToggle<Space>
-
-" -----------------------------------------------------
 " 5.8 Vim-Plug
 " -----------------------------------------------------
 nnoremap <leader>pi :PlugInstall<CR>
 nnoremap <leader>pu :PlugUpdate<CR>
 nnoremap <leader>pU :PlugUpgrade<CR>
 nnoremap <leader>pc :PlugClean<CR>
+" -----------------------------------------------------
+" 5.6 COC VIM
+" -----------------------------------------------------
+" Use tab for trigger completion with characters ahead and navigate.
+" Use command ':verbose imap <tab>' to make sure tab is not mapped by other plugin.
+inoremap <silent><expr> <TAB>
+      \ pumvisible() ? "\<C-n>" :
+      \ <SID>check_back_space() ? "\<TAB>" :
+      \ coc#refresh()
 
-" -----------------------------------------------------
-" 5.9 Ctrl-SF
-" -----------------------------------------------------
-let g:ctrlsf_mapping = {
-      \ "next"    : "n",
-      \ "prev"    : "N",
-      \ "quit"    : "q",
-      \ "openb"   : "",
-      \ "split"   : "s",
-      \ "tab"     : "",
-      \ "tabb"    : "",
-      \ "popen"   : "",
-      \ "pquit"   : "",
-      \ "loclist" : "",
-      \ }
+inoremap <expr><S-TAB> pumvisible() ? "\<C-p>" : "\<C-h>"
+function! s:check_back_space() abort
+  let col = col('.') - 1
+  return !col || getline('.')[col - 1]  =~# '\s'
+endfunction
 
-nnoremap <silent> <leader>g :call utils#searchCurrentWordWithAg()<CR>
+" Use <c-space> to trigger completion.
+" inoremap <silent><expr> <c-space> coc#refresh()
 
-" -----------------------------------------------------
-" 5.10 BufOnly -> [C]lose all
-" -----------------------------------------------------
-nnoremap <leader>C :Bonly<CR>
+" Use <cr> to confirm completion, `<C-g>u` means break undo chain at current position.
+" Coc only does snippet and additional edit on confirm.
+inoremap <expr> <cr> pumvisible() ? "\<C-y>" : "\<C-g>u\<CR>"
 
-" -----------------------------------------------------
-" 5.11 Tabularize -> [a]lign
-" -----------------------------------------------------
-vnoremap <leader>a :Tabularize /
+"Or use `complete_info` if your vim support it, like:
+" inoremap <expr> <cr> complete_info()["selected"] != "-1" ? "\<C-y>" : "\<C-g>u\<CR>"
 
-" -----------------------------------------------------
-" 5.12 Elm
-" -----------------------------------------------------
-" Custom Elm-vim keybindings
-au FileType elm nmap <leader>em <Plug>(elm-make)
-au FileType elm nmap <leader>eb <Plug>(elm-make-main)
-au FileType elm nmap <leader>et <Plug>(elm-test)
-au FileType elm nmap <leader>ee <Plug>(elm-error-details)
-au FileType elm nmap <leader>ed <Plug>(elm-show-docs)
-au FileType elm nmap <leader>ew <Plug>(elm-browse-docs)
+" Use `[g` and `]g` to navigate diagnostics
+" nmap <silent> [g <Plug>(coc-diagnostic-prev)
+" nmap <silent> ]g <Plug>(coc-diagnostic-next)
 
-" -----------------------------------------------------
-" 5.13 TypeScript
-" -----------------------------------------------------
-nnoremap <leader>ld :call LanguageClient_contextMenu()<CR>
-nnoremap <leader>lh :call LanguageClient#textDocument_hover()<CR>
+" Remap keys for gotos
+nmap <silent> gd <Plug>(coc-definition)
+nmap <silent> gy <Plug>(coc-type-definition)
+nmap <silent> gi <Plug>(coc-implementation)
+nmap <silent> gr <Plug>(coc-references)
 
-" -----------------------------------------------------
-" 5.14 ALE
-" -----------------------------------------------------
+" Use K to show documentation in preview window
+nnoremap <silent> K :call CocActionAsync("doHover")<CR>
 
+" Highlight symbol under cursor on CursorHold
+autocmd CursorHold * silent call CocActionAsync('highlight')
 
-" -----------------------------------------------------
-" 5.14 Vim-Quickfix
-" -----------------------------------------------------
+" Remap for rename current word
+" nmap <leader>rn <Plug>(coc-rename)
+
+" Remap for format selected region
+" xmap <leader>f  <Plug>(coc-format-selected)
+" nmap <leader>f  <Plug>(coc-format-selected)
+
+" augroup mygroup
+"   autocmd!
+"   " Setup formatexpr specified filetype(s).
+"   autocmd FileType typescript,json setl formatexpr=CocAction('formatSelected')
+"   " Update signature help on jump placeholder
+"   autocmd User CocJumpPlaceholder call CocActionAsync('showSignatureHelp')
+" augroup end
+
+" Remap for do codeAction of selected region, ex: `<leader>aap` for current paragraph
+" xmap <leader>a  <Plug>(coc-codeaction-selected)
+" nmap <leader>a  <Plug>(coc-codeaction-selected)
+
+" Remap for do codeAction of current line
+" nmap <leader>ac  <Plug>(coc-codeaction)
+" Fix autofix problem of current line
+" nmap <leader>qf  <Plug>(coc-fix-current)
+
+" Create mappings for function text object, requires document symbols feature of languageserver.
+" xmap if <Plug>(coc-funcobj-i)
+" xmap af <Plug>(coc-funcobj-a)
+" omap if <Plug>(coc-funcobj-i)
+" omap af <Plug>(coc-funcobj-a)
+
+" Use <C-d> for select selections ranges, needs server support, like: coc-tsserver, coc-python
+" nmap <silent> <C-d> <Plug>(coc-range-select)
+" xmap <silent> <C-d> <Plug>(coc-range-select)
+
+" Use `:Format` to format current buffer
+command! -nargs=0 Format :call CocAction('format')
+
+" Use `:Fold` to fold current buffer
+command! -nargs=? Fold :call     CocAction('fold', <f-args>)
+
+" use `:OR` for organize import of current buffer
+command! -nargs=0 OR   :call     CocAction('runCommand', 'editor.action.organizeImport')
 
 " Jump to quickfix/loclist menu
-nnoremap <leader>e <Plug>(qf_qf_switch)
+" nnoremap <leader>e <Plug>(qf_qf_switch)
 
 " QuickFix navigation
 nnoremap [f <Plug>(qf_qf_next)
@@ -1174,8 +1044,6 @@ highlight! link BufTabLineActive Comment
 highlight! link BufTabLineHidden Comment
 highlight! link BufTabLineFill Comment
 
-
-
 " ==================================================
 " 7.0 Autocommands
 " ==================================================
@@ -1187,12 +1055,14 @@ au FileType qf wincmd J
 " Keywordprg settings
 autocmd FileType vim setlocal keywordprg=:help
 
-" Set *.flow files to be javascript.jsx filetypes
-autocmd BufNewFile,BufRead,BufReadPost *.flow set filetype=javascript.jsx
+" Comment syntax in JSONC files (coc-settings)
+autocmd FileType json syntax match Comment +\/\/.\+$+
 
+" Format and import on save of go files using COC
+autocmd BufWritePre *.go :call CocAction('runCommand', 'editor.action.organizeImport')
 " Set *.tsx files to be tsx filetype
 autocmd BufNewFile,BufRead *.tsx set filetype=typescript.tsx
-" Set *.ts
+" Set *.iced to be coffeescript filetype
 autocmd BufNewFile,BufRead *.iced set filetype=coffee
 
 " Turn spellcheck on for markdown files
@@ -1223,17 +1093,6 @@ autocmd CursorHold * if getcmdwintype() == '' | checktime | endif
 " -----------------------------------------------------
 " 7.1 Run linters after save
 " -----------------------------------------------------
-
-" npm install -g eslint
-" autocmd BufWritePost *.js Neomake eslint
-" npm install -g eslint
-" autocmd BufWritePost *.jsx Neomake eslint
-
-" Run Prettier on javascript files
-" autocmd BufWritePre *.js,*.jsx,*.json PrettierAsync
-
-" npm install -g jsonlint
-" autocmd BufWritePost *.json Neomake jsonlint
 " sudo apt-get install elixir
 autocmd BufWritePost *.ex Neomake elixir
 " gcc
