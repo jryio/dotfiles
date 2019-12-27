@@ -18,7 +18,7 @@
   "diagnostic.errorSign": "✗",
   "diagnostic.warningSign": "▲",
   "diagnostic.infoSign": "ℹ️",
-  "diagnostic.messageTarget":"echo",
+  "diagnostic.messageTarget": "float",
   "diagnostic.signOffset": 9999999,
   "suggest.floatEnable": true,
   "signature.target": "float"

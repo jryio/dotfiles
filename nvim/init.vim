@@ -432,13 +432,6 @@ nnoremap <leader>p "+p
 vnoremap J :m '>+1<CR>gv=gv
 vnoremap K :m '<-2<CR>gv=gv
 
-" CTags generation / navigation (:tselect to select from menu)
-nnoremap ]t :tn<CR>
-nnoremap [t :tp<CR>
-nnoremap <leader>ts :ts<CR>
-nnoremap <leader>tg :GTags<CR>
-
-
 " Reselect last-pasted text
 nnoremap gp `[v`]
 
@@ -468,34 +461,15 @@ inoremap <C-s> <C-g>u<ESC>[s1z=`]a<C-g>u
 
 " Fix spelling error in normal mode
 " nnoremap <C-s> <C-g>u<ESC>[s1z=`]a<C-g>u
+
 " -----------------------------------------------------
 " 3.5 F-key actions
 " -----------------------------------------------------
 
 " NERDTree wrapper
 nnoremap <silent> <Space>n :call utils#nerdWrapper()<CR>
-" Free
-" nnoremap <silent> <F2>
-" Free
-" nnoremap <silent> <F3>
-" Toggle spelling
-nnoremap <silent> <F4> :set spell!<CR> :set spell?<CR>
 " Source (reload configuration)
 nnoremap <silent> <F5> :source $MYNVIMRC<CR>
-" Toggle search highlight
-nnoremap <silent> <F6> :set nohlsearch!<CR> :set nohlsearch?<CR>
-" Toggle white characters visibility
-nnoremap <silent> <F7> :set list!<CR> :set list?<CR>
-" New term buffer
-nnoremap <silent> <F8> :terminal<CR>
-" Fire REST Request
-nnoremap <silent> <F9> :call VrcQuery()<CR>
-" Free
-" nnoremap <silent> <F10>
-" Howdoi
-nnoremap <silent> <F11> :call utils#howDoI()<CR>
-" Informative echo
-nnoremap <F12> :call utils#showToggles()<CR>
 
 " -----------------------------------------------------
 " 3.6 Window / Buffer management
@@ -928,8 +902,8 @@ inoremap <expr> <cr> pumvisible() ? "\<C-y>" : "\<C-g>u\<CR>"
 " inoremap <expr> <cr> complete_info()["selected"] != "-1" ? "\<C-y>" : "\<C-g>u\<CR>"
 
 " Use `[g` and `]g` to navigate diagnostics
-" nmap <silent> [g <Plug>(coc-diagnostic-prev)
-" nmap <silent> ]g <Plug>(coc-diagnostic-next)
+nmap <silent> [g <Plug>(coc-diagnostic-prev)
+nmap <silent> ]g <Plug>(coc-diagnostic-next)
 
 " Remap keys for gotos
 nmap <silent> gd <Plug>(coc-definition)
@@ -941,7 +915,7 @@ nmap <silent> gr <Plug>(coc-references)
 nnoremap <silent> K :call CocActionAsync("doHover")<CR>
 
 " Highlight symbol under cursor on CursorHold
-autocmd CursorHold * silent call CocActionAsync('highlight')
+" autocmd CursorHold * silent call CocActionAsync('highlight')
 
 " Remap for rename current word
 " nmap <leader>rn <Plug>(coc-rename)
