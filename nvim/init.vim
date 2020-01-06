@@ -643,6 +643,20 @@ let g:jsx_ext_required=0
 " -----------------------------------------------------
 " 4.7 Lightline settings
 " -----------------------------------------------------
+
+	function! CocDiagnosticStatus() abort
+	  let info = get(b:, 'coc_diagnostic_info', {})
+	  if empty(info) | return '' | endif
+	  let msgs = []
+	  if get(info, 'error', 0)
+	    call add(msgs, 'E' . info['error'])
+	  endif
+	  if get(info, 'warning', 0)
+	    call add(msgs, 'W' . info['warning'])
+	  endif
+	  return join(msgs, ' ') . ' ' . get(g:, 'coc_status', '')
+	endfunction
+
 let g:lightline = {
       \ 'colorscheme': 'jellybeans',
       \ 'tab': {
@@ -650,8 +664,7 @@ let g:lightline = {
       \   'inactive': [ 'filename' ]
       \ },
       \ 'active': {
-      \   'left': [ [ 'mode', 'paste' ], [ 'readonly', 'filename' ], [ 'session' ] ],
-      \   'middle': [ ['readonly', 'cocstatus', 'currentfunction'] ],
+      \   'left': [ [ 'mode', 'paste' ], [ 'readonly', 'filename' ], [ 'session' ],  ['cocstatus' ] ],
       \   'right': [ [ 'lineinfo' ], [ 'percent' ], [ 'filetype', 'fileencoding' ] ]
       \ },
       \ 'component': {
@@ -662,7 +675,6 @@ let g:lightline = {
       \   'filename': 'utils#lightLineFilename',
       \   'fileencoding': 'utils#lightLineFileencoding',
       \   'cocstatus': 'coc#status',
-      \   'currentfunction': 'CocCurrentFunction',
       \ },
       \ 'component_expand': {
       \   'session': 'utils#lightLineSession'
@@ -673,6 +685,9 @@ let g:lightline = {
       \ 'separator': { 'left': '', 'right': '' },
       \ 'subseparator': { 'left': '', 'right': '' }
       \ }
+
+" Use auocmd to force lightline update.
+autocmd User CocStatusChange,CocDiagnosticChange call lightline#update()
 
 " Changes the lightline middle color for the active buffer
 " This helps a lot with finding out which split is active

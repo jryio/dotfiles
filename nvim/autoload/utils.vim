@@ -260,7 +260,7 @@ endfunction
 
 " Vim sessoin status (Vim obsession)
 function! g:utils#lightLineSession() abort
-  return winwidth(0) > 70 ? "%{ObsessionStatus('Tracking', 'Paused')}" : 'Obession Failed'
+  return winwidth(0) > 70 ? "%{ObsessionStatus('▶️', '⏸️')}" : 'Obession Failed'
 endfunction
 
 " File format function for Lightline statusline
