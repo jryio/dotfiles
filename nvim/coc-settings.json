@@ -9,17 +9,18 @@
       }
     }
   },
-  "coc.preferences.formatOnSaveFiletypes": ["javascript", "typescript", "typescriptreact", "json", "javascriptreact"],
   "coc.preferences.enableFloatHighlight": true,
+  "coc.preferences.formatOnSaveFiletypes": ["javascript", "typescript", "typescriptreact", "json", "javascriptreact"],
   "coc.preferences.hoverTarget": "float",
-  "eslint.filetypes": ["javascript", "typescript", "typescriptreact", "javascriptreact"],
-  "json.format.enable": false,
-  "diagnostic.virtualText": true,
   "diagnostic.errorSign": "✗",
-  "diagnostic.warningSign": "▲",
   "diagnostic.infoSign": "ℹ️",
   "diagnostic.messageTarget": "float",
   "diagnostic.signOffset": 9999999,
-  "suggest.floatEnable": true,
-  "signature.target": "float"
+  "diagnostic.virtualText": true,
+  "diagnostic.warningSign": "▲",
+  "eslint.filetypes": ["javascript", "typescript", "typescriptreact", "javascriptreact"],
+  "git.addGBlameToVirtualText": true,
+  "json.format.enable": false,
+  "signature.target": "float",
+  "suggest.floatEnable": true
 }

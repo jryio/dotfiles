@@ -15,6 +15,9 @@ export MYNVIMRC=$HOME/.config/nvim/init.vim
 # ssh
 export SSH_KEY_PATH="~/.ssh/id_rsa"
 
+# Go path
+export GOPATH="$HOME/go"
+
 # PATH
 export PATH=$PATH:/usr/local/bin
 export PATH=$PATH:/usr/local/sbin
@@ -27,8 +30,8 @@ export PATH=$PATH:$ANDROID_HOME/emulator
 export PATH=$PATH:$ANDROID_HOME/tools
 export PATH=$PATH:$ANDROID_HOME/tools/bin
 export PATH=$PATH:$ANDROID_HOME/platform-tools
+export PATH=$PATH:$GOPATH/bin
 
-export GOPATH="$HOME/go"
 
 # Manpages path
 export MANPATH="/usr/local/share/man:$MANPATH"
