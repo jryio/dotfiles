@@ -551,7 +551,7 @@ let $FZF_DEFAULT_OPTS='--layout=reverse'
 " https://github.com/neovim/neovim/issues/9718#issuecomment-546603628
 function! FloatingFZF(border)
   let height = &lines - 3
-  let width = float2nr(&columns - (&columns * 2 / 3))
+  let width = float2nr(&columns - (&columns * 2 / 6))
   let col = float2nr((&columns - width) / 2)
   let top = ((&lines - height) / 2) - 1
   let left = (&columns - width) / 2
@@ -1048,7 +1048,7 @@ autocmd FileType vim setlocal keywordprg=:help
 autocmd FileType json syntax match Comment +\/\/.\+$+
 
 " Format and import on save of go files using COC
-autocmd BufWritePre *.go :call CocAction('runCommand', 'editor.action.organizeImport')
+" autocmd BufWritePre *.go :call CocAction('runCommand', 'editor.action.organizeImport')
 " Set *.tsx files to be tsx filetype
 autocmd BufNewFile,BufRead *.tsx set filetype=typescript.tsx
 " Set *.iced to be coffeescript filetype

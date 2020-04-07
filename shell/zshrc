@@ -17,6 +17,7 @@ export SSH_KEY_PATH="~/.ssh/id_rsa"
 
 # Go path
 export GOPATH="$HOME/go"
+export GO111MODULE='auto'
 
 # PATH
 export PATH=$PATH:/usr/local/bin
@@ -157,6 +158,21 @@ man() {
       LESS_TERMCAP_us=$'\e[1;32m' \
           man "$@"
 }
+
+# CACHING
+#
+# 1. Speed up git completion
+# 2. Speed up cd completion
+
+# Source: https://superuser.com/a/459057
+__git_files () {
+    _wanted files expl 'local files' _files
+}
+
+# Source: http://dev.gosteven.com/2012/10/zsh-cd-tab-completion-slow.html
+zstyle ':completion:*' accept-exact '*(N)'
+zstyle ':completion:*' use-cache on
+zstyle ':completion:*' cache-path ~/.zsh/cache
 
 # Set personal aliases, overriding those provided by oh-my-zsh libs,
 # plugins, and themes. Aliases can be placed here, though oh-my-zsh

@@ -5,7 +5,10 @@
       "rootPatterns": ["go.mod", ".vim/", ".git/", ".hg/"],
       "filetypes": ["go"],
       "initializationOptions": {
-        "usePlaceholders": true
+        "usePlaceholders": true,
+        "env": {
+          "GO111MODULE": "auto"
+        }
       }
     }
   },
@@ -22,5 +25,6 @@
   "git.addGBlameToVirtualText": true,
   "json.format.enable": false,
   "signature.target": "float",
-  "suggest.floatEnable": true
+  "suggest.floatEnable": true,
+  "tsserver.trace.server": "verbose"
 }
