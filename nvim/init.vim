@@ -1048,7 +1048,7 @@ autocmd FileType vim setlocal keywordprg=:help
 autocmd FileType json syntax match Comment +\/\/.\+$+
 
 " Format and import on save of go files using COC
-" autocmd BufWritePre *.go :call CocAction('runCommand', 'editor.action.organizeImport')
+autocmd BufWritePre *.go :call CocAction('runCommand', 'editor.action.organizeImport')
 " Set *.tsx files to be tsx filetype
 autocmd BufNewFile,BufRead *.tsx set filetype=typescript.tsx
 " Set *.iced to be coffeescript filetype

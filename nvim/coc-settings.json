@@ -6,6 +6,8 @@
       "filetypes": ["go"],
       "initializationOptions": {
         "usePlaceholders": true,
+        "completeUnimported": true,
+        "hoverKind": "FullDocumentation",
         "env": {
           "GO111MODULE": "auto"
         }
@@ -13,7 +15,7 @@
     }
   },
   "coc.preferences.enableFloatHighlight": true,
-  "coc.preferences.formatOnSaveFiletypes": ["javascript", "typescript", "typescriptreact", "json", "javascriptreact"],
+  "coc.preferences.formatOnSaveFiletypes": ["javascript", "typescript", "typescriptreact", "json", "javascriptreact", "go"],
   "coc.preferences.hoverTarget": "float",
   "diagnostic.errorSign": "✗",
   "diagnostic.infoSign": "ℹ️",
