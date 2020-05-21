@@ -16,15 +16,16 @@ git
 git-lfs
 gnuplot
 go
+go@1.12
 grep
 heroku/brew/heroku
 htop
 icdiff
 imagemagick
 imagemagick@6
+jemalloc
 jq
 libgcrypt
-libidn2
 libssh2
 libxml2
 mysql
