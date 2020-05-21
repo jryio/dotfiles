@@ -15,7 +15,16 @@
     }
   },
   "coc.preferences.enableFloatHighlight": true,
-  "coc.preferences.formatOnSaveFiletypes": ["javascript", "typescript", "typescriptreact", "json", "javascriptreact", "go"],
+  // IMPORTANT - Have to add file types here otherwise they will not be formatted on save (use their default formatter)
+  "coc.preferences.formatOnSaveFiletypes": [
+    "javascript",
+    "typescript",
+    "typescriptreact",
+    "json",
+    "javascriptreact",
+    "go",
+    "rust"
+  ],
   "coc.preferences.hoverTarget": "float",
   "diagnostic.errorSign": "✗",
   "diagnostic.infoSign": "ℹ️",
@@ -23,9 +32,17 @@
   "diagnostic.signOffset": 9999999,
   "diagnostic.virtualText": true,
   "diagnostic.warningSign": "▲",
-  "eslint.filetypes": ["javascript", "typescript", "typescriptreact", "javascriptreact"],
+  "eslint.filetypes": [
+    "javascript",
+    "typescript",
+    "typescriptreact",
+    "javascriptreact"
+  ],
   "git.addGBlameToVirtualText": true,
   "json.format.enable": false,
+  "rust-analyzer.diagnostics.enable": true,
+  "rust-analyzer.trace.server": "verbose",
+  "rust-analyzer.updates.channel": "nightly",
   "signature.target": "float",
   "suggest.floatEnable": true,
   "tsserver.trace.server": "verbose"

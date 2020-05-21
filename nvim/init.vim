@@ -89,8 +89,14 @@ Plug 'cakebaker/scss-syntax.vim'
 " Color highlighter
 Plug 'lilydjwg/colorizer', { 'for': ['css', 'sass', 'scss', 'less', 'html', 'xdefaults', 'javascript', 'javascript.jsx', 'vim'] }
 
+
 " --------------------------------------------------
-" 1.4 Other languages
+" 1.4 Rust
+" --------------------------------------------------
+Plug 'rust-lang/rust.vim'
+
+" --------------------------------------------------
+" 1.5 Other languages
 " --------------------------------------------------
 
 " Elixir syntax
@@ -789,6 +795,7 @@ let g:coc_global_extensions = [
       \ 'coc-git',
       \ 'coc-dictionary',
       \ 'coc-word',
+      \ 'coc-rust-analyzer',
       \ ]
 
 " -----------------------------------------------------
