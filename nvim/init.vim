@@ -94,6 +94,7 @@ Plug 'lilydjwg/colorizer', { 'for': ['css', 'sass', 'scss', 'less', 'html', 'xde
 " 1.4 Rust
 " --------------------------------------------------
 Plug 'rust-lang/rust.vim'
+Plug 'Glench/Vim-Jinja2-Syntax' " For Tera templating syntax
 
 " --------------------------------------------------
 " 1.5 Other languages
@@ -1060,8 +1061,11 @@ autocmd BufWritePre *.go :call CocAction('runCommand', 'editor.action.organizeIm
 autocmd BufNewFile,BufRead *.tsx set filetype=typescript.tsx
 " Set *.iced to be coffeescript filetype
 autocmd BufNewFile,BufRead *.iced set filetype=coffee
+" Set *.tera to be tera filetype
+autocmd BufNewFile,BufRead *.tera set ft=jinja
 
-" Turn spellcheck on for markdown files
+
+"Turn spellcheck on for markdown files
 autocmd BufNewFile,BufRead *.md setlocal spell
 autocmd BufNewFile,BufRead *.md setlocal tw=80
 

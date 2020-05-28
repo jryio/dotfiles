@@ -12,6 +12,19 @@
           "GO111MODULE": "auto"
         }
       }
+    },
+    "ccls": {
+      "command": "ccls",
+      "filetypes": ["c", "cpp"],
+      "rootPatterns": [".ccls-root", "compile_commands.json"],
+      "initializationOptions": {
+        "cache": {
+          "directory": ".ccls-cache"
+        },
+        "client": {
+          "snippetSupport": true
+        }
+      }
     }
   },
   "coc.preferences.enableFloatHighlight": true,
@@ -23,7 +36,9 @@
     "json",
     "javascriptreact",
     "go",
-    "rust"
+    "rust",
+    "c",
+    "cpp"
   ],
   "coc.preferences.hoverTarget": "float",
   "diagnostic.errorSign": "✗",

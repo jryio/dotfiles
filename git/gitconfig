@@ -1,22 +1,24 @@
 [user]
-	name = Jacob Young
-	email = jacob@jry.io
-	signingkey = 715CED2327899E28
+  name = "Jacob Young"
+  email = jacob@jry.io
+  signingkey = 715CED2327899E28
+[includeIf "gitdir:~/go/src/git.zoom.us/"]
+  path = ~/.gitconfig.zed
 [gpg]
-	program = gpg
+  program = gpg
 [commit]
-	gpgsign = true
+  gpgsign = true
 [core]
-	editor = nvim
-	excludesfile = ~/.gitignore
+  editor = nvim
+  excludesfile = ~/.gitignore
 [filter "lfs"]
-	clean = git lfs clean %f
-	smudge = git lfs smudge %f
-	required = true
+  clean = git lfs clean %f
+  smudge = git lfs smudge %f
+  required = true
 [credential]
-	helper = osxkeychain
+  helper = osxkeychain
 [push]
-	defualt = simple
+  defualt = simple
 [alias]
   showtool = "!f() { git difftool $1^ $1; }; f"
   added = difftool --cached

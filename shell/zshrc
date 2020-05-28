@@ -20,6 +20,7 @@ export GOPATH="$HOME/go"
 export GO111MODULE='auto'
 
 # PATH
+export PATH="$PATH:$MY_INSTALL_DIR/bin" # Zoom
 export PATH=$PATH:/usr/local/bin
 export PATH=$PATH:/usr/local/sbin
 export PATH=$PATH:/usr/local/MacGPG2/bin
@@ -51,6 +52,10 @@ unset KEYBASE_PERF
 export KEYBASE_LOCAL_DEBUG=1
 export KEYBASE_DEV_TOOL_ROOTS="$HOME/Library/Application Support/Google/Chrome/Profile 3/Extensions/hgldghadipiblonfkkicmgcbbijnpeog,$HOME/Library/Application Support/Google/Chrome/Profile 3/Extensions/fmkadmapgofadopljbjfkapdkoienihi"
 
+# Zoom configuration
+export MY_INSTALL_DIR="$HOME/local"
+export PKG_CONFIG_PATH=$HOME/local/lib/pkgconfig:/usr/local/lib/pkgconfig:/usr/local/opt/openssl/lib/pkgconfig
+
 # Set name of the theme to load.
 # Look in ~/.oh-my-zsh/themes/
 # Optionally, if you set this to "random", it'll load a random theme each
@@ -61,7 +66,7 @@ ZSH_THEME=spaceship
 DEFAULT_USER=`whoami`
 
 # Uncomment the following line to use case-sensitive completion.
-# CASE_SENSITIVE="true"
+CASE_SENSITIVE="false"
 
 # Uncomment the following line to disable bi-weekly auto-update checks.
 # DISABLE_AUTO_UPDATE="true"
@@ -79,7 +84,7 @@ DISABLE_AUTO_TITLE="true"
 ENABLE_CORRECTION="true"
 
 # Uncomment the following line to display red dots whilst waiting for completion.
-COMPLETION_WAITING_DOTS="true"
+COMPLETION_WAITING_DOTS="false"
 
 # Uncomment the following line if you want to disable marking untracked files
 # under VCS as dirty. This makes repository status check for large repositories
@@ -105,14 +110,8 @@ ZSH_DISABLE_COMPFIX=true
 # Add wisely, as too many plugins slow down shell startup.
 plugins=(
   git
-  osx
   common-aliases
-  httpie
   jsontools
-  mix
-  rsync
-  # TODO: Need to handle TMUX env (see README)
-  # notify
 )
 
 
@@ -159,20 +158,6 @@ man() {
           man "$@"
 }
 
-# CACHING
-#
-# 1. Speed up git completion
-# 2. Speed up cd completion
-
-# Source: https://superuser.com/a/459057
-__git_files () {
-    _wanted files expl 'local files' _files
-}
-
-# Source: http://dev.gosteven.com/2012/10/zsh-cd-tab-completion-slow.html
-zstyle ':completion:*' accept-exact '*(N)'
-zstyle ':completion:*' use-cache on
-zstyle ':completion:*' cache-path ~/.zsh/cache
 
 # Set personal aliases, overriding those provided by oh-my-zsh libs,
 # plugins, and themes. Aliases can be placed here, though oh-my-zsh
@@ -202,7 +187,7 @@ alias bgrep='/usr/bin/grep --color=auto --exclude-dir={.bzr,CVS,.git,.hg,.svn}'
 # Keybase ZSHRC scripts for setup
 # Note: This file is stored in a pricvate keybase directory. In order for ZSH
 # to pick up on this file, the KBFS volume will need to be mounted
-source /Volumes/Keybase/private/jacobyoung/dotfiles/.zshrc.keybase
+source /Volumes/Keybase/team/jry.zed/dotfiles/.zshrc.keybase
 
 # Iterm iterm shell integration
 test -e "${HOME}/.iterm2_shell_integration.zsh" && source "${HOME}/.iterm2_shell_integration.zsh"
@@ -282,8 +267,29 @@ SPACESHIP_GIT_STATUS_DIVERGED="⇕"
 SPACESHIP_NODE_DEFAULT_VERSION="11.10.1"
 
 
-autoload -Uz compinit
-compinit
+# CACHING
+#
+# 1. Speed up git completion
+# 2. Speed up cd completion
+
+# Source: https://superuser.com/a/459057
+__git_files () {
+    _wanted files expl 'local files' _files
+}
+
+# Source: http://dev.gosteven.com/2012/10/zsh-cd-tab-completion-slow.html
+zstyle ':completion:*' accept-exact '*(N)'
+zstyle ':completion:*' use-cache on
+zstyle ':completion:*' cache-path ~/.zsh/cache
+
+# case insensitive path-completion
+# Source: https://scriptingosx.com/2019/07/moving-to-zsh-part-5-completions/
+zstyle ':completion:*' matcher-list 'm:{[:lower:][:upper:]}={[:upper:][:lower:]}' 'm:{[:lower:][:upper:]}={[:upper:][:lower:]} l:|=* r:|=*' 'm:{[:lower:][:upper:]}={[:upper:][:lower:]} l:|=* r:|=*' 'm:{[:lower:][:upper:]}={[:upper:][:lower:]} l:|=* r:|=*'
+# partial completion suggestions
+zstyle ':completion:*' list-suffixes
+zstyle ':completion:*' expand prefix suffix
+
+autoload -Uz compinit && compinit
 
 # Profiing
 # Reference: https://blog.jonlu.ca/posts/speeding-up-zsh
