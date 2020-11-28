@@ -122,8 +122,8 @@ Plug 'honza/dockerfile.vim'
 " --------------------------------------------------
 " 1.5  FZF Fuzzy Searcher
 " --------------------------------------------------
-
-Plug '/usr/local/opt/fzf' | Plug 'junegunn/fzf.vim'
+Plug '/usr/local/opt/fzf'
+Plug 'junegunn/fzf.vim'
 
 " --------------------------------------------------
 " 1.6 Interface improving

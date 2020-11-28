@@ -1,5 +1,4 @@
 # Profiing
-# Reference: https://blog.jonlu.ca/posts/speeding-up-zsh
 # zmodload zsh/zprof
 
 # Important that use of sandboxd is sourced before oh-my-zsh so that it will
@@ -294,3 +293,4 @@ autoload -Uz compinit && compinit
 # Profiing
 # Reference: https://blog.jonlu.ca/posts/speeding-up-zsh
 # zprof
+
