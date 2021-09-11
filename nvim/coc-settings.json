@@ -25,6 +25,19 @@
           "snippetSupport": true
         }
       }
+    },
+    "purescript": {
+      "command": "purescript-language-server",
+      "args": ["--stdio"],
+      "filetypes": ["purescript"],
+      "trace.server": "off",
+      "rootPatterns": ["bower.json", "psc-package.json", "spago.dhall"],
+      "settings": {
+        "purescript": {
+          "addSpagoSources": true,
+          "addNpmPath": true // Set to true if using a local purty install for formatting
+        }
+      }
     }
   },
   "coc.preferences.enableFloatHighlight": true,
@@ -38,13 +51,12 @@
     "go",
     "rust",
     "c",
-    "cpp"
+    "cpp",
+    "purescript"
   ],
-  "coc.preferences.hoverTarget": "float",
   "diagnostic.errorSign": "✗",
   "diagnostic.infoSign": "ℹ️",
   "diagnostic.messageTarget": "float",
-  "diagnostic.signOffset": 9999999,
   "diagnostic.virtualText": true,
   "diagnostic.warningSign": "▲",
   "eslint.filetypes": [

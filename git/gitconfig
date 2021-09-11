@@ -31,3 +31,5 @@
   cmd = /usr/local/bin/icdiff --line-numbers $LOCAL $REMOTE
 [pager]
   difftool = true
+[url "git@github.com:"]
+	insteadOf = https://github.com/

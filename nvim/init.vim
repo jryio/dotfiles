@@ -70,7 +70,12 @@ Plug 'GutenYe/json5.vim'
 Plug 'elmcast/elm-vim'
 
 " --------------------------------------------------
-" 1.2.1 Coffee Script
+" 1.2.2 Purescript
+" --------------------------------------------------
+Plug 'purescript-contrib/purescript-vim'
+
+" --------------------------------------------------
+" 1.2.3 Coffee Script
 " --------------------------------------------------
 Plug 'kchmck/vim-coffee-script'
 
