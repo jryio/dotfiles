@@ -4,6 +4,7 @@ vim/
 *~
 .*.swp
 *.bak
+.psc-ide-port
 *zshrc.keybase
 shell/.zshrc.keybase
 oh-my-zsh

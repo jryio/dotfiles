@@ -59,18 +59,20 @@
   "diagnostic.messageTarget": "float",
   "diagnostic.virtualText": true,
   "diagnostic.warningSign": "▲",
-  "eslint.filetypes": [
-    "javascript",
-    "typescript",
-    "typescriptreact",
-    "javascriptreact"
-  ],
   "git.addGBlameToVirtualText": true,
   "json.format.enable": false,
   "rust-analyzer.diagnostics.enable": true,
   "rust-analyzer.trace.server": "verbose",
   "rust-analyzer.updates.channel": "nightly",
+  "rust-analyzer.checkOnSave.allFeatures": true,
+  "rust-analyzer.checkOnSave.overrideCommand": [
+    "cargo",
+    "clippy",
+    "--workspace",
+    "--message-format=json",
+    "--all-targets",
+    "--all-features"
+  ],
   "signature.target": "float",
-  "suggest.floatEnable": true,
-  "tsserver.trace.server": "verbose"
+  "suggest.floatEnable": true
 }

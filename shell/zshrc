@@ -23,15 +23,21 @@ export PATH="$PATH:$MY_INSTALL_DIR/bin" # Zoom
 export PATH=$PATH:/usr/local/bin
 export PATH=$PATH:/usr/local/sbin
 export PATH=$PATH:/usr/local/MacGPG2/bin
+# Pyenv
 export PATH="$HOME/.pyenv/bin:$PATH"
+# Yarn
 export PATH="$HOME/.yarn/bin:$PATH"
+# Deno
+export PATH="$HOME/.deno/bin:$PATH"
 # Android
 export ANDROID_HOME=$HOME/Library/Android/sdk
 export PATH=$PATH:$ANDROID_HOME/emulator
 export PATH=$PATH:$ANDROID_HOME/tools
 export PATH=$PATH:$ANDROID_HOME/tools/bin
 export PATH=$PATH:$ANDROID_HOME/platform-tools
+# G
 export PATH=$PATH:$GOPATH/bin
+
 
 
 # Manpages path
@@ -111,6 +117,8 @@ plugins=(
   git
   common-aliases
   jsontools
+  docker
+  docker-compose
 )
 
 
@@ -186,7 +194,7 @@ alias bgrep='/usr/bin/grep --color=auto --exclude-dir={.bzr,CVS,.git,.hg,.svn}'
 # Keybase ZSHRC scripts for setup
 # Note: This file is stored in a pricvate keybase directory. In order for ZSH
 # to pick up on this file, the KBFS volume will need to be mounted
-source /Volumes/Keybase/team/jry.zed/dotfiles/.zshrc.keybase
+# source /Volumes/Keybase/team/jry.zed/dotfiles/.zshrc.keybase
 
 # Iterm iterm shell integration
 test -e "${HOME}/.iterm2_shell_integration.zsh" && source "${HOME}/.iterm2_shell_integration.zsh"
@@ -220,7 +228,6 @@ SPACESHIP_PROMPT_ORDER=(
   git
   hg
   node
-  ruby
   elixir
   xcode
   swift
@@ -262,10 +269,6 @@ SPACESHIP_GIT_STATUS_UNMERGED="="
 SPACESHIP_GIT_STATUS_AHEAD="⇡"
 SPACESHIP_GIT_STATUS_BEHIND="⇣"
 SPACESHIP_GIT_STATUS_DIVERGED="⇕"
-# NODE
-SPACESHIP_NODE_DEFAULT_VERSION="11.10.1"
-
-
 # CACHING
 #
 # 1. Speed up git completion

@@ -61,8 +61,8 @@ Plug 'leafgarland/typescript-vim'
 Plug 'peitalin/vim-jsx-typescript'
 "JSON syntax
 Plug 'sheerun/vim-json'
-" JSON5 syntax
-Plug 'GutenYe/json5.vim'
+" JSONC syntax
+Plug 'neoclide/jsonc.vim'
 
 " --------------------------------------------------
 " 1.2.1 Elm
@@ -122,7 +122,7 @@ Plug 'tveskag/nvim-blame-line'
 " Tmux syntax
 Plug 'keith/tmux.vim'
 " Dockerfile
-Plug 'honza/dockerfile.vim'
+Plug 'ekalinin/Dockerfile.vim'
 
 " --------------------------------------------------
 " 1.5  FZF Fuzzy Searcher
@@ -265,8 +265,7 @@ set showbreak=↪
 " 2.7 Filetype settings
 " --------------------------------------------------
 
-filetype plugin on
-filetype indent on
+filetype plugin indent on
 
 " --------------------------------------------------
 " 2.8 Folding settings
@@ -791,9 +790,7 @@ let g:javascript_plugin_flow=1
 " 4.18 COC Extensions
 " -----------------------------------------------------
 let g:coc_global_extensions = [
-      \ 'coc-tsserver',
-      \ 'coc-eslint',
-      \ 'coc-prettier',
+      \ 'coc-deno',
       \ 'coc-json',
       \ 'coc-css',
       \ 'coc-html',
@@ -868,13 +865,6 @@ omap <space><tab> <plug>(fzf-maps-o)
 
 
 autocmd! FileType fzf tnoremap <buffer> <Esc> <C-c>
-" -----------------------------------------------------
-" 5.2 Neosnippet
-" -----------------------------------------------------
-" Note: It must be "imap" and "smap".  It uses <Plug> mappings.
-imap <C-J> <Plug>(neosnippet_expand_or_jump)
-smap <C-J> <Plug>(neosnippet_expand_or_jump)
-xmap <C-J> <Plug>(neosnippet_expand_target)
 
 " -----------------------------------------------------
 " 5.3 Gitgutter
@@ -941,6 +931,12 @@ nmap <silent> gr <Plug>(coc-references)
 
 " Use K to show documentation in preview window
 nnoremap <silent> K :call CocActionAsync("doHover")<CR>
+
+" Scroll the hover window if it has additional content
+nnoremap <nowait><expr> <C-j> coc#float#has_scroll() ? coc#float#scroll(1) : "\<C-j>"
+nnoremap <nowait><expr> <C-k> coc#float#has_scroll() ? coc#float#scroll(0) : "\<C-k>"
+inoremap <nowait><expr> <C-j> coc#float#has_scroll() ? "\<c-r>=coc#float#scroll(1)\<cr>" : "\<Down>"
+inoremap <nowait><expr> <C-k> coc#float#has_scroll() ? "\<c-r>=coc#float#scroll(0)\<cr>" : "\<Up>"
 
 " Highlight symbol under cursor on CursorHold
 " autocmd CursorHold * silent call CocActionAsync('highlight')
@@ -1061,7 +1057,8 @@ autocmd FileType vim setlocal keywordprg=:help
 autocmd FileType json syntax match Comment +\/\/.\+$+
 
 " Format and import on save of go files using COC
-autocmd BufWritePre *.go :call CocAction('runCommand', 'editor.action.organizeImport')
+autocmd BufWritePre *.go silent :call CocAction('runCommand', 'editor.action.organizeImport')
+autocmd BufWritePre *.purs silent :call CocAction('runCommand', 'editor.action.organizeImport')
 " Set *.tsx files to be tsx filetype
 autocmd BufNewFile,BufRead *.tsx set filetype=typescript.tsx
 " Set *.iced to be coffeescript filetype
@@ -1076,6 +1073,8 @@ autocmd BufNewFile,BufRead *.md setlocal tw=80
 
 " Two space tabs for all file types
 autocmd FileType * setlocal tabstop=2 softtabstop=0 expandtab shiftwidth=2 smarttab
+" Only exception being Makefiles where tabs are requried for validity
+autocmd FileType make set noexpandtab shiftwidth=8 softtabstop=0
 
 " Remove trailing whitespaces automatically before save
 autocmd BufWritePre * call utils#stripTrailingWhitespaces()
@@ -1095,14 +1094,3 @@ augroup END
 " Run checktime in buffers, but avoiding the "Command Line" (q:) window
 autocmd CursorHold * if getcmdwintype() == '' | checktime | endif
 
-" -----------------------------------------------------
-" 7.1 Run linters after save
-" -----------------------------------------------------
-" sudo apt-get install elixir
-autocmd BufWritePost *.ex Neomake elixir
-" gcc
-autocmd BufWritePost *.c Neomake gcc
-" apt-get install tidy
-autocmd BufWritePost *.html Neomake tidy
-" gem install mdl
-autocmd BufWritePost *.md Neomake mdl
