@@ -72,6 +72,22 @@ export PKG_CONFIG_PATH=$HOME/local/lib/pkgconfig:/usr/local/lib/pkgconfig:/usr/l
 ZSH_THEME="powerlevel10k/powerlevel10k"
 
 # =============================================================================
+# FZF-TAB CONFIGURATION
+# =============================================================================
+# disable sort when completing `git checkout`
+zstyle ':completion:*:git-checkout:*' sort false
+# set descriptions format to enable group support
+zstyle ':completion:*:descriptions' format '[%d]'
+# set list-colors to enable filename colorizing
+zstyle ':completion:*' list-colors ${(s.:.)LS_COLORS}
+# preview directory's content with exa when completing cd
+zstyle ':fzf-tab:complete:cd:*' fzf-preview 'exa -1 --color=always $realpath'
+# switch group using `,` and `.`
+zstyle ':fzf-tab:*' switch-group ',' '.'
+# bind alt-space to select-multiple
+zstyle ':fzf-tab:*' fzf-bindings 'right:toggle'
+
+# =============================================================================
 # OH MY ZSH CONFIG
 # =============================================================================
 DEFAULT_USER=`whoami`
@@ -112,8 +128,10 @@ ZSH_DISABLE_COMPFIX=true
 # Example format: plugins=(rails git textmate ruby lighthouse)
 # Add wisely, as too many plugins slow down shell startup.
 plugins=(
+  fzf-tab
   git
   common-aliases
+  zsh-autosuggestions
 )
 
 
