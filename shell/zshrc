@@ -228,6 +228,7 @@ man() {
 # For a full list of active aliases, run `alias`.
 alias n='nvim'
 alias irb='irb --simple-prompt'
+alias lg='lazygit'
 alias kk='clear'
 alias gc='git commit -v -S'
 alias gcob='gco -b'
