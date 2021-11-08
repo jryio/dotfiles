@@ -134,11 +134,11 @@ find_all_agent_sockets() {
   _LIVE_AGENT_LIST=
   find_all_ssh_agent_sockets
   find_all_gpg_agent_sockets
-  find_all_gnome_keyring_agent_sockets
+  # find_all_gnome_keyring_agent_sockets
   find_all_osx_keychain_agent_sockets
   find_live_ssh_agents
   find_live_gpg_agents
-  find_live_gnome_keyring_agents
+  # find_live_gnome_keyring_agents
   find_live_osx_keychain_agents
   _debug_print "$_LIVE_AGENT_LIST"
   _LIVE_AGENT_LIST=$(echo $_LIVE_AGENT_LIST | tr ' ' '\n' | sort -n -t: -k 2 -k 1 | uniq)
@@ -172,35 +172,37 @@ find_all_agent_sockets() {
 }
 
 set_ssh_agent_socket() {
-  if [[ "$1" = "-c" ]] || [[ "$1" = "--choose" ]]
-  then
-    find_all_agent_sockets -i
+  # if [[ "$1" = "-c" ]] || [[ "$1" = "--choose" ]]
+  # then
+  #   find_all_agent_sockets -i
 
-    if [ -z "$_LIVE_AGENT_LIST" ] ; then
-      echo "No agents found"
-      return 1
-    fi
+  #   if [ -z "$_LIVE_AGENT_LIST" ] ; then
+  #     echo "No agents found"
+  #     return 1
+  #   fi
 
-    echo -n "Choose (1-${#_LIVE_AGENT_SOCK_LIST[@]})? "
-    read -r choice
-    if [ -n "$choice" ]
-    then
-      n=$((choice-1))
-      if [ -z "${_LIVE_AGENT_SOCK_LIST[$n]}" ] ; then
-        echo "Invalid choice"
-        return 1
-      fi
-      echo "Setting export SSH_AUTH_SOCK=${_LIVE_AGENT_SOCK_LIST[$n]}"
-      export SSH_AUTH_SOCK=${_LIVE_AGENT_SOCK_LIST[$n]}
-    fi
-  else
-    # Choose the first available
-    SOCK=$(find_all_agent_sockets|tail -n 1|awk -F: '{print $1}')
-    if [ -z "$SOCK" ] ; then
-      return 1
-    fi
-    export SSH_AUTH_SOCK=$SOCK
+  #   echo -n "Choose (1-${#_LIVE_AGENT_SOCK_LIST[@]})? "
+  #   read -r choice
+  #   if [ -n "$choice" ]
+  #   then
+  #     n=$((choice-1))
+  #     if [ -z "${_LIVE_AGENT_SOCK_LIST[$n]}" ] ; then
+  #       echo "Invalid choice"
+  #       return 1
+  #     fi
+  #     echo "Setting export SSH_AUTH_SOCK=${_LIVE_AGENT_SOCK_LIST[$n]}"
+  #     export SSH_AUTH_SOCK=${_LIVE_AGENT_SOCK_LIST[$n]}
+  #   fi
+  # else
+
+  # Choose the first available
+  SOCK=$(find_all_agent_sockets|tail -n 1|awk -F: '{print $1}')
+  if [ -z "$SOCK" ] ; then
+    return 1
   fi
+  export SSH_AUTH_SOCK=$SOCK
+
+  # fi
 
   # set agent pid
   if [ -n "$SSH_AUTH_SOCK" ] ; then

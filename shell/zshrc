@@ -147,6 +147,11 @@ ZSH_DISABLE_COMPFIX=true
 # Add wisely, as too many plugins slow down shell startup.
 plugins=(
   fzf-tab
+  # https://github.com/mroth/evalcache
+  # $ZSH_EVALCACHE_DIR: cache files storage, default $HOME/.zsh-evalcache.
+  # $ZSH_EVALCACHE_DISABLE: set to true if you wish to bypass evalcache.
+  # There is a convenience function to clear the cache called _evalcache_clear.
+  evalcache
   git
   common-aliases
   zsh-autosuggestions
@@ -239,10 +244,17 @@ alias bgrep='/usr/bin/grep --color=auto --exclude-dir={.bzr,CVS,.git,.hg,.svn}'
 
 # Pyenv
 #
-# Init pyenv-virtualenv, but
-# unload precmd hook _pyenv_virtualenv_hook
-eval "$(pyenv init -)"
-eval "$(pyenv virtualenv-init -)"
+# Init pyenv-virtualenv, but unload precmd hook _pyenv_virtualenv_hook
+#
+# Using --no-rehash in an attempt to speed up pyenv
+# https://github.com/pyenv/pyenv/issues/1157#issuecomment-418446159
+#
+# Using evalcache to speed up pyenv and virtualenv
+# https://github.com/mroth/evalcache
+_evalcache pyenv init --no-rehash
+_evalcache pyenv virtualenv-init -
+# eval "$(pyenv init - --no-rehash)"
+# eval "$(pyenv virtualenv-init -)"
 
 # Warning: unloading the following hook breaks command
 # `pyenv activate/deactivate`. Please switch to
