@@ -48,6 +48,7 @@ export PATH=$PATH:$GOPATH/bin
 # =============================================================================
 # ENVIRONMENT VARIABLES
 # =============================================================================
+
 # Manpages path
 export MANPATH="/usr/local/share/man:$MANPATH"
 # Tell homebrew to install cask applications to root applications folder
@@ -64,9 +65,24 @@ export KEYBASE_DEV_TOOL_ROOTS="$HOME/Library/Application Support/Google/Chrome/P
 export MY_INSTALL_DIR="$HOME/local"
 export PKG_CONFIG_PATH=$HOME/local/lib/pkgconfig:/usr/local/lib/pkgconfig:/usr/local/opt/openssl/lib/pkgconfig
 
+# ===============================================
+# SOURCES
+# ===============================================
+
+# Keybase ZSHRC scripts for setup
+# Note: This file is stored in a pricvate keybase directory. In order for ZSH
+# to pick up on this file, the KBFS volume will need to be mounted
+# source /Volumes/Keybase/team/jry.zed/dotfiles/.zshrc.keybase
+
+
+# SSH Find Agent Script
+# https://github.com/wwalker/ssh-find-agent/blob/master/ssh-find-agent.sh
+source $HOME/dotfiles/shell/ssh-find-agent.sh
+
 # =============================================================================
 # ZSH THEME
 # =============================================================================
+
 # Look in ~/.oh-my-zsh/themes/
 # time that oh-my-zsh is loaded.
 ZSH_THEME="powerlevel10k/powerlevel10k"
@@ -74,6 +90,7 @@ ZSH_THEME="powerlevel10k/powerlevel10k"
 # =============================================================================
 # FZF-TAB CONFIGURATION
 # =============================================================================
+
 # disable sort when completing `git checkout`
 zstyle ':completion:*:git-checkout:*' sort false
 # set descriptions format to enable group support
@@ -90,6 +107,7 @@ zstyle ':fzf-tab:*' fzf-bindings 'right:toggle'
 # =============================================================================
 # OH MY ZSH CONFIG
 # =============================================================================
+
 DEFAULT_USER=`whoami`
 
 # Uncomment the following line to use case-sensitive completion.
@@ -138,11 +156,20 @@ plugins=(
 # =============================================================================
 # OH MY ZSH SOURCING
 # =============================================================================
+
 source $ZSH/oh-my-zsh.sh
 
 # =============================================================================
 # FUNCTIONS
 # =============================================================================
+
+ssh_find_agent --auto
+if [ -z "$SSH_AUTH_SOCK" ]
+then
+   eval $(ssh-agent) > /dev/null
+   ssh-add -l >/dev/null || alias ssh='ssh-add -l >/dev/null || ssh-add && unalias ssh; ssh'
+fi
+
 # Preferred editor for local and remote sessions
 if [[ -n $SSH_CONNECTION ]]; then
   export EDITOR='vim'
@@ -195,12 +222,7 @@ man() {
 # users are encouraged to define aliases within the ZSH_CUSTOM folder.
 # For a full list of active aliases, run `alias`.
 alias n='nvim'
-alias reattach='tmux attach-session -t'
-alias rez='tmux attach || { (while ! tmux run-shell ~/.tmux/plugins/tmux-resurrect/scripts/restore.sh; do sleep 0.2; done)& tmux ; }'
-# alias ssh-add='eval $(ssh-agent -s) > /dev/null && ssh-add'
-
 alias irb='irb --simple-prompt'
-
 alias kk='clear'
 alias gc='git commit -v -S'
 alias gcob='gco -b'
@@ -210,17 +232,6 @@ alias grbsign="git rebase --exec 'git commit --amend --no-edit -n -S' -i"
 alias ggpush='git push -u origin $(git_current_branch)'
 alias bgrep='/usr/bin/grep --color=auto --exclude-dir={.bzr,CVS,.git,.hg,.svn}'
 
-# ===============================================
-# SOURCES
-# ===============================================
-
-# Keybase ZSHRC scripts for setup
-# Note: This file is stored in a pricvate keybase directory. In order for ZSH
-# to pick up on this file, the KBFS volume will need to be mounted
-# source /Volumes/Keybase/team/jry.zed/dotfiles/.zshrc.keybase
-
-# Iterm iterm shell integration
-test -e "${HOME}/.iterm2_shell_integration.zsh" && source "${HOME}/.iterm2_shell_integration.zsh"
 
 # ===============================================
 # VERSION MANAGERS
