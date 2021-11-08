@@ -7,6 +7,9 @@ fi
 
 # Profiing Step 1
 # zmodload zsh/zprof
+#
+# Speed up zsh
+# https://blog.mattclemente.com/2020/06/26/oh-my-zsh-slow-to-load/#handling-virtual-environments
 
 # =============================================================================
 # PATH
