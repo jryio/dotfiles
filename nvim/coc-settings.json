@@ -52,7 +52,9 @@
     "rust",
     "c",
     "cpp",
-    "purescript"
+    "purescript",
+    "html",
+    "css"
   ],
   "diagnostic.errorSign": "✗",
   "diagnostic.infoSign": "ℹ️",

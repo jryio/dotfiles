@@ -100,6 +100,8 @@ Plug 'lilydjwg/colorizer', { 'for': ['css', 'sass', 'scss', 'less', 'html', 'xde
 " --------------------------------------------------
 Plug 'rust-lang/rust.vim'
 Plug 'Glench/Vim-Jinja2-Syntax' " For Tera templating syntax
+Plug 'cespare/vim-toml', { 'branch': 'main' } " syntax highlighting for TOML files
+Plug 'nastevens/vim-cargo-make' " Syntax highlighting for cargo-make
 
 " --------------------------------------------------
 " 1.5 Other languages
@@ -816,16 +818,16 @@ let g:qf_auto_quit = 0
 " 4.20 Closetag
 " -----------------------------------------------------
 " These are the file extensions where this plugin is enabled.
-let g:closetag_filenames = '*.html,*.xhtml,*.jsx,*.tsx'
+let g:closetag_filenames = '*.html,*.xhtml,*.jsx,*.tsx,*.rs'
 
-" This will make the list of non-closing tags self-closing in the specified files.
-let g:closetag_xhtml_filenames = '*.xhtml,*.jsx,*.tsx'
+"This will make the list of non-closing tags self-closing in the specified files.
+let g:closetag_xhtml_filenames = '*.xhtml,*.jsx,*.tsx,*.rs'
 
 " These are the file types where this plugin is enabled.
-let g:closetag_filetypes = 'html,jsx,tsx,typescript.tsx'
+let g:closetag_filetypes = 'html,jsx,tsx,typescript.tsx,rust'
 
 " This will make the list of non-closing tags self-closing in the specified files.
-let g:closetag_xhtml_filetypes = 'xhtml,jsx,typescript.tsx,tsx'
+let g:closetag_xhtml_filetypes = 'xhtml,jsx,typescript.tsx,tsx,rust'
 
 " This will make the list of non-closing tags case-sensitive (e.g. `<Link>` will be closed while `<link>` won't.)
 let g:closetag_emptyTags_caseSensitive = 1
@@ -902,6 +904,7 @@ inoremap <silent><expr> <TAB>
       \ pumvisible() ? "\<C-n>" :
       \ <SID>check_back_space() ? "\<TAB>" :
       \ coc#refresh()
+
 
 inoremap <expr><S-TAB> pumvisible() ? "\<C-p>" : "\<C-h>"
 function! s:check_back_space() abort
