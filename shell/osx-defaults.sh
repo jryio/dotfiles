@@ -22,11 +22,7 @@ defaults write com.apple.Finder FXPreferredViewStyle clmv
 defaults write com.apple.finder CreateDesktop FALSE
 
 # Move the default Screenshots location to ~/Pictures/
-mkdir -p ~/Pictures/Screenshots
 defaults write com.apple.screencapture location ~/Pictures/Screenshots
-
-# Chang iTerm's cursor blinking rate to something faster
-defaults write com.googlecode.iterm2 TimeBetweenBlinks -float 0.5
 
 # Restarting services
 killall Finder

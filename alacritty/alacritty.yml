@@ -15,7 +15,7 @@ env:
   # Decided to use OperatorMono in neovim and terminal.
   # Made a custom xterm color scheme to set the italics font
   #
-  # Source: https://github.com/jwilm/alacritty/issues/489#issuecomment-288074579
+  # Source: https://github.com/jwilm/alacritty/issues/489#issuecomment-288074578
   #
   # Compiled with `tic xterm-256color-italic.terminfo`
   TERM: xterm-256color-italic
@@ -85,13 +85,13 @@ scrolling:
 # https://github.com/nicknisi/dotfiles
 font:
   normal:
-    family: Operator Mono
+    family: OperatorMono Nerd Font
     style: Book
   bold:
-    family: Operator Mono
+    family: OperatorMono Nerd Font
     style: Medium
   italic:
-    family: Operator Mono
+    family: OperatorMono Nerd Font
     style: Book Italic
 
 
@@ -123,107 +123,37 @@ font:
 # If `true`, bold text is drawn using the bright color variants.
 draw_bold_text_with_bright_colors: false
 
-
-# Base16 Ocean 256 - alacritty color config
-# Chris Kempson (http://chriskempson.com)
+# Nightfox Alacritty Colors
+# Style: nordfox
+# Upstream: https://github.com/edeneast/nightfox.nvim/raw/main/extra/nordfox/nightfox_alacritty.yml
 colors:
   # Default colors
   primary:
-    background: '0x2b303b'
-    foreground: '0xc0c5ce'
-
-  # Colors the cursor will use if `custom_cursor_colors` is true
-  cursor:
-    text: '0xb48ead'
-    cursor: '0xb48ead'
-
+    background: '0x2e3440'
+    foreground: '0xb9bfca'
   # Normal colors
   normal:
-    black:   '0x2b303b'
+    black:   '0x3b4252'
     red:     '0xbf616a'
     green:   '0xa3be8c'
     yellow:  '0xebcb8b'
-    blue:    '0x8fa1b3'
+    blue:    '0x81a1c1'
     magenta: '0xb48ead'
-    cyan:    '0x96b5b4'
-    white:   '0xc0c5ce'
-
+    cyan:    '0x88c0d0'
+    white:   '0xe5e9f0'
   # Bright colors
   bright:
-    black:   '0x65737e'
-    red:     '0xbf616a'
-    green:   '0xa3be8c'
-    yellow:  '0xebcb8b'
-    blue:    '0x8fa1b3'
-    magenta: '0xb48ead'
-    cyan:    '0x96b5b4'
-    white:   '0xeff1f5'
-
-# Colors (Tomorrow Night Bright)
-#colors:
-#  # Default colors
-#  primary:
-#    background: '0x000000'
-#    foreground: '0xeaeaea'
-
-#    # Bright and dim foreground colors
-#    #
-#    # The dimmed foreground color is calculated automatically if it is not present.
-#    # If the bright foreground color is not set, or `draw_bold_text_with_bright_colors`
-#    # is `false`, the normal foreground color will be used.
-#    #dim_foreground: '0x9a9a9a'
-#    #bright_foreground: '0xffffff'
-
-#  # Cursor colors
-#  #
-#  # Colors which should be used to draw the terminal cursor. If these are unset,
-#  # the cursor color will be the inverse of the cell color.
-#  #cursor:
-#  #  text: '0x000000'
-#  #  cursor: '0xffffff'
-
-#  # Normal colors
-#  normal:
-#    black:   '0x000000'
-#    red:     '0xd54e53'
-#    green:   '0xb9ca4a'
-#    yellow:  '0xe6c547'
-#    blue:    '0x7aa6da'
-#    magenta: '0xc397d8'
-#    cyan:    '0x70c0ba'
-#    white:   '0xffffff'
-
-#  # Bright colors
-#  bright:
-#    black:   '0x666666'
-#    red:     '0xff3334'
-#    green:   '0x9ec400'
-#    yellow:  '0xe7c547'
-#    blue:    '0x7aa6da'
-#    magenta: '0xb77ee0'
-#    cyan:    '0x54ced6'
-#    white:   '0xffffff'
-
-#  # Dim colors
-#  #
-#  # If the dim colors are not set, they will be calculated automatically based
-#  # on the `normal` colors.
-#  dim:
-#    black:   '0x333333'
-#    red:     '0xf2777a'
-#    green:   '0x99cc99'
-#    yellow:  '0xffcc66'
-#    blue:    '0x6699cc'
-#    magenta: '0xcc99cc'
-#    cyan:    '0x66cccc'
-#    white:   '0xdddddd'
-
-  # Indexed Colors
-  #
-  # The indexed colors include all colors from 16 to 256.
-  # When these are not set, they're filled with sensible defaults.
-  #indexed_colors:
-  #  - { index: 16, color: '0x000000' }
+    black:   '0x465780'
+    red:     '0xd06f79'
+    green:   '0xb1d196'
+    yellow:  '0xf0d399'
+    blue:    '0x8cafd2'
+    magenta: '0xc895bf'
+    cyan:    '0x93ccdc'
+    white:   '0xe7ecf4'
+  indexed_colors:
+    - { index: 16, color: '0xc9826b' }
+    - { index: 17, color: '0xbf88bc' }
 
 # Visual Bell
 #

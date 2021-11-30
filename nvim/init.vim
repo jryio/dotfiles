@@ -41,6 +41,12 @@ Plug 'tpope/vim-sleuth'
 Plug 'Shougo/neosnippet.vim'
 " Autocomplete COC (Conquerer of Completion)
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
+" Neovim treesitter
+Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}  " We recommend updating the parsers on update
+Plug 'nvim-treesitter/playground'
+" Treesitter color scheme Zephyr
+" Plug 'glepnir/zephyr-nvim'
+Plug 'EdenEast/nightfox.nvim'"
 
 " --------------------------------------------------
 " 1.2 JavaScript
@@ -99,7 +105,7 @@ Plug 'lilydjwg/colorizer', { 'for': ['css', 'sass', 'scss', 'less', 'html', 'xde
 " --------------------------------------------------
 " 1.4 Rust
 " --------------------------------------------------
-Plug 'rust-lang/rust.vim'
+" Plug 'rust-lang/rust.vim'
 Plug 'Glench/Vim-Jinja2-Syntax' " For Tera templating syntax
 Plug 'cespare/vim-toml', { 'branch': 'main' } " syntax highlighting for TOML files
 Plug 'nastevens/vim-cargo-make' " Syntax highlighting for cargo-make
@@ -218,8 +224,8 @@ set shortmess+=c                            " From COC: don't give |ins-completi
 " 2.1 Split settings (more natural)
 " --------------------------------------------------
 
-set splitbelow                              " Splitting a window will put the new window below the current
-set splitright                              " Splitting a window will put the new window right of the current
+set splitbelow                              " splitting a window will put the new window below the current
+set splitright                              " splitting a window will put the new window right of the current
 
 " --------------------------------------------------
 " 2.2 Timeout settings
@@ -236,7 +242,7 @@ set ttimeoutlen=10
 
 set spellfile=~/.config/nvim/spell/dictionary.utf-8.add
 set spelllang=en_us                         " Set language to US English
-set nospell                                 " Disable checking by default (use <F4> to toggle)
+set nospell                                 " Disable checking by default
 
 " --------------------------------------------------
 " 2.4 Search settings
@@ -1012,7 +1018,12 @@ syntax on
 
 " Color scheme
 set background=dark
-colorscheme base16-railscasts
+
+colorscheme nordfox
+" colorscheme zephyr
+" colorscheme base16-railscasts
+" colorscheme base16-spacemacs
+" colorscheme base16-nord
 
 " This is a fix for vim-jsx mismatching closing tag colors
 hi Tag        ctermfg=04

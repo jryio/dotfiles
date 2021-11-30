@@ -20,6 +20,7 @@ export ZSH=~/.oh-my-zsh
 # NVIM
 export EDITOR="nvim"
 export MYNVIMRC=$HOME/.config/nvim/init.vim
+export NEWRC=$HOME/.config/nvim/new-init.lua
 # SSH
 export SSH_KEY_PATH="~/.ssh/id_rsa"
 # Go path

@@ -1,4 +1,4 @@
-vim/
+vvim/
 .DS_Store
 .svn
 *~
@@ -11,3 +11,4 @@ oh-my-zsh
 nvim/tmp/undo/*
 nvim/plugged
 nvim/.netrwhist
+examples/
