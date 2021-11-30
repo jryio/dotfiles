@@ -1,3 +1,6 @@
+require('base16-colorscheme')
+vim.cmd('colorscheme base16-onedark')
+
 local fox = "nordfox"
 local nightfox = require('nightfox')
 
@@ -14,10 +17,15 @@ nightfox.setup({
     visual = true, -- Enable/Disable inverse highlighting for visual selection
     search = true, -- Enable/Disable inverse highlights for search highlights
   },
+  colors = {
+    -- comment = "#7f94af"
+    -- comment = "#84989e"
+    comment = "#768b9e",
+  },
 })
 
 -- Load the configuration set above and apply the colorscheme
-nightfox.load()
+-- nightfox.load()
 
 
 -- {

@@ -119,6 +119,11 @@ _G.packer_plugins = {
     path = "/Users/CASE/.local/share/nvim/site/pack/packer/start/nightfox.nvim",
     url = "https://github.com/EdenEast/nightfox.nvim"
   },
+  ["nvim-base16"] = {
+    loaded = true,
+    path = "/Users/CASE/.local/share/nvim/site/pack/packer/start/nvim-base16",
+    url = "https://github.com/RRethy/nvim-base16"
+  },
   ["nvim-blame-line"] = {
     loaded = true,
     path = "/Users/CASE/.local/share/nvim/site/pack/packer/start/nvim-blame-line",

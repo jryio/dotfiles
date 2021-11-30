@@ -25,6 +25,8 @@ return require("packer").startup({
     -- THEME
     -- =====================
     use 'EdenEast/nightfox.nvim' -- config/theme.lua
+    use 'RRethy/nvim-base16'
+    use 'rmehri01/onenord.nvim'
 
     -- =====================
     -- UI STUFF
@@ -43,6 +45,7 @@ return require("packer").startup({
     -- UI stuff (mainly used for lsp overrides)
     use("RishabhRD/popfix")
     use("RishabhRD/nvim-lsputils")
+
     -- Colorizer
     use("norcalli/nvim-colorizer.lua")
     -- Trouble
@@ -54,7 +57,7 @@ return require("packer").startup({
     -- This plugin can be used to show the end of line character
     -- as well as the spave character and vertical bars representing
     -- indentation levels (whcih I don't know if I like yet or not)
-    use("lukas-reineke/indent-blankline.nvim") -- TODO: Configure this plugin
+    use("lukas-reineke/indent-blankline.nvim")
     -- statusline
     use {
       'nvim-lualine/lualine.nvim',
@@ -68,9 +71,9 @@ return require("packer").startup({
           'kyazdani42/nvim-web-devicons', -- optional, for file icon
         },
     }
-
     -- Which key lists key mappings
     use("liuchengxu/vim-which-key")
+
     -- =====================
     -- TELESCOPE
     -- =====================

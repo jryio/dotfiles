@@ -74,7 +74,7 @@ end
 
 require('lualine').setup {
   options = {
-    theme = theme,
+    theme = 'nordfox',
     component_separators = '',
     section_separators = { left = '', right = '' },
   },
