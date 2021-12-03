@@ -18,7 +18,7 @@ fi
 # Path to your oh-my-zsh installation.
 export ZSH=~/.oh-my-zsh
 # NVIM
-export EDITOR="nvim"
+export EDITOR="lvim"
 export MYNVIMRC=$HOME/.config/nvim/init.vim
 export NEWRC=$HOME/.config/nvim/new-init.lua
 # SSH
@@ -75,7 +75,6 @@ export PKG_CONFIG_PATH=$HOME/local/lib/pkgconfig:/usr/local/lib/pkgconfig:/usr/l
 # Note: This file is stored in a pricvate keybase directory. In order for ZSH
 # to pick up on this file, the KBFS volume will need to be mounted
 # source /Volumes/Keybase/team/jry.zed/dotfiles/.zshrc.keybase
-
 
 # SSH Find Agent Script
 # https://github.com/wwalker/ssh-find-agent/blob/master/ssh-find-agent.sh
@@ -159,7 +158,6 @@ plugins=(
   zsh-autosuggestions
 )
 
-
 # =============================================================================
 # OH MY ZSH SOURCING
 # =============================================================================
@@ -197,7 +195,6 @@ function timezsh() {
   for i in $(seq 1 10); do /usr/bin/time $shell -i -c exit; done
 }
 
-
 jobscount() {
   # local stopped=$(jobs -sp | wc -l)
   # local running=$(jobs -rp | wc -l)
@@ -228,7 +225,7 @@ man() {
 # plugins, and themes. Aliases can be placed here, though oh-my-zsh
 # users are encouraged to define aliases within the ZSH_CUSTOM folder.
 # For a full list of active aliases, run `alias`.
-alias n='nvim'
+alias n='lvim'
 alias irb='irb --simple-prompt'
 alias lg='lazygit'
 alias kk='clear'
@@ -239,7 +236,6 @@ alias gdc='git difftool --cached'
 alias grbsign="git rebase --exec 'git commit --amend --no-edit -n -S' -i"
 alias ggpush='git push -u origin $(git_current_branch)'
 alias bgrep='/usr/bin/grep --color=auto --exclude-dir={.bzr,CVS,.git,.hg,.svn}'
-
 
 # ===============================================
 # VERSION MANAGERS

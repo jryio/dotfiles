@@ -9,7 +9,7 @@
 [commit]
   gpgsign = true
 [core]
-  editor = nvim
+  editor = lvim
   excludesfile = ~/.gitignore
 [filter "lfs"]
   clean = git lfs clean %f

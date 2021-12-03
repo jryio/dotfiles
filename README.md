@@ -5,6 +5,26 @@
 * `[dotbot-brewfile](https://github.com/sobolevn/dotbot-brewfile)` Interfaces
   with `brew bundle` during the dotbot installation phase
 
+### LunarVim
+
+I have made an important edit to the lunar vim executable file to suit my use case.
+
+
+```sh
+#!/bin/sh
+
+export LUNARVIM_CONFIG_DIR="${LUNARVIM_CONFIG_DIR:-/Users/CASE/.config/lvim}"
+export LUNARVIM_RUNTIME_DIR="${LUNARVIM_RUNTIME_DIR:-/Users/CASE/.local/share/lunarvim}"
+# Added LVIMRC for each config editing
+export LVIMRC="${LUNARVIM_CONFIG_DIR}/config.lua"
+
+# For some reason launching lvim would not reliably auto load the config.
+# This the the easiest way to call this command once and only once on load
+# rather than writing a vim autocommand that triggers on BufEnter
+exec nvim -u "$LUNARVIM_RUNTIME_DIR/lvim/init.lua" -c ":LvimReload" "$@"
+
+```
+
 ### Font
 
 I am using OperatorMono as my development font. Specifically using the
