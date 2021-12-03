@@ -28,6 +28,7 @@ export GOPATH="$HOME/go"
 export GO111MODULE='auto'
 # PATH
 export PATH="$PATH:$MY_INSTALL_DIR/bin" # Zoom
+export PATH=$PATH:/$HOME/.local/bin
 export PATH=$PATH:/usr/local/bin
 export PATH=$PATH:/usr/local/sbin
 export PATH=$PATH:/usr/local/MacGPG2/bin

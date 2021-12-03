@@ -47,7 +47,6 @@ Plug 'nvim-treesitter/playground'
 " Treesitter color scheme Zephyr
 " Plug 'glepnir/zephyr-nvim'
 Plug 'EdenEast/nightfox.nvim'"
-
 " --------------------------------------------------
 " 1.2 JavaScript
 " --------------------------------------------------
@@ -224,8 +223,8 @@ set shortmess+=c                            " From COC: don't give |ins-completi
 " 2.1 Split settings (more natural)
 " --------------------------------------------------
 
-set splitbelow                              " splitting a window will put the new window below the current
-set splitright                              " splitting a window will put the new window right of the current
+set splitbelow                              " Splitting a window will put the new window below the current
+set splitright                              " Splitting a window will put the new window right of the current
 
 " --------------------------------------------------
 " 2.2 Timeout settings
@@ -1021,9 +1020,10 @@ set background=dark
 
 colorscheme nordfox
 " colorscheme zephyr
-" colorscheme base16-railscasts
 " colorscheme base16-spacemacs
 " colorscheme base16-nord
+" Original color scheme
+" colorscheme base16-railscasts
 
 " This is a fix for vim-jsx mismatching closing tag colors
 hi Tag        ctermfg=04

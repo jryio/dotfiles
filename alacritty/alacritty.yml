@@ -123,37 +123,81 @@ font:
 # If `true`, bold text is drawn using the bright color variants.
 draw_bold_text_with_bright_colors: false
 
-# Nightfox Alacritty Colors
-# Style: nordfox
-# Upstream: https://github.com/edeneast/nightfox.nvim/raw/main/extra/nordfox/nightfox_alacritty.yml
+
+# Base16 Tomorrow Night 256 - alacritty color config
+# Chris Kempson (http://chriskempson.com)
 colors:
   # Default colors
   primary:
-    background: '0x2e3440'
-    foreground: '0xb9bfca'
+    background: '0x1d1f21'
+    foreground: '0xc5c8c6'
+
+  # Colors the cursor will use if `custom_cursor_colors` is true
+  cursor:
+    text: '0x1d1f21'
+    cursor: '0xc5c8c6'
+
   # Normal colors
   normal:
-    black:   '0x3b4252'
-    red:     '0xbf616a'
-    green:   '0xa3be8c'
-    yellow:  '0xebcb8b'
-    blue:    '0x81a1c1'
-    magenta: '0xb48ead'
-    cyan:    '0x88c0d0'
-    white:   '0xe5e9f0'
+    black:   '0x1d1f21'
+    red:     '0xcc6666'
+    green:   '0xb5bd68'
+    yellow:  '0xf0c674'
+    blue:    '0x81a2be'
+    magenta: '0xb294bb'
+    cyan:    '0x8abeb7'
+    white:   '0xc5c8c6'
+
   # Bright colors
   bright:
-    black:   '0x465780'
-    red:     '0xd06f79'
-    green:   '0xb1d196'
-    yellow:  '0xf0d399'
-    blue:    '0x8cafd2'
-    magenta: '0xc895bf'
-    cyan:    '0x93ccdc'
-    white:   '0xe7ecf4'
+    black:   '0x969896'
+    red:     '0xcc6666'
+    green:   '0xb5bd68'
+    yellow:  '0xf0c674'
+    blue:    '0x81a2be'
+    magenta: '0xb294bb'
+    cyan:    '0x8abeb7'
+    white:   '0xffffff'
+
   indexed_colors:
-    - { index: 16, color: '0xc9826b' }
-    - { index: 17, color: '0xbf88bc' }
+    - { index: 16, color: '0xde935f' }
+    - { index: 17, color: '0xa3685a' }
+    - { index: 18, color: '0x282a2e' }
+    - { index: 19, color: '0x373b41' }
+    - { index: 20, color: '0xb4b7b4' }
+    - { index: 21, color: '0xe0e0e0' }
+
+# # Nightfox Alacritty Colors
+# # Style: nordfox
+# # Upstream: https://github.com/edeneast/nightfox.nvim/raw/main/extra/nordfox/nightfox_alacritty.yml
+# colors:
+#   # Default colors
+#   primary:
+#     background: '0x2e3440'
+#     foreground: '0xb9bfca'
+#   # Normal colors
+#   normal:
+#     black:   '0x3b4252'
+#     red:     '0xbf616a'
+#     green:   '0xa3be8c'
+#     yellow:  '0xebcb8b'
+#     blue:    '0x81a1c1'
+#     magenta: '0xb48ead'
+#     cyan:    '0x88c0d0'
+#     white:   '0xe5e9f0'
+#   # Bright colors
+#   bright:
+#     black:   '0x465780'
+#     red:     '0xd06f79'
+#     green:   '0xb1d196'
+#     yellow:  '0xf0d399'
+#     blue:    '0x8cafd2'
+#     magenta: '0xc895bf'
+#     cyan:    '0x93ccdc'
+#     white:   '0xe7ecf4'
+#   indexed_colors:
+#     - { index: 16, color: '0xc9826b' }
+#     - { index: 17, color: '0xbf88bc' }
 
 # Visual Bell
 #
