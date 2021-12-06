@@ -11,7 +11,7 @@ or a path to an executable
 ----------------------------------------------------------------
 -- GENERAL
 ----------------------------------------------------------------
-lvim.log.level = "debug"
+lvim.log.level = "info"
 lvim.format_on_save = true
 -- We need have a colorscheme name here otherwise onedarker gets loaded by
 -- default by LunarVim. We add a file in the vim runtimepath under
@@ -189,18 +189,22 @@ vim.cmd [[
 -- TODO: User Config for predefined plugins
 -- After changing plugin config exit and reopen LunarVim, Run :PackerInstall :PackerCompile
 lvim.builtin.dashboard.active = true
+
 lvim.builtin.terminal.active = true
+
 lvim.builtin.comment.active = true
-lvim.builtin.nvimtree.hide_dotfiles = false
-lvim.builtin.nvimtree.quit_on_open = false
-lvim.builtin.nvimtree.setup.update_focused_file = {
-  enable = false
-}
+
+lvim.builtin.nvimtree.setup.view.width = 30
 lvim.builtin.nvimtree.setup.auto_close = false
--- lvim.builtin.nvimtree.on_config_done = function()
---   lvim.builtin.nvimtree.setup.view.side = "left"
---   lvim.builtin.nvimtree.show_icons.git = 0
--- end
+lvim.builtin.nvimtree.setup.view.auto_resize = false
+lvim.builtin.nvimtree.hide_dotfiles = false
+lvim.builtin.nvimtree.on_config_done = function ()
+  lvim.builtin.nvimtree.setup.view.width = 30
+  lvim.builtin.nvimtree.setup.auto_close = false
+  lvim.builtin.nvimtree.setup.view.auto_resize = false
+  lvim.builtin.nvimtree.hide_dotfiles = false
+
+end
 
 -- if you don't want all the parsers change this to a table of the ones you want
 lvim.builtin.treesitter.ensure_installed = {
@@ -237,13 +241,14 @@ lvim.builtin.which_key.mappings["h"] = {
 lvim.builtin.which_key.mappings["e"] = {}
 lvim.builtin.which_key.mappings["n"] = {
   name = "+NvimTree",
-  f = { "<cmd>NvimTreeFindFileToggle<CR>", "Explorer" }
+  f =  { "<cmd>lua require('core.utils').find_toggle()<CR>", "Minimap"}
+  -- ^ close minimap before opening nvimtree to prevent nvimtree from resizing
 }
 
 -- Code minimap
 lvim.builtin.which_key.mappings["m"] = {
   name = "+Minimap",
-  m = { "<cmd>MinimapToggle<CR>", "Minimap"}
+  m = { "<cmd>MinimapToggle<CR>", "Minimap Toggle"}
 }
 
 -- Symbols outline
@@ -376,18 +381,24 @@ vim.g.symbols_outline = {
 }
 
 -- Minimap
-vim.g.minimap_auto_start = true
-vim.g.minimap_auto_start_win_enter = true
-vim.g.minimap_highlight_range = true
-vim.g.minimap_highlight_search = true
-vim.g.minimap_git_colors = true
-vim.g.minimap_close_filetypes = {
+local ignore_filetypes = {
   "help",
   "dashboard",
   "packer",
   "NvimTree",
-  "startify"
+  "startify",
+  "lsp-installer",
+  "nofile"
 }
+vim.g.minimap_auto_start = true
+vim.g.minimap_auto_start_win_enter = false
+vim.g.minimap_highlight_range = true
+vim.g.minimap_highlight_search = true
+vim.g.minimap_git_colors = true
+vim.g.minimap_block_filetypes  = ignore_filetypes
+vim.g.minimap_block_buftypes   = ignore_filetypes
+vim.g.minimap_close_filetypes  = ignore_filetypes
+vim.g.minimap_close_buftypes   = ignore_filetypes
 ----------------------------------------------------------------
 -- ADDITIONAL PLUGINS
 ----------------------------------------------------------------
@@ -434,6 +445,8 @@ lvim.plugins = {
             "packer",
             "dashboard",
             "NvimTree",
+            "lsp-installer",
+            "minimap"
           },
           space_char_highlight_list = {
             "IndentBlanklineIndent1",

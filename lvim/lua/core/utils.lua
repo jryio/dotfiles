@@ -2,6 +2,11 @@ local M = {}
 local cmd = vim.cmd
 local uv = vim.loop -- Libuv API. See https://github.com/luvit/luv/blob/master/docs.md
 
+M.find_toggle = function ()
+  vim.cmd[[MinimapClose]]
+  vim.cmd[[NvimTreeFindFileToggle]]
+end
+
 -- Highlights functions
 -- Define bg color
 -- @param group Group
