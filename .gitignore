@@ -12,3 +12,4 @@ nvim/tmp/undo/*
 nvim/plugged
 nvim/.netrwhist
 examples/
+lvim/plugin/packer_compiled.*
