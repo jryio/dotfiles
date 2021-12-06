@@ -165,6 +165,13 @@ vim.cmd [[
 ----------------------------------------------------------------
 -- TELESCOPE
 ----------------------------------------------------------------
+lvim.builtin.telescope.defaults.prompt_prefix = " "
+lvim.builtin.telescope.defaults.selection_caret = "﬌ "
+lvim.builtin.telescope.defaults.entry_prefix = "  "
+lvim.builtin.telescope.defaults.layout_config.width = 0.65
+lvim.builtin.telescope.defaults.layout_config.prompt_position = "top"
+lvim.builtin.telescope.defaults.layout_config.preview_width = 0.5
+lvim.builtin.telescope.defaults.sorting_strategy = "ascending"
 -- Change Telescope navigation to use j and k for navigation and n and p for history in both input and normal mode.
 -- we use protected-mode (pcall) just in case the plugin wasn't loaded yet.
 -- local _, actions = pcall(require, "telescope.actions")
