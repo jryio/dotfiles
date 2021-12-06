@@ -226,6 +226,13 @@ lvim.builtin.lualine.options.theme = "jellybeans"
 ----------------------------------------------------------------
 -- WHICHKEY
 ----------------------------------------------------------------
+-- No Highlight
+lvim.builtin.which_key.mappings["h"] = {
+  -- Clear search hilights but also clear the previous search term
+  "<cmd>let @/ = '' | nohlsearch<CR>",
+  "No Highlight"
+}
+
 -- nvimtree
 lvim.builtin.which_key.mappings["e"] = {}
 lvim.builtin.which_key.mappings["n"] = {
@@ -371,6 +378,9 @@ vim.g.symbols_outline = {
 -- Minimap
 vim.g.minimap_auto_start = true
 vim.g.minimap_auto_start_win_enter = true
+vim.g.minimap_highlight_range = true
+vim.g.minimap_highlight_search = true
+vim.g.minimap_git_colors = true
 vim.g.minimap_close_filetypes = {
   "help",
   "dashboard",
@@ -492,13 +502,18 @@ lvim.plugins = {
             },
             hide_cursor = true,          -- Hide cursor while scrolling
             stop_eof = false,            -- Stop at <EOF> when scrolling downwards
-            use_local_scrolloff = false,  -- Use the local scope of scrolloff instead of the global scope
+            use_local_scrolloff = true,  -- Use the local scope of scrolloff instead of the global scope
             respect_scrolloff = true,    -- Stop scrolling when the cursor reaches the scrolloff margin of the file
             cursor_scrolls_alone = true, -- The cursor will keep on scrolling even if the window cannot scroll further
             easing_function = nil,       -- Default easing function
-            pre_hook = nil,              -- Function to run before the scrolling animation starts
-            post_hook = nil,             -- Function to run after the scrolling animation ends
-            })
+            -- Function to run before the scrolling animation starts
+            pre_hook = function()
+              vim.cmd[[MinimapClose]]
+            end,
+            post_hook = function()
+              vim.defer_fn(function() vim.cmd[[Minimap]] end, 700)
+            end,
+      })
       end
     },
 
@@ -516,15 +531,16 @@ lvim.plugins = {
 ----------------------------------------------------------------
 -- STATUSLINE
 ----------------------------------------------------------------
-local empty = require('lualine.component'):extend()
+local empty = require("lualine.component"):extend()
+local components = require("lvim.core.lualine.components")
 local colors = {
-  nord1  = '#3B4252',
-  nord3  = '#4C566A',
-  nord5  = '#E5E9F0',
-  nord6  = '#ECEFF4',
-  nord7  = '#8FBCBB',
-  nord8  = '#88C0D0',
-  nord14 = '#EBCB8B',
+  nord1  = "#3B4252",
+  nord3  = "#232527", -- Modified to match tomorrow-night
+  nord5  = "#E5E9F0",
+  nord6  = "#ECEFF4",
+  nord7  = "#8FBCBB",
+  nord8  = "#88C0D0",
+  nord14 = "#EBCB8B",
 }
 
 lvim.builtin.lualine.options.theme = {
@@ -544,8 +560,8 @@ lvim.builtin.lualine.options.theme = {
 }
 
 function empty:draw(default_highlight)
-  self.status = ''
-  self.applied_separator = ''
+  self.status = ""
+  self.applied_separator = ""
   self:apply_highlights(default_highlight)
   self:apply_section_separators()
   return self.status
@@ -554,16 +570,20 @@ end
 -- Put proper separators and gaps between components in sections
 local function process_sections(sections)
   for name, section in pairs(sections) do
-    local left = name:sub(9, 10) < 'x'
-    for pos = 1, name ~= 'lualine_z' and #section or #section - 1 do
+    local left = name:sub(9, 10) < "x"
+    for pos = 1, name ~= "lualine_z" and #section or #section - 1 do
       table.insert(section, pos * 2, { empty, color = { fg = colors.white, bg = colors.white } })
     end
     for id, comp in ipairs(section) do
-      if type(comp) ~= 'table' then
+      if type(comp) ~= "table" then
         comp = { comp }
         section[id] = comp
       end
-      comp.separator = left and { right = '' } or { left = "" }
+      comp.separator = left and { right = "" } or { left = "" }
+      -- lualine_z is a scrollbar so don't give it a left arrowe
+      if name == "lualine_z" and id == 3 and not left then
+        comp.separator = { left = ""}
+      end
     end
   end
   return sections
@@ -571,70 +591,94 @@ end
 
 local function search_result()
   if vim.v.hlsearch == 0 then
-    return ''
+    return ""
   end
-  local last_search = vim.fn.getreg '/'
-  if not last_search or last_search == '' then
-    return ''
+  local last_search = vim.fn.getreg "/"
+  if not last_search or last_search == "" then
+    return ""
   end
   local searchcount = vim.fn.searchcount { maxcount = 9999 }
-  return last_search .. '[' .. searchcount.current .. '/' .. searchcount.total .. ']'
+  -- return last_search .. "[" .. searchcount.current .. "/" .. searchcount.total .. "]"
+  return "[" .. searchcount.current .. "/" .. searchcount.total .. "]"
 end
 
 local function modified()
   if vim.bo.modified then
-    return '+'
+    return "+"
   elseif vim.bo.modifiable == false or vim.bo.readonly == true then
-    return '-'
+    return "-"
   end
-  return ''
+  return ""
 end
 
+local scrollbar = {
+  function()
+    local current_line = vim.fn.line "."
+    local total_lines = vim.fn.line "$"
+    local top = "Top"
+    local bot = "Bot"
+    local chars = { "__", "▁▁", "▂▂", "▃▃", "▄▄", "▅▅", "▆▆", "▇▇", "██" }
+    local line_ratio = current_line / total_lines
+    local index = math.ceil(line_ratio * #chars)
+    local symbol = ""
+    if current_line == 1 then
+      symbol = top
+    elseif line_ratio == 1.0 then
+      symbol = bot
+    else
+      symbol = chars[index]
+    end
+    return symbol
+  end,
+  padding = { left = 1, right = 1 },
+  color = { fg = colors.nord14, bg = colors.nord3 },
+  cond = nil,
+}
+
 local sections = process_sections {
-  lualine_a = { 'mode' },
+  lualine_a = { "mode" },
   lualine_b = {
-    {
-      'diagnostics',
-      source = { 'nvim' },
-      sections = { 'error' },
-      diagnostics_color = { error = { bg = colors.red, fg = colors.white } },
-    },
-    {
-      'diagnostics',
-      source = { 'nvim' },
-      sections = { 'warn' },
-      diagnostics_color = { warn = { bg = colors.orange, fg = colors.white } },
-    },
-    { 'filename', file_status = false, path = 1 },
-    'diff',
+    components.filename,
+    components.diff,
     { modified, color = { bg = colors.red } },
     {
-      '%w',
+      "%w",
       cond = function()
       return vim.wo.previewwindow
       end,
     },
     {
-      '%r',
+      "%r",
       cond = function()
       return vim.bo.readonly
       end,
     },
     {
-      '%q',
+      "%q",
       cond = function()
-      return vim.bo.buftype == 'quickfix'
+      return vim.bo.buftype == "quickfix"
       end,
     },
   },
-  lualine_c = {},
-  lualine_x = { search_result, 'filetype' },
-  lualine_y = { '%p%%' } ,
-  lualine_z = { '%l:%c|%L'  }
+  lualine_c = {
+    components.diagnostics,
+  },
+  lualine_x = {
+    search_result,
+    components.filetype
+  },
+  lualine_y = {
+    components.treesitter,
+    components.location,
+  },
+  lualine_z = {
+    components.encoding,
+    scrollbar
+  }
 }
 
-lvim.builtin.lualine.options.component_separators = ''
-lvim.builtin.lualine.options.section_separators = { left = '', right = '' }
+lvim.builtin.lualine.options.component_separators = ""
+lvim.builtin.lualine.options.section_separators = { left = "", right = "" }
 lvim.builtin.lualine.sections.lualine_a = sections.lualine_a
 lvim.builtin.lualine.sections.lualine_b = sections.lualine_b
 lvim.builtin.lualine.sections.lualine_c = sections.lualine_c
@@ -642,8 +686,6 @@ lvim.builtin.lualine.sections.lualine_x = sections.lualine_x
 lvim.builtin.lualine.sections.lualine_y = sections.lualine_y
 lvim.builtin.lualine.sections.lualine_z = sections.lualine_z
 lvim.builtin.lualine.inactive_sections = {
-  lualine_c = { '%f %y %m' },
+  lualine_c = { "%f %y %m" },
   lualine_x = {}
 }
-
--- print(vim.inspect(lvim.builtin.lualine.sections))
