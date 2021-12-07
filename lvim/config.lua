@@ -1,4 +1,4 @@
-----------------------------------------------------------------
+e---------------------------------------------------------------
 --[[
 lvim is the global options object
 
@@ -536,6 +536,14 @@ lvim.plugins = {
       })
       end
     },
+
+    -- GITHUB INTEGRATION
+  {
+    "pwntester/octo.nvim",
+    config = function()
+      require"octo".setup()
+    end
+  }
 
 }
 
