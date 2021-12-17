@@ -26,9 +26,16 @@
 
 - create:
     - ~/.config
+    - ~/.config/alacritty
+    - ~/.config/lvim
+    - ~/.config/nvim
     - ~/
     - ~/.vim/undo-history
     - ~/Pictures/Screenshots # Alternative screenshot location
+
+- create:
+    - ~/.ssh:
+        mode: 0700
 
 - link: # Need Brewfile before running `brew bundle`
     ~/.Brewfile: Brewfile
@@ -49,10 +56,6 @@
     ~/.config/alacritty/alacritty.yml: alacritty/alacritty.yml
     ~/.config/nvim: nvim
     ~/.config/lvim: lvim
-
-- shell:
-  - command: >
-      echo "Starting brew bundle"
 
 - shell: # Install core dependencies
   -
@@ -111,7 +114,9 @@
       command: >
         "bash shell/osx-defaults.sh"
 
-# TODO: Add a flag to skip this step
+- shell:
+  - command: >
+      echo "Starting brew bundle"
 - brewfile: # Calls brew bundle
     stdout: true
     stderr: true
