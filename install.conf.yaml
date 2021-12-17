@@ -111,7 +111,7 @@
 - shell:
     - description: "Setting macOS defaults..."
       command: >
-        "bash shell/osx-defaults.sh"
+        bash shell/osx-defaults.sh
 
 - shell:
   - command: >
