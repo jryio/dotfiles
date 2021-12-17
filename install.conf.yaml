@@ -32,9 +32,11 @@
     - ~/.vim/undo-history
     - ~/Pictures/Screenshots # Alternative screenshot location
 
-- create:
-    - ~/.ssh:
-        mode: 0700
+# TODO we need to handle installing on work computer. This path will be a symlink
+# ~/.ssh -> ~/Personal/.ssh
+# - create:
+#     - ~/.ssh:
+#         mode: 0700
 
 - link: # Need Brewfile before running `brew bundle`
     ~/.Brewfile: Brewfile
