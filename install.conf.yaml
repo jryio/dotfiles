@@ -13,11 +13,11 @@
     link:
       relink: true
     brewfile: # https://github.com/sobolevn/dotbot-brewfile
-      stdout: false
-      stderr: false
+      stdout: true
+      stderr: true
       include: ['tap', 'brew', 'cask', 'mas']
     shell:
-      quiet: true
+      quiet: false
 
 # Looks for dead symlinks that point to the dotfiles repository, if any are
 # found they will be cleanned automatically
