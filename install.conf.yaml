@@ -30,32 +30,29 @@
     - ~/.vim/undo-history
     - ~/Pictures/Screenshots # Alternative screenshot location
 
-
 - link: # Need Brewfile before running `brew bundle`
     ~/.Brewfile: Brewfile
     ~/xterm-256color-italic.terminfo: shell/xterm-256color-italic.terminfo
 
-
 - link: # If linking directories, do not include a trailing slash.
+    ~/.gitignore: git/gitignore
+    ~/.gitconfig: git/gitconfig
+    ~/.gitconfig.keybase: git/gitconfig.keybase
+    ~/.gitconfig.zed: git/gitconfig.zed
     ~/.tmux.conf: tmux/tmux.conf
-    ~/.config/alacritty/alacritty.yml: alacritty/alacritty.yml
-    ~/.config/nvim: nvim
     ~/.p10k.zsh: shell/p10k.zsh
     ~/.zprofile: shell/zprofile
     ~/.zlogin: shell/zlogin
     ~/.zshrc: shell/zshrc
 
+- link:
+    ~/.config/alacritty/alacritty.yml: alacritty/alacritty.yml
+    ~/.config/nvim: nvim
+    ~/.config/lvim: lvim
 
 - shell:
   - command: >
       echo "Starting brew bundle"
-
-# TODO: Add a flag to skip this step
-- brewfile: # Calls brew bundle
-    stdout: true
-    stderr: true
-    global: true
-    no-upgrade: true
 
 - shell: # Install core dependencies
   -
@@ -78,7 +75,6 @@
       [[ -z "$ZSH" ]]
       && sh -c "$(curl -fsSL https://raw.github.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
       || echo "--| Already exists = ~/.oh-my-zsh/"
-
   -
     description: "Install oh-my-zsh plugin --> fzf-tab"
     command: >
@@ -103,5 +99,21 @@
       [[ ! -d "${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/themes/powerlevel10k" ]]
       && git clone --depth=1 https://github.com/romkatv/powerlevel10k.git ${ZSH_CUSTOM:-$HOME/.oh-my-zsh/custom}/themes/powerlevel10k
       || echo "--| Already exists = ~/.oh-my-zsh/custom/plugins/powerlevel10k"
+  -
+    description: "install node via nvm"
+    command: >
+      [[ -z "$(command -v nvm)" ]]
+      && curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.0/install.sh | bash
+      || echo "--| Already exists = nvm"
 
+- shell:
+    - description: "Setting macOS defaults..."
+      command: >
+        "bash shell/osx-defaults.sh"
 
+# TODO: Add a flag to skip this step
+- brewfile: # Calls brew bundle
+    stdout: true
+    stderr: true
+    global: true
+    no-upgrade: true

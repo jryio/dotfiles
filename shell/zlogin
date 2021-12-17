@@ -22,4 +22,3 @@ load-nvmrc
 
 # Dont check for mail when logging into the terminal
 unset MAILCHECK
-

@@ -21,8 +21,8 @@ defaults write com.apple.Finder FXPreferredViewStyle clmv
 # Hide the FUCKING Desktop, who even uses that shit?
 defaults write com.apple.finder CreateDesktop FALSE
 
-# Move the default Screenshots location to ~/Pictures/
-defaults write com.apple.screencapture location ~/Pictures/Screenshots
+# Move the default Screenshots location to ~/Dropbox/media/screenshots
+defaults write com.apple.screencapture location ~/Dropbox/media/screenshots
 
 # Restarting services
 killall Finder

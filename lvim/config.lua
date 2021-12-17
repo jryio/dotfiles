@@ -1,4 +1,5 @@
-e---------------------------------------------------------------
+--------------------------------------------------------------
+--------------------------------------------------------------
 --[[
 lvim is the global options object
 
@@ -75,11 +76,10 @@ lvim.keys.normal_mode = {
   -- Center screen when navigating in visual mode
   ["n"] = ":norm! nzz<CR>",
   ["N"] = ":norm! Nzz<CR>",
-  -- Disbaled due to neoscroll
-  -- ["<C-u>"] = "<C-u>zz",
-  -- ["<C-d>"] = "<C-d>zz",
-  -- ["<C-f>"] = "<C-f>zz",
-  -- ["<C-b>"] = "<C-b>zz",
+  ["<C-u>"] = "<C-u>zz",
+  ["<C-d>"] = "<C-d>zz",
+  ["<C-f>"] = "<C-f>zz",
+  ["<C-b>"] = "<C-b>zz",
   -- Remap H and L (top, bottom of screen to left and right end of line)
   ["<S-h>"] = "^",
   ["<S-l>"] = "$",
@@ -134,11 +134,10 @@ lvim.keys.visual_mode = {
   -- Center screen when navigating in visual mode
   ["n"] = ":norm! nzz<CR>",
   ["N"] = ":norm! Nzz<CR>",
-  -- Disbaled due to neoscroll
-  -- ["<C-u>"] = "<C-u>zz",
-  -- ["<C-d>"] = "<C-d>zz",
-  -- ["<C-f>"] = "<C-f>zz",
-  -- ["<C-b>"] = "<C-b>zz",
+  ["<C-u>"] = "<C-u>zz",
+  ["<C-d>"] = "<C-d>zz",
+  ["<C-f>"] = "<C-f>zz",
+  ["<C-b>"] = "<C-b>zz",
   -- Remap H and L (top, bottom of screen to left and right end of line)
   ["H"] = "^",
   ["L"] = "$",
@@ -344,6 +343,9 @@ lvim.builtin.which_key.mappings["t"] = {
 --     filetypes = { "javascript", "python" },
 --   },
 -- }
+lvim.lsp.override = { "rust" }
+lvim.plugins = {
+}
 
 ----------------------------------------------------------------
 -- VIM OPTIONS
@@ -453,6 +455,7 @@ lvim.plugins = {
             "dashboard",
             "NvimTree",
             "lsp-installer",
+            "lsp-info",
             "minimap"
           },
           space_char_highlight_list = {
@@ -481,6 +484,29 @@ lvim.plugins = {
       cmd = "SymbolsOutline",
       config = function ()
       end
+    },
+
+    --- LSP PLUGINS
+    {
+      "simrat39/rust-tools.nvim",
+      disable = true,
+      config = function()
+        require("rust-tools").setup({
+          tools = {
+            autoSetHints = true,
+            hover_with_actions = true,
+            runnables = {
+              use_telescope = true,
+            },
+          },
+          server = {
+            cmd = { vim.fn.stdpath "data" .. "/lsp_servers/rust/rust-analyzer" },
+            on_attach = require("lvim.lsp").common_on_attach,
+            on_init = require("lvim.lsp").common_on_init,
+          },
+        })
+      end,
+      ft = { "rust", "rs" },
     },
 
     -- UTILITIES AND KEYS
@@ -512,6 +538,7 @@ lvim.plugins = {
     },
     {
       "karb94/neoscroll.nvim",
+      disable = true,
       event = "WinScrolled",
       config = function()
       require("neoscroll").setup({
