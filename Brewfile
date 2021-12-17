@@ -1,4 +1,3 @@
-tap "caskroom/versions"
 tap "ethereum/ethereum"
 tap "heroku/brew"
 tap "homebrew/bundle"
