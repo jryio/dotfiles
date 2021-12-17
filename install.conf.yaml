@@ -118,6 +118,7 @@
 - shell:
   - command: >
       echo "Starting brew bundle"
+
 - brewfile: # Calls brew bundle
     stdout: true
     stderr: true
