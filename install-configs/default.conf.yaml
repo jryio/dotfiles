@@ -49,9 +49,18 @@
     ~/.gitconfig.zed: git/gitconfig.zed
 
 - link: # Config
-    ~/.config/alacritty/alacritty.yml: alacritty/alacritty.yml
-    ~/.config/nvim: nvim
-    ~/.config/lvim: lvim
+    ~/.config/alacritty/alacritty.yml:
+      force: true
+      create: true
+      path: alacritty/alacritty.yml
+    ~/.config/nvim:
+      force: true
+      create: true
+      path: nvim
+    ~/.config/lvim:
+      force: true
+      create: true
+      path: lvim
 
 - link:
     ~/.functions: functions
