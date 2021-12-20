@@ -50,11 +50,6 @@
     ~/.gitconfig: git/gitconfig
     ~/.gitconfig.keybase: git/gitconfig.keybase
     ~/.gitconfig.zed: git/gitconfig.zed
-    ~/.tmux.conf: tmux/tmux.conf
-    ~/.p10k.zsh: shell/p10k.zsh
-    ~/.zprofile: shell/zprofile
-    ~/.zlogin: shell/zlogin
-    ~/.zshrc: shell/zshrc
 
 - link: # Config
     ~/.config/alacritty/alacritty.yml: alacritty/alacritty.yml
@@ -126,6 +121,13 @@
       [[ $SHELL != *"zsh"* ]]
       && "chsh -s $(which zsh)"
       || echo "--| Already installed = zsh"
+
+- link:
+  ~/.tmux.conf: tmux/tmux.conf
+  ~/.p10k.zsh: shell/p10k.zsh
+  ~/.zprofile: shell/zprofile
+  ~/.zlogin: shell/zlogin
+  ~/.zshrc: shell/zshrc
 
 # -------------------------------------
 # Customize macos defaults
