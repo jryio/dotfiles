@@ -30,7 +30,7 @@
 # =============================================================================
 - create:
     - ~/.config
-    - ~/.config/alacritty/alacritty.yml
+    - ~/.config/alacritty
     - ~/.vim/undo-history
     - ~/Pictures/Screenshots # Alternative screenshot location
 
@@ -145,8 +145,7 @@
 
 - link: # Config
     ~/.config/alacritty/alacritty.yml:
-      force: true
-      create: true
+      relink: true
       path: alacritty/alacritty.yml
     ~/.config/nvim:
       force: true
