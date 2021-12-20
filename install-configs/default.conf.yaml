@@ -123,11 +123,11 @@
       || echo "--| Already installed = zsh"
 
 - link:
-  ~/.tmux.conf: tmux/tmux.conf
-  ~/.p10k.zsh: shell/p10k.zsh
-  ~/.zprofile: shell/zprofile
-  ~/.zlogin: shell/zlogin
-  ~/.zshrc: shell/zshrc
+    ~/.tmux.conf: tmux/tmux.conf
+    ~/.p10k.zsh: shell/p10k.zsh
+    ~/.zprofile: shell/zprofile
+    ~/.zlogin: shell/zlogin
+    ~/.zshrc: shell/zshrc
 
 # -------------------------------------
 # Customize macos defaults
