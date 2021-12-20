@@ -1,0 +1,43 @@
+- defaults:
+    link:
+      relink: true
+    shell:
+      quiet: false
+
+# =============================================================================
+# WORK: Create directories
+# =============================================================================
+# - create:
+#   - ~/Personal/.ssh:
+#       mode: 0700
+
+# =============================================================================
+# WORK: Link files
+# =============================================================================
+- link: # Need Brewfile before running `brew bundle`
+    ~/.Brewfile: brewfiles/work.brewfile
+
+# =============================================================================
+# WORK: Run commands
+# =============================================================================
+- shell:
+  - decscription: "Setting $HOME/.dotfiles file with location of WORK dotfiles repo"
+    # We know that BASH_SOURCE will always be this file
+    # So let's go up one directory to the dotfiles repo
+    command: >
+      touch "${HOME}/.dotfiles"
+      && echo "$(cd "$(dirname "${BASH_SOURCE[0]}/..")" && pwd)" > "${HOME}/.dotfiles"
+
+# -------------------------------------
+# Brew Bundle
+# -------------------------------------
+- shell:
+  - command: >
+      echo "Starting brew bundle"
+
+- brewfile: # Calls brew bundle
+    global: true # We want to use the global option to allow for switching brewfiles between machines
+    include: ['tap', 'brew', 'cask', 'mas']
+    stdout: true
+    stderr: true
+    no-upgrade: true

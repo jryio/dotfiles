@@ -2,12 +2,19 @@
 
 set -e
 
+# Usage:
+# ./install work
+# ./install personal work
+
 # This modification of th original script comes directly from anishanthalye
 # in this github issue: https://github.com/anishathalye/dotbot/pull/11#issuecomment-73082152
 
 DEFAULT_CONFIG_PREFIX="default"
+BREW_CONFIG_PREFIX="brew"
 CONFIG_SUFFIX=".conf.yaml"
+
 DOTBOT_DIR="dotbot"
+INSTALL_DIR="install-configs"
 
 DOTBOT_BIN="bin/dotbot"
 BASEDIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
@@ -15,9 +22,29 @@ BASEDIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 cd "${BASEDIR}"
 git submodule update --init --recursive "${DOTBOT_DIR}"
 
-# Usage:
-# ./install work
-# ./install personal work
-for conf in ${DEFAULT_CONFIG_PREFIX} ${@}; do
-    "${BASEDIR}/${DOTBOT_DIR}/${DOTBOT_BIN}" -d "${BASEDIR}" -c "${conf}${CONFIG_SUFFIX}"
+CONF_DEFAULT="${INSTALL_DIR}/${DEFAULT_CONFIG_PREFIX}${CONFIG_SUFFIX}"
+CONF_BREW="${INSTALL_DIR}/${BREW_CONFIG_PREFIX}${CONFIG_SUFFIX}"
+
+function dotbot() {
+  local config_path="$1"
+  "${BASEDIR}/${DOTBOT_DIR}/${DOTBOT_BIN}" -d "${BASEDIR}" --plugin-dir dotbot-brewfile -c "${config_path}"
+}
+
+# Always perform the default configuration first
+# "${BASEDIR}/${DOTBOT_DIR}/${DOTBOT_BIN}" -d "${BASEDIR}" -c "${INSTALL_DIR}/${DEFAULT_CONFIG_PREFIX}${CONFIG_SUFFIX}"
+dotbot "${CONF_DEFAULT}"
+
+# If we get no arguments assume that
+if [ $# -eq 0 ]; then
+    echo "No profile provided. Chose a profile from install-configs/{profile}.conf.yaml"
+fi
+# Performe all the profiles provided, if any
+for conf in ${@}; do
+  config_path="${INSTALL_DIR}/${conf}${CONFIG_SUFFIX}"
+  dotbot "${config_path}"
+  # "${BASEDIR}/${DOTBOT_DIR}/${DOTBOT_BIN}" -d "${BASEDIR}" -c "${INSTALL_DIR}/${conf}${CONFIG_SUFFIX}"
 done
+
+# Finally perform brew bundle
+# "${BASEDIR}/${DOTBOT_DIR}/${DOTBOT_BIN}" -d "${BASEDIR}" -c
+dotbot "${CONF_BREW}"

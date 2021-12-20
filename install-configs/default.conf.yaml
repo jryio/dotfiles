@@ -1,21 +1,24 @@
+# =============================================================================
+# TODO LIST
+# =============================================================================
 # TODO: https://github.com/alexcormier/dotbot-rust
+
 # TODO: Go through p10k.zsh and find all prompt dependencies. Currently...
 #       - virtualenv
 #       - pyenv
 #       - goenv therefore go
 #       - node version manager (write something that installs node lTS as the default)
 #       - rust (install rust)
+
 # TODO: Package OperatorMono into the dotfiles directory
+
 # TODO: Find a way to install fonts to the macOS FontBook.app programatically (https://superuser.com/a/120711)
+
 # TODO: Use a font like NerdFont or FontAwesome
 
 - defaults:
     link:
       relink: true
-    brewfile: # https://github.com/sobolevn/dotbot-brewfile
-      stdout: true
-      stderr: true
-      include: ['tap', 'brew', 'cask', 'mas']
     shell:
       quiet: false
 
@@ -24,6 +27,9 @@
 # Set recursive: true to look for nested dead symbolic links
 - clean: ['~']
 
+# =============================================================================
+# DEFAULT: Create directories
+# =============================================================================
 - create:
     - ~/.config
     - ~/.config/alacritty
@@ -32,17 +38,14 @@
     - ~/.vim/undo-history
     - ~/Pictures/Screenshots # Alternative screenshot location
 
-# TODO we need to handle installing on work computer. This path will be a symlink
-# ~/.ssh -> ~/Personal/.ssh
-# - create:
-#     - ~/.ssh:
-#         mode: 0700
-
-- link: # Need Brewfile before running `brew bundle`
-    ~/.Brewfile: Brewfile
+# =============================================================================
+# DEFAULT: Link files
+# Note: If linking to a directory, do not add a trailing slash
+# =============================================================================
+- link:
     ~/xterm-256color-italic.terminfo: shell/xterm-256color-italic.terminfo
 
-- link: # If linking directories, do not include a trailing slash.
+- link: # .dotfiles
     ~/.gitignore: git/gitignore
     ~/.gitconfig: git/gitconfig
     ~/.gitconfig.keybase: git/gitconfig.keybase
@@ -53,74 +56,81 @@
     ~/.zlogin: shell/zlogin
     ~/.zshrc: shell/zshrc
 
-- link:
+- link: # Config
     ~/.config/alacritty/alacritty.yml: alacritty/alacritty.yml
     ~/.config/nvim: nvim
     ~/.config/lvim: lvim
 
+- link:
+    ~/.functions: functions
+
+# =============================================================================
+# DEFAULT: Run commands
+# =============================================================================
 - shell: # Install core dependencies
-  -
-    description: "--> Changing deafult shell to zsh..."
-    command: >
-      [[ $SHELL != *"zsh"* ]]
-      && "chsh -s $(which zsh)"
-      || echo "--| Already installed = zsh"
-  -
-    description: "--> Installing Homebrew"
+  # -------------------------------------
+  # Homebrew
+  # -------------------------------------
+  - description: "--> Installing Homebrew"
     command: >
       [[  -z "$(command -v foo)"  ]]
       && /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
       || echo "--| Already installed = brew"
-  -
-    description: "--> Installing oh-my-zsh..."
-    stdout: true
-    stderr: true
+
+  # -------------------------------------
+  # Oh My ZSH and its plugins
+  # -------------------------------------
+  - description: "--> Installing oh-my-zsh..."
+    # Note that we unset the ZSH directory variable incase it is picked up by zshrc:19
     command: >
       [[ -z "$ZSH" ]]
-      && sh -c "$(curl -fsSL https://raw.github.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
+      && ZSH= sh -c "$(curl -fsSL https://raw.github.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
       || echo "--| Already exists = ~/.oh-my-zsh/"
-  -
-    description: "Install oh-my-zsh plugin --> fzf-tab"
+    stdout: true
+    stderr: true
+  - description: "Install oh-my-zsh plugin --> fzf-tab"
     command: >
       [[ ! -d "${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/fzf-tab" ]]
       && git clone https://github.com/Aloxaf/fzf-tab ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/fzf-tab
       || echo "--| Already exists = ~/.oh-my-zsh/custom/plugins/fzf-tab"
-  -
-    description: "Install oh-my-zsh plugin --> evalcache"
+  - description: "Install oh-my-zsh plugin --> evalcache"
     command: >
       [[ ! -d "${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/evalcache" ]]
       && git clone https://github.com/mroth/evalcache ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/evalcache
       || echo "--| Already exists = ~/.oh-my-zsh/custom/plugins/evalcache"
-  -
-    description: "Install oh-my-zsh plugin --> zsh-autosuggestions"
+  - description: "Install oh-my-zsh plugin --> zsh-autosuggestions"
     command: >
       [[ ! -d "${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-autosuggestions" ]]
       && git clone https://github.com/zsh-users/zsh-autosuggestions ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-autosuggestions
       || echo "--| Already exists = ~/.oh-my-zsh/custom/plugins/zsh-autosuggestions"
-  -
-    description: "Install oh-my-zsh plugin --> powerlevel10k"
+  - description: "Install oh-my-zsh plugin --> powerlevel10k"
     command: >
       [[ ! -d "${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/themes/powerlevel10k" ]]
       && git clone --depth=1 https://github.com/romkatv/powerlevel10k.git ${ZSH_CUSTOM:-$HOME/.oh-my-zsh/custom}/themes/powerlevel10k
       || echo "--| Already exists = ~/.oh-my-zsh/custom/plugins/powerlevel10k"
-  -
-    description: "install node via nvm"
+
+  # -------------------------------------
+  # Node Version Manager
+  # -------------------------------------
+  - description: "install node via nvm"
     command: >
       [[ -z "$(command -v nvm)" ]]
       && curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.0/install.sh | bash
       || echo "--| Already exists = nvm"
 
-- shell:
-    - description: "Setting macOS defaults..."
-      command: >
-        bash shell/osx-defaults.sh
+  # -------------------------------------
+  # Change shells last as to not interfere with the other srcipts
+  # -------------------------------------
+  - description: "--> Changing deafult shell to zsh..."
+    command: >
+      [[ $SHELL != *"zsh"* ]]
+      && "chsh -s $(which zsh)"
+      || echo "--| Already installed = zsh"
 
+# -------------------------------------
+# Customize macos defaults
+# -------------------------------------
 - shell:
-  - command: >
-      echo "Starting brew bundle"
-
-- brewfile: # Calls brew bundle
-    stdout: true
-    stderr: true
-    global: true
-    no-upgrade: true
+  - description: "Setting macOS defaults..."
+    command: >
+      bash shell/macos.sh

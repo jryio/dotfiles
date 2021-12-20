@@ -343,9 +343,63 @@ lvim.builtin.which_key.mappings["t"] = {
 --     filetypes = { "javascript", "python" },
 --   },
 -- }
-lvim.lsp.override = { "rust" }
-lvim.plugins = {
+vim.list_extend(lvim.lsp.override, { "rust" })
+-- vim.list_extend(lvim.lsp.override, { "typescript" })
+
+lvim.lang.javascript.lsp = {
+  provider = "denols",
+  setup = {
+    cmd = {
+      vim.fn.stdpath "data" .. "/lspinstall/deno/bin/deno",
+      "lsp",
+    },
+    filetypes = { "typescript", "typescriptreact", "typescript.tsx" },
+    init_options = {
+      enable = true,
+      lint = false,
+      unstable = false,
+    },
+    root_dir = require("lspconfig").util.root_pattern("mod.ts", ".git"),
+  },
 }
+
+-- lvim.lang.javascript.lsp = {
+--   provider = "denols",
+--   setup = {
+--     cmd = {
+--       vim.fn.stdpath "data" .. "/lspinstall/deno/bin/deno",
+--       "lsp",
+--     },
+--     filetypes = { "typescript", "typescriptreact", "typescript.tsx" },
+--     init_options = {
+--       enable = true,
+--       lint = false,
+--       unstable = false,
+--     },
+--     root_dir = require("lspconfig").util.root_pattern("mod.ts", ".git"),
+--   },
+-- }
+
+-- local isDeno = require("lspconfig/util").root_pattern("import_map.json")
+-- if isDeno() then
+--   lvim.lang.typescript.lsp = {
+--     provider = "denols",
+--     setup = {
+--       cmd = {
+--         vim.fn.stdpath "data" .. "/lspinstall/deno/bin/deno",
+--         "lsp",
+--       },
+--       filetypes = { "javascript","javascriptreact", "typescript", "typescriptreact", "typescript.tsx" },
+--       init_options = {
+--         enable = true,
+--         lint = false,
+--         unstable = false,
+--         importMap = './import_map.json',
+--       },
+--       root_dir = require("lspconfig").util.root_pattern("mod.ts", ".git"),
+--     },
+--   }
+-- end
 
 ----------------------------------------------------------------
 -- VIM OPTIONS

@@ -80,6 +80,8 @@ export PKG_CONFIG_PATH=$HOME/local/lib/pkgconfig:/usr/local/lib/pkgconfig:/usr/l
 # https://github.com/wwalker/ssh-find-agent/blob/master/ssh-find-agent.sh
 source $HOME/dotfiles/shell/ssh-find-agent.sh
 
+# Source scripts found in dotfiles/scripts (symlinked to $HOME/.scripts/)h
+
 # =============================================================================
 # ZSH THEME
 # =============================================================================
@@ -300,3 +302,7 @@ export NVM_DIR="$HOME/.nvm"
 
 # To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
 [[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
+
+export NVM_DIR="$HOME/.nvm"
+[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
+[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion

@@ -1,5 +1,12 @@
 #!/bin/bash
-#
+
+# =============================================================================
+# TODO LIST
+# =============================================================================
+
+# @TODO: Change this to use mathias' macos overrides
+# https://github.com/mathiasbynens/dotfiles/blob/main/.macos
+
 # Writing some default system behavior for OS X to make life suck less
 # Settings:
 #   - Show hidden files in Finder
