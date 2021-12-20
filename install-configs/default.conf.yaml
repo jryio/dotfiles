@@ -118,7 +118,7 @@
   # -------------------------------------
   - description: "==> Installing Packer.lua"
     command: >
-      [[ ! -d "$HOME/.local/share/nvim/site/pack/packer/opt" || ! -d "$HOME/.local/share/nvim/site/pack/packer/start"]]
+      [[ ! -d "$HOME/.local/share/nvim/site/pack/packer/opt" || ! -d "$HOME/.local/share/nvim/site/pack/packer/start" ]]
       && git clone --depth 1 https://github.com/wbthomason/packer.nvim ~/.local/share/nvim/site/pack/packer/start/packer.nvim
       || echo "==| Already exists = Packer.lua"
 
