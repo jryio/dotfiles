@@ -32,9 +32,6 @@
 # =============================================================================
 - create:
     - ~/.config
-    - ~/.config/alacritty
-    - ~/.config/lvim
-    - ~/.config/nvim
     - ~/.vim/undo-history
     - ~/Pictures/Screenshots # Alternative screenshot location
 
