@@ -19,6 +19,8 @@
   helper = osxkeychain
 [push]
   defualt = simple
+[pull]
+  rebase = true
 [alias]
   showtool = "!f() { git difftool $1^ $1; }; f"
   added = difftool --cached
