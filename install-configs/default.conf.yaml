@@ -14,16 +14,6 @@
 
 # TODO: Find a way to install fonts to the macOS FontBook.app programatically (https://superuser.com/a/120711)
 
-# TODO: Use a font like NerdFont or FontAwesome
-
-# TODO: Wite a shell command step that runs the `tic xterm-256color-itlaic` step described in alacritty.yaml
-
-# TODO: Change the path to ssh-find-agent. Symlink this file from the home directory
-
-# TODO: Run the install script for LunarVim before symlinking
-
-# TODO: Bring my aliased version of
-
 - defaults:
     link:
       relink: true
@@ -40,6 +30,7 @@
 # =============================================================================
 - create:
     - ~/.config
+    - ~/.config/alacritty
     - ~/.vim/undo-history
     - ~/Pictures/Screenshots # Alternative screenshot location
 
