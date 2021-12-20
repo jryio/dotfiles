@@ -105,6 +105,24 @@
       || echo "==| Already exists = nvm"
 
   # -------------------------------------
+  # Install LunarVim
+  # -------------------------------------
+  - description: "==> Installing LunarVim"
+    command: >
+      [[ ! -d "$HOME/.local/bin/lvim" ]]
+      && bash <(curl -s https://raw.githubusercontent.com/lunarvim/lunarvim/master/utils/installer/install.sh)
+      || echo "==| Already exists = ~/.config/lvim"
+
+  # -------------------------------------
+  # Install Packer
+  # -------------------------------------
+  - description: "==> Installing Packer.lua"
+    command: >
+      [[ ! -d "$HOME/.local/share/nvim/site/pack/packer/opt" || ! -d "$HOME/.local/share/nvim/site/pack/packer/start"]]
+      && git clone --depth 1 https://github.com/wbthomason/packer.nvim ~/.local/share/nvim/site/pack/packer/start/packer.nvim
+      || echo "==| Already exists = Packer.lua"
+
+  # -------------------------------------
   # Change shells last as to not interfere with the other srcipts
   # -------------------------------------
   - description: "==> Changing deafult shell to zsh..."
@@ -112,15 +130,6 @@
       [[ $SHELL != *"zsh"* ]]
       && "chsh -s $(which zsh)"
       || echo "==| Already installed = zsh"
-
-  # -------------------------------------
-  # Change shells last as to not interfere with the other srcipts
-  # -------------------------------------
-  - description: "==> Installing LunarVim"
-    command: >
-      [[ ! -d "$HOME/.local/bin/lvim" ]]
-      && bash <(curl -s https://raw.githubusercontent.com/lunarvim/lunarvim/master/utils/installer/install.sh)
-      || echo "==| Already exists = ~/.config/lvim"
 
 # =============================================================================
 # DEFAULT: Link files
