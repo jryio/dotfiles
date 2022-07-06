@@ -170,4 +170,4 @@
 
   - description: "xterm-256color-italic.terminfo"
     command: >
-      cd $HOME && tic xterm-255color-italic.terminfo && cd -
+      cd $HOME && tic xterm-256color-italic.terminfo && cd -
