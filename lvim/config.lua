@@ -194,7 +194,9 @@ lvim.builtin.telescope.defaults.sorting_strategy = "ascending"
 ----------------------------------------------------------------
 -- TODO: User Config for predefined plugins
 -- After changing plugin config exit and reopen LunarVim, Run :PackerInstall :PackerCompile
-lvim.builtin.dashboard.active = true
+
+-- lvim.builtin.alpha.active = true
+-- lvim.builtin.alpha.mode = 'dashboard'
 
 lvim.builtin.terminal.active = true
 
@@ -479,11 +481,12 @@ vim.g.symbols_outline = {
 -- Minimap
 local ignore_filetypes = {
   "help",
-  "dashboard",
+  "alpha",
   "packer",
   "NvimTree",
   "startify",
   "lsp-installer",
+  "lspinfo",
   "nofile"
 }
 vim.g.minimap_auto_start = true
@@ -539,10 +542,12 @@ lvim.plugins = {
           filetype_exclude = { -- indent_blankline ignore filetypes
             "help",
             "packer",
-            "dashboard",
+            "alpha",
             "NvimTree",
             "lsp-installer",
+            "lspinstaller",
             "lsp-info",
+            "lspinfo",
             "minimap"
           },
           space_char_highlight_list = {
@@ -598,7 +603,8 @@ lvim.plugins = {
 
     -- UTILITIES AND KEYS
     {"tpope/vim-surround"},
-    {"tpope/vim-obsession"}, -- Tmux ressurect using vim sessions
+    {"tpope/vim-obsession"},  -- Tmux ressurect using vim sessions
+    {"tpope/vim-dotenv"},     -- Load .env files into scope from vim
     {"bkad/CamelCaseMotion"}, -- CamelCase and snake_case motions
     {"mhinz/vim-sayonara", cmd = {"Sayonara"}}, -- Intelligent buffer closing
     { -- Trim trailing whitespace
