@@ -33,7 +33,8 @@ export PATH=$PATH:/usr/local/bin
 export PATH=$PATH:/usr/local/sbin
 export PATH=$PATH:/usr/local/MacGPG2/bin
 # Pyenv
-export PATH="$HOME/.pyenv/bin:$PATH"
+export PYENV_ROOT="$HOME/.pyenv"
+export PATH="$PYENV_ROOT/bin:$PATH"
 # Yarn
 export PATH="$HOME/.yarn/bin:$PATH"
 # Deno
@@ -252,7 +253,7 @@ alias bgrep='/usr/bin/grep --color=auto --exclude-dir={.bzr,CVS,.git,.hg,.svn}'
 #
 # Using evalcache to speed up pyenv and virtualenv
 # https://github.com/mroth/evalcache
-_evalcache pyenv init --no-rehash
+_evalcache pyenv init -
 _evalcache pyenv virtualenv-init -
 # eval "$(pyenv init - --no-rehash)"
 # eval "$(pyenv virtualenv-init -)"
