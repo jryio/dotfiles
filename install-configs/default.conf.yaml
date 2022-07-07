@@ -19,6 +19,8 @@
       relink: true
     shell:
       quiet: true
+      stdout: true
+      stderr: true
 
 # Looks for dead symlinks that point to the dotfiles repository, if any are
 # found they will be cleanned automatically
@@ -50,6 +52,9 @@
 - link:
     ~/.functions: functions
 
+- link:
+    ~/.scripts: scripts
+
 # =============================================================================
 # DEFAULT: Run commands
 # =============================================================================
@@ -57,39 +62,37 @@
   # -------------------------------------
   # Homebrew
   # -------------------------------------
-  - description: "==> Installing Homebrew"
+  - description: "==> Homebrew"
     command: >
-      [[  -z "$(command -v foo)"  ]]
+      [[  -z "$(command -v brew)"  ]]
       && /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
       || echo "==| Already installed = brew"
 
   # -------------------------------------
   # Oh My ZSH and its plugins
   # -------------------------------------
-  - description: "==> Installing oh-my-zsh..."
+  - description: "==> oh-my-zsh..."
     # Note that we unset the ZSH directory variable incase it is picked up by zshrc:19
     command: >
       [[ -z "$ZSH" ]]
       && ZSH= sh -c "$(curl -fsSL https://raw.github.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
       || echo "==| Already exists = ~/.oh-my-zsh/"
-    stdout: true
-    stderr: true
-  - description: "Install oh-my-zsh plugin ==> fzf-tab"
+  - description: "==> oh-my-zsh plugin ==> fzf-tab"
     command: >
       [[ ! -d "${ZSH_CUSTOM:-$HOME/.oh-my-zsh/custom}/plugins/fzf-tab" ]]
       && git clone https://github.com/Aloxaf/fzf-tab ${ZSH_CUSTOM:-$HOME/.oh-my-zsh/custom}/plugins/fzf-tab
       || echo "==| Already exists = ~/.oh-my-zsh/custom/plugins/fzf-tab"
-  - description: "Install oh-my-zsh plugin ==> evalcache"
+  - description: "==> oh-my-zsh plugin ==> evalcache"
     command: >
       [[ ! -d "${ZSH_CUSTOM:-$HOME/.oh-my-zsh/custom}/plugins/evalcache" ]]
       && git clone https://github.com/mroth/evalcache ${ZSH_CUSTOM:-$HOME/.oh-my-zsh/custom}/plugins/evalcache
       || echo "==| Already exists = ~/.oh-my-zsh/custom/plugins/evalcache"
-  - description: "Install oh-my-zsh plugin ==> zsh-autosuggestions"
+  - description: "==> oh-my-zsh plugin ==> zsh-autosuggestions"
     command: >
       [[ ! -d "${ZSH_CUSTOM:-$HOME/.oh-my-zsh/custom}/plugins/zsh-autosuggestions" ]]
       && git clone https://github.com/zsh-users/zsh-autosuggestions ${ZSH_CUSTOM:-$HOME/.oh-my-zsh/custom}/plugins/zsh-autosuggestions
       || echo "==| Already exists = ~/.oh-my-zsh/custom/plugins/zsh-autosuggestions"
-  - description: "Install oh-my-zsh plugin ==> powerlevel10k"
+  - description: "==> oh-my-zsh plugin ==> powerlevel10k"
     command: >
       [[ ! -d "${ZSH_CUSTOM:-$HOME/.oh-my-zsh/custom}/themes/powerlevel10k" ]]
       && git clone --depth=1 https://github.com/romkatv/powerlevel10k.git ${ZSH_CUSTOM:-$HOME/.oh-my-zsh/custom}/themes/powerlevel10k
@@ -98,25 +101,34 @@
   # -------------------------------------
   # Node Version Manager
   # -------------------------------------
-  - description: "==> Install node via nvm"
+  - description: "==> node via nvm"
     command: >
       [[ -z "$(command -v nvm)" ]]
       && curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.0/install.sh | bash
       || echo "==| Already exists = nvm"
 
+  - description: "==> nvim install node"
+    command: >
+      nvm install node
+
+  - description: "==> nvim alias default node"
+    command: >
+      nvm alias default node
+
   # -------------------------------------
   # Install LunarVim
+  # Note: -a is used because lvim will be a file
   # -------------------------------------
-  - description: "==> Installing LunarVim"
+  - description: "==> LunarVim"
     command: >
-      [[ ! -d "$HOME/.local/bin/lvim" ]]
+      [[ ! -a "$HOME/.local/bin/lvim" ]]
       && LV_BRANCH=rolling bash <(curl -s https://raw.githubusercontent.com/lunarvim/lunarvim/master/utils/installer/install.sh)
       || echo "==| Already exists = ~/.config/lvim"
 
   # -------------------------------------
   # Install Packer
   # -------------------------------------
-  - description: "==> Installing Packer.lua"
+  - description: "==> Packer.lua"
     command: >
       [[ ! -d "$HOME/.local/share/nvim/site/pack/packer/opt" || ! -d "$HOME/.local/share/nvim/site/pack/packer/start" ]]
       && git clone --depth 1 https://github.com/wbthomason/packer.nvim ~/.local/share/nvim/site/pack/packer/start/packer.nvim
@@ -157,7 +169,7 @@
       path: lvim
     ~/.local/bin/lvim:
       force: true
-      create: false
+      create: true
       path: lvim/bin/lvim
 
 # -------------------------------------
@@ -171,3 +183,15 @@
   - description: "xterm-256color-italic.terminfo"
     command: >
       cd $HOME && tic xterm-256color-italic.terminfo && cd -
+
+# -------------------------------------
+# Copy fonts to macOS FontBook directory
+# -------------------------------------
+- shell:
+  - description: "Copying font files"
+    command: >
+        cp fonts/operator-mono/* ~/Library/Fonts
+- shell:
+  - description: "Copying font files"
+    command: >
+        cp fonts/operator-mono-patched-nerdfonts/* ~/Library/Fonts
