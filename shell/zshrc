@@ -78,7 +78,7 @@ export PKG_CONFIG_PATH=$HOME/local/lib/pkgconfig:/usr/local/lib/pkgconfig:/usr/l
 
 # SSH Find Agent Script
 # https://github.com/wwalker/ssh-find-agent/blob/master/ssh-find-agent.sh
-source $HOME/dotfiles/shell/ssh-find-agent.sh
+source $HOME/.scripts/shell/ssh-find-agent.sh
 
 # Source scripts found in dotfiles/scripts (symlinked to $HOME/.scripts/)h
 

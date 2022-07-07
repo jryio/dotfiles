@@ -2,10 +2,10 @@
 
 # =============================================================================
 # TODO LIST
-# =============================================================================
 
 # @TODO: Change this to use mathias' macos overrides
 # https://github.com/mathiasbynens/dotfiles/blob/main/.macos
+# =============================================================================
 
 # Writing some default system behavior for OS X to make life suck less
 # Settings:
@@ -25,7 +25,7 @@ defaults write com.apple.finder AppleShowAllFiles TRUE
 #   Flwv – Cover Flow View
 defaults write com.apple.Finder FXPreferredViewStyle clmv
 
-# Hide the FUCKING Desktop, who even uses that shit?
+# Hide the desktop, never to be used again
 defaults write com.apple.finder CreateDesktop FALSE
 
 # Move the default Screenshots location to ~/Dropbox/media/screenshots
