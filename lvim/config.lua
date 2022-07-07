@@ -203,13 +203,11 @@ lvim.builtin.terminal.active = true
 lvim.builtin.comment.active = true
 
 lvim.builtin.nvimtree.setup.view.width = 30
-lvim.builtin.nvimtree.setup.auto_close = false
 lvim.builtin.nvimtree.setup.view.auto_resize = false
 -- lvim.builtin.nvimtree.hide_dotfiles = false
 lvim.builtin.nvimtree.setup.filters.dotfiles = false
 lvim.builtin.nvimtree.on_config_done = function ()
   lvim.builtin.nvimtree.setup.view.width = 30
-  lvim.builtin.nvimtree.setup.auto_close = false
   lvim.builtin.nvimtree.setup.view.auto_resize = false
   lvim.builtin.nvimtree.hide_dotfiles = false
 
@@ -346,7 +344,7 @@ lvim.builtin.which_key.mappings["t"] = {
 --     filetypes = { "javascript", "python" },
 --   },
 -- }
-vim.list_extend(lvim.lsp.override, { "rust" })
+vim.list_extend(lvim.lsp.automatic_configuration.skipped_servers, { "rust" })
 -- vim.list_extend(lvim.lsp.override, { "typescript" })
 
 -- lvim.lang.javascript.lsp = {
@@ -384,8 +382,8 @@ vim.list_extend(lvim.lsp.override, { "rust" })
 -- }
 
 -- TODO FIXME: We had to disable tsserver entirely for for this to work
-vim.list_extend(lvim.lsp.override, { "tsserver" })
-vim.list_extend(lvim.lsp.override, { "denols" })
+vim.list_extend(lvim.lsp.automatic_configuration.skipped_servers, { "tsserver" })
+vim.list_extend(lvim.lsp.automatic_configuration.skipped_servers, { "denols" })
 local isDeno = require("lspconfig").util.root_pattern("deno.imports.json")
 local cwd = vim.fn.getcwd()
 local can_enter = isDeno(cwd)
