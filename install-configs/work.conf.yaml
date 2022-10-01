@@ -16,6 +16,7 @@
 # =============================================================================
 - link: # Need Brewfile before running `brew bundle`
     ~/.Brewfile: brewfiles/work.brewfile
+    ~/.gitconfig.active: git/gitconfig.zed
 
 # =============================================================================
 # WORK: Run commands
@@ -35,9 +36,7 @@
   - command: >
       echo "Starting brew bundle"
 
-- brewfile: # Calls brew bundle
-    global: true # We want to use the global option to allow for switching brewfiles between machines
-    include: ['tap', 'brew', 'cask', 'mas']
-    stdout: true
-    stderr: true
-    no-upgrade: true
+# - brewfile: # Calls brew bundle
+#     include: ['tap', 'brew', 'cask', 'mas']
+#     stdout: true
+#     stderr: true

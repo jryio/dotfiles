@@ -1,4 +1,5 @@
 vvim/
+nvim/session
 .DS_Store
 .svn
 *~

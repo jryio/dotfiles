@@ -30,10 +30,10 @@ local CR = "<CR>"
 -- INSERT
 lvim.keys.insert_mode = {
   -- Unmap arrows
-  ["<up>"    ] = "<NOP>",
-  ["<down>"  ] = "<NOP>",
-  ["<left>"  ] = "<NOP>",
-  ["<right>" ] = "<NOP>",
+  ["<up>"] = "<NOP>",
+  ["<down>"] = "<NOP>",
+  ["<left>"] = "<NOP>",
+  ["<right>"] = "<NOP>",
   ["<F1>"] = "<NOP>",
   -- Unmap defaults
   ["<A-Down>"] = "",
@@ -54,10 +54,10 @@ lvim.keys.normal_mode = {
   ["+"] = ":bnext<CR>",
   ["_"] = ":bprevious<CR>",
   -- Save buffer
-  [comma.."s"] = ":w"..CR,
+  [comma .. "s"] = ":w" .. CR,
   -- Close buffer
-  [comma.."w"] = ":Sayonara!<CR>",
-  [comma.."q"] = ":Sayonara<CR>",
+  [comma .. "w"] = ":Sayonara!<CR>",
+  [comma .. "q"] = ":Sayonara<CR>",
   -- Resizes
   ["<M-l>"] = "10<C-w>>",
   ["<M-h>"] = "10<C-w><",
@@ -69,8 +69,8 @@ lvim.keys.normal_mode = {
   ["<C-k>"] = "<C-w>k",
   ["<C-l>"] = "<C-w>l",
   -- Visual linewise up and down by default (and use gj gk to go quicker)
-  ["j" ] = "gj",
-  ["k" ] = "gk",
+  ["j"] = "gj",
+  ["k"] = "gk",
   ["gj"] = "5j",
   ["gk"] = "5k",
   -- Center screen when navigating in visual mode
@@ -101,34 +101,34 @@ lvim.keys.normal_mode = {
   ["S"] = "mzi<CR><ESC>`z",
 
   -- Unmap default resizes
-  ["<A-Down>"]   = "",
-  ["<A-Left>"]   = "",
-  ["<A-Right>"]  = "",
-  ["<A-Up>"]     = "",
-  ["<A-j>"]      = "",
-  ["<A-k>"]      = "",
-  ["<C-Down>"]   = "",
-  ["<C-Left>"]   = "",
-  ["<C-Right>"]  = "",
-  ["<C-Up>"]     = "",
+  ["<A-Down>"]  = "",
+  ["<A-Left>"]  = "",
+  ["<A-Right>"] = "",
+  ["<A-Up>"]    = "",
+  ["<A-j>"]     = "",
+  ["<A-k>"]     = "",
+  ["<C-Down>"]  = "",
+  ["<C-Left>"]  = "",
+  ["<C-Right>"] = "",
+  ["<C-Up>"]    = "",
   -- Unmap
-  ["<up>"    ] = "<NOP>",
-  ["<down>"  ] = "<NOP>",
-  ["<left>"  ] = "<NOP>",
-  ["<right>" ] = "<NOP>",
-  ["<bs>"    ] = "<NOP>",
-  ["<delete>"] = "<NOP>",
-  ["<F1>"] = "<NOP>",
-  ["Q"   ] = "<NOP>",
-  ["q"   ] = "<NOP>", -- Unmap macro recording
+  ["<up>"]      = "<NOP>",
+  ["<down>"]    = "<NOP>",
+  ["<left>"]    = "<NOP>",
+  ["<right>"]   = "<NOP>",
+  ["<bs>"]      = "<NOP>",
+  ["<delete>"]  = "<NOP>",
+  ["<F1>"]      = "<NOP>",
+  ["Q"]         = "<NOP>",
+  ["q"]         = "<NOP>", -- Unmap macro recording
   -- Unmap default comment behavior
   -- ["<C-q>"] = ":call QuickFixToggle()<CR>",
 }
 
 lvim.keys.visual_mode = {
   -- Visual linewise up and down by default (and use gj gk to go quicker)
-  ["j" ] = "gj",
-  ["k" ] = "gk",
+  ["j"] = "gj",
+  ["k"] = "gk",
   ["gj"] = "5j",
   ["gk"] = "5k",
   -- Center screen when navigating in visual mode
@@ -145,12 +145,12 @@ lvim.keys.visual_mode = {
   ["y"] = "y`]",
   ["p"] = '"_dP`]',
   -- Move visual block
-  ["J"] =  ":m '>+1<CR>gv=gv",
+  ["J"] = ":m '>+1<CR>gv=gv",
   ["K"] = ":m '<-2<CR>gv=gv",
   -- Replace visual selection
   ["<C-r>"] = '"hy:%s/<C-r>h//gc<left><left><left>',
   -- Faster sort
-  ["<leader>s"] =  ":!sort<CR>",
+  ["<leader>s"] = ":!sort<CR>",
 }
 
 -- Use CamelCaseMotion instead of default motions
@@ -202,15 +202,49 @@ lvim.builtin.terminal.active = true
 
 lvim.builtin.comment.active = true
 
+lvim.builtin.notify = {
+  active = true,
+  opts = {
+    ---@usage Animation style one of { "fade", "slide", "fade_in_slide_out", "static" }
+    stages = "fade",
+
+    ---@usage Function called when a new window is opened, use for changing win settings/config
+    on_open = nil,
+
+    ---@usage Function called when a window is closed
+    on_close = nil,
+
+    ---@usage timeout for notifications in ms, default 5000
+    timeout = 5000,
+
+    -- Render function for notifications. See notify-render()
+    render = "default",
+
+    ---@usage highlight behind the window for stages that change opacity
+    background_colour = "Normal",
+
+    ---@usage minimum width for notification windows
+    minimum_width = 50,
+
+    ---@usage Icons for the different levels
+    icons = {
+      ERROR = "",
+      WARN = "",
+      INFO = "",
+      DEBUG = "",
+      TRACE = "✎",
+    },
+  },
+}
+
 lvim.builtin.nvimtree.setup.view.width = 30
 lvim.builtin.nvimtree.setup.view.auto_resize = false
 -- lvim.builtin.nvimtree.hide_dotfiles = false
 lvim.builtin.nvimtree.setup.filters.dotfiles = false
-lvim.builtin.nvimtree.on_config_done = function ()
+lvim.builtin.nvimtree.on_config_done = function()
   lvim.builtin.nvimtree.setup.view.width = 30
   lvim.builtin.nvimtree.setup.view.auto_resize = false
   lvim.builtin.nvimtree.hide_dotfiles = false
-
 end
 
 -- if you don't want all the parsers change this to a table of the ones you want
@@ -231,7 +265,7 @@ lvim.builtin.treesitter.ensure_installed = {
 lvim.builtin.treesitter.ignore_install = { "haskell" }
 lvim.builtin.treesitter.highlight.enabled = true
 
-lvim.builtin.lualine.style = "lvim"
+lvim.builtin.lualine.style = "none"
 lvim.builtin.lualine.options.theme = "jellybeans"
 
 ----------------------------------------------------------------
@@ -248,18 +282,18 @@ lvim.builtin.which_key.mappings["h"] = {
 lvim.builtin.which_key.mappings["e"] = {}
 lvim.builtin.which_key.mappings["n"] = {
   name = "+NvimTree",
-  f =  { "<cmd>lua require('core.utils').find_toggle()<CR>", "Minimap"}
+  f = { "<cmd>lua require('core.utils').find_toggle()<CR>", "Minimap" }
   -- ^ close minimap before opening nvimtree to prevent nvimtree from resizing
 }
 
 -- Code minimap
 lvim.builtin.which_key.mappings["m"] = {
   name = "+Minimap",
-  m = { "<cmd>MinimapToggle<CR>", "Minimap Toggle"}
+  m = { "<cmd>MinimapToggle<CR>", "Minimap Toggle" }
 }
 
 -- Symbols outline
-lvim.builtin.which_key.mappings["o"] = { "<cmd>SymbolsOutline<CR>", "SymbolsOutline"}
+lvim.builtin.which_key.mappings["o"] = { "<cmd>SymbolsOutline<CR>", "SymbolsOutline" }
 
 -- Use which-key to add extra bindings with the leader-key prefix
 lvim.builtin.which_key.mappings["P"] = { "<cmd>Telescope projects<CR>", "Projects" }
@@ -271,6 +305,24 @@ lvim.builtin.which_key.mappings["t"] = {
   q = { "<cmd>Trouble quickfix<cr>", "QuickFix" },
   l = { "<cmd>Trouble loclist<cr>", "LocationList" },
   w = { "<cmd>Trouble lsp_workspace_diagnostics<cr>", "Diagnostics" },
+}
+
+-- Vim Accordion
+lvim.builtin.which_key.mappings["a"] = {
+  name = "+Accordion",
+  a = { "<cmd>Accordion 3<cr>", "Start" },
+  s = { "<cmd>AccordionStop<cr>", "Stop" },
+  ["4"] = { "<cmd>Accordion 4<cr>", "Accordion 4" },
+  ["+"] = { "<cmd>AccordionZoomIn<cr>", "Zoom In <size + 1>" },
+  ["-"] = { "<cmd>AccordionZoomOut<cr>", "Zoom Out <size - 1>" },
+}
+
+-- Persistence
+lvim.builtin.which_key.mappings["S"] = {
+  name = "+Session",
+  r = { "<cmd>lua require('persistence').load()<cr>", "Restore last session for current dir" },
+  R = { "<cmd>lua require('persistence').load({ last = true })<cr>", "Restore last session" },
+  Q = { "<cmd>lua require('persistence').stop()<cr>", "Quit without saving session" },
 }
 
 ----------------------------------------------------------------
@@ -393,7 +445,7 @@ if can_enter then
       vim.fn.stdpath "data" .. "/lsp_servers/denols/deno",
       "lsp",
     },
-    filetypes = { "javascript","javascriptreact", "typescript", "typescriptreact", "typescript.tsx" },
+    filetypes = { "javascript", "javascriptreact", "typescript", "typescriptreact", "typescript.tsx" },
     init_options = {
       enable = true,
       lint = true,
@@ -443,7 +495,7 @@ vim.opt.timeoutlen = 300
 
 -- indent-blankline will pickup these characters
 vim.opt.list = true
-vim.opt.listchars:append("tab:▸\\")
+-- vim.opt.listchars:append("tab:▸│") -- The tab listchar requires TWO CHARARCTERS. Having only one will result in "E474 Invalid argument" (see: https://github.com/neovim/neovim/issues/1601#issuecomment-245021096)
 vim.opt.listchars:append("eol:¬")
 vim.opt.listchars:append("extends:❯")
 vim.opt.listchars:append("precedes:❮")
@@ -477,7 +529,7 @@ vim.g.symbols_outline = {
 }
 
 -- Minimap
-local ignore_filetypes = {
+local ignore_filetypes             = {
   "help",
   "alpha",
   "packer",
@@ -487,179 +539,202 @@ local ignore_filetypes = {
   "lspinfo",
   "nofile"
 }
-vim.g.minimap_auto_start = true
+vim.g.minimap_auto_start           = true
 vim.g.minimap_auto_start_win_enter = false
-vim.g.minimap_highlight_range = true
-vim.g.minimap_highlight_search = true
-vim.g.minimap_git_colors = true
-vim.g.minimap_block_filetypes  = ignore_filetypes
-vim.g.minimap_block_buftypes   = ignore_filetypes
-vim.g.minimap_close_filetypes  = ignore_filetypes
-vim.g.minimap_close_buftypes   = ignore_filetypes
+vim.g.minimap_highlight_range      = true
+vim.g.minimap_highlight_search     = true
+vim.g.minimap_git_colors           = true
+vim.g.minimap_block_filetypes      = ignore_filetypes
+vim.g.minimap_block_buftypes       = ignore_filetypes
+vim.g.minimap_close_filetypes      = ignore_filetypes
+vim.g.minimap_close_buftypes       = ignore_filetypes
 ----------------------------------------------------------------
 -- ADDITIONAL PLUGINS
 ----------------------------------------------------------------
-lvim.plugins = {
-    -- THEME
-    {
-      "folke/tokyonight.nvim",
-      disable = true
-    },
-    {
-      "lunarvim/colorschemes",
-      disable = true
-    },
-    {
-      "folke/trouble.nvim",
-      cmd = "TroubleToggle",
-    },
-    {
-      "thebearjew/nv-colorschemes",
-      config = function ()
-        -- First load the base16 theme
-        local base16 = require("base16")
-        local theme = "tomorrow-night"
-        local colors = base16.themes(theme)
-        local use_256_colorspace = true
-        base16(colors, use_256_colorspace)
-        -- Then load our custom highlights
-        -- hl_themes is available from thebearjew/nv-colorschemes
-        local highlight = require("core.highlight")
-        highlight(theme)
+lvim.plugins                       = {
+  -- THEME
+  {
+    "folke/tokyonight.nvim",
+    disable = true
+  },
+  {
+    "lunarvim/colorschemes",
+    disable = true
+  },
+  {
+    "folke/trouble.nvim",
+    cmd = "TroubleToggle",
+  },
+  {
+    "thebearjew/nv-colorschemes",
+    config = function()
+      -- First load the base16 theme
+      local base16 = require("base16")
+      local theme = "tomorrow-night"
+      local colors = base16.themes(theme)
+      local use_256_colorspace = true
+      base16(colors, use_256_colorspace)
+      -- Then load our custom highlights
+      -- hl_themes is available from thebearjew/nv-colorschemes
+      local highlight = require("core.highlight")
+      highlight(theme)
 
-      end
-    },
+    end
+  },
 
-    -- LAYOUT
-    {
-      "lukas-reineke/indent-blankline.nvim",
-      config = function ()
-        require("indent_blankline").setup({
-          show_end_of_line = true,
-          space_char_blankline = " ",
-          filetype_exclude = { -- indent_blankline ignore filetypes
-            "help",
-            "packer",
-            "alpha",
-            "NvimTree",
-            "lsp-installer",
-            "lspinstaller",
-            "lsp-info",
-            "lspinfo",
-            "minimap"
+  -- LAYOUT
+  {
+    "lukas-reineke/indent-blankline.nvim",
+    event = "BufRead",
+    setup = function()
+      vim.g.indent_blankline_use_treesitter = true
+      vim.g.indent_blankline_use_treesitter_scope = true
+      vim.g.indent_blankline_show_current_context = true
+      vim.g.indent_blankline_show_current_context_start = true
+      vim.g.indent_blankline_space_char_blankline = " "
+      vim.g.indent_blankline_show_end_of_line = true
+      vim.g.indent_blankline_filetype_exclude = { -- indent_blankline ignore filetypes
+        "help",
+        "packer",
+        "alpha",
+        "NvimTree",
+        "lsp-installer",
+        "lspinstaller",
+        "lsp-info",
+        "lspinfo",
+        "minimap"
+      }
+      vim.g.indent_blankline_space_char_highlight_list = {
+        "IndentBlanklineIndent1",
+        "IndentBlanklineIndent2",
+      }
+    end
+  },
+  {
+    "wfxr/minimap.vim",
+    run = function()
+      vim.cmd(":!cargo install --locked code-minimap")
+    end
+  },
+
+  -- LSP
+  {
+    "nvim-treesitter/playground",
+    -- opt = true,
+    event = "BufRead",
+    cmd = { "TSHighlightCapturesUnderCursor", "TSPlayground" },
+  },
+  {
+    "simrat39/symbols-outline.nvim",
+    cmd = "SymbolsOutline",
+    config = function()
+    end
+  },
+
+  --- LSP PLUGINS
+  {
+    "simrat39/rust-tools.nvim",
+    disable = true,
+    config = function()
+      require("rust-tools").setup({
+        tools = {
+          autoSetHints = true,
+          hover_with_actions = true,
+          runnables = {
+            use_telescope = true,
           },
-          space_char_highlight_list = {
-            "IndentBlanklineIndent1",
-            "IndentBlanklineIndent2",
-          },
-        })
-      end
-    },
-    {
-      "wfxr/minimap.vim",
-      run = function ()
-        vim.cmd(":!cargo install --locked code-minimap")
-      end
-    },
-
-    -- LSP
-    {
-      "nvim-treesitter/playground",
-      -- opt = true,
-      event = "BufRead",
-      cmd = { "TSHighlightCapturesUnderCursor", "TSPlayground" },
-    },
-    {
-      "simrat39/symbols-outline.nvim",
-      cmd = "SymbolsOutline",
-      config = function ()
-      end
-    },
-
-    --- LSP PLUGINS
-    {
-      "simrat39/rust-tools.nvim",
-      disable = true,
-      config = function()
-        require("rust-tools").setup({
-          tools = {
-            autoSetHints = true,
-            hover_with_actions = true,
-            runnables = {
-              use_telescope = true,
-            },
-          },
-          server = {
-            cmd = { vim.fn.stdpath "data" .. "/lsp_servers/rust/rust-analyzer" },
-            on_attach = require("lvim.lsp").common_on_attach,
-            on_init = require("lvim.lsp").common_on_init,
-          },
-        })
-      end,
-      ft = { "rust", "rs" },
-    },
-
-    -- UTILITIES AND KEYS
-    {"tpope/vim-surround"},
-    {"tpope/vim-obsession"},  -- Tmux ressurect using vim sessions
-    {"tpope/vim-dotenv"},     -- Load .env files into scope from vim
-    {"bkad/CamelCaseMotion"}, -- CamelCase and snake_case motions
-    {"mhinz/vim-sayonara", cmd = {"Sayonara"}}, -- Intelligent buffer closing
-    { -- Trim trailing whitespace
-      "cappyzawa/trim.nvim",
-      config = function ()
-        require"trim".setup({
-          disable = {"markdown"},
-        })
-      end
-    },
-    { -- Any reference to a color will be highlighted with that color in neovim
-      "norcalli/nvim-colorizer.lua",
-        config = function()
-          require("colorizer").setup({ "*" }, {
-              RGB = true, -- #RGB hex codes
-              RRGGBB = true, -- #RRGGBB hex codes
-              RRGGBBAA = true, -- #RRGGBBAA hex codes
-              rgb_fn = true, -- CSS rgb() and rgba() functions
-              hsl_fn = true, -- CSS hsl() and hsla() functions
-              css = true, -- Enable all CSS features: rgb_fn, hsl_fn, names, RGB, RRGGBB
-              css_fn = true, -- Enable all CSS *functions*: rgb_fn, hsl_fn
-              })
-      end,
-    },
-    {
-      "karb94/neoscroll.nvim",
-      disable = true,
-      event = "WinScrolled",
-      config = function()
-      require("neoscroll").setup({
-            -- All these keys will be mapped to their corresponding default scrolling animation
-            mappings = {
-              "<C-u>",
-              "<C-d>",
-            },
-            hide_cursor = true,          -- Hide cursor while scrolling
-            stop_eof = false,            -- Stop at <EOF> when scrolling downwards
-            use_local_scrolloff = true,  -- Use the local scope of scrolloff instead of the global scope
-            respect_scrolloff = true,    -- Stop scrolling when the cursor reaches the scrolloff margin of the file
-            cursor_scrolls_alone = true, -- The cursor will keep on scrolling even if the window cannot scroll further
-            easing_function = nil,       -- Default easing function
-            -- Function to run before the scrolling animation starts
-            pre_hook = function()
-              vim.cmd[[MinimapClose]]
-            end,
-            post_hook = function()
-              vim.defer_fn(function() vim.cmd[[Minimap]] end, 700)
-            end,
+        },
+        server = {
+          cmd = { vim.fn.stdpath "data" .. "/lsp_servers/rust/rust-analyzer" },
+          on_attach = require("lvim.lsp").common_on_attach,
+          on_init = require("lvim.lsp").common_on_init,
+        },
       })
-      end
-    },
+    end,
+    ft = { "rust", "rs" },
+  },
 
-    -- GITHUB INTEGRATION
+  -- UTILITIES AND KEYS
+  { "tpope/vim-surround" },
+  { "tpope/vim-dotenv" }, -- Load .env files into scope from vim
+  { "bkad/CamelCaseMotion" }, -- CamelCase and snake_case motions
+  { "mattboehm/vim-accordion" }, -- Vertically stack splits for infinite depth
+  { "mhinz/vim-sayonara", cmd = { "Sayonara" } }, -- Intelligent buffer closing
+  { -- Trim trailing whitespace
+    "cappyzawa/trim.nvim",
+    config = function()
+      require "trim".setup({
+        disable = { "markdown" },
+      })
+    end
+  },
+  { -- Any reference to a color will be highlighted with that color in neovim
+    "norcalli/nvim-colorizer.lua",
+    config = function()
+      require("colorizer").setup({ "*" }, {
+        RGB = true, -- #RGB hex codes
+        RRGGBB = true, -- #RRGGBB hex codes
+        RRGGBBAA = true, -- #RRGGBBAA hex codes
+        rgb_fn = true, -- CSS rgb() and rgba() functions
+        hsl_fn = true, -- CSS hsl() and hsla() functions
+        css = true, -- Enable all CSS features: rgb_fn, hsl_fn, names, RGB, RRGGBB
+        css_fn = true, -- Enable all CSS *functions*: rgb_fn, hsl_fn
+      })
+    end,
+  },
+  {
+    "karb94/neoscroll.nvim",
+    disable = true,
+    event = "WinScrolled",
+    config = function()
+      require("neoscroll").setup({
+        -- All these keys will be mapped to their corresponding default scrolling animation
+        mappings = {
+          "<C-u>",
+          "<C-d>",
+        },
+        hide_cursor = true, -- Hide cursor while scrolling
+        stop_eof = false, -- Stop at <EOF> when scrolling downwards
+        use_local_scrolloff = true, -- Use the local scope of scrolloff instead of the global scope
+        respect_scrolloff = true, -- Stop scrolling when the cursor reaches the scrolloff margin of the file
+        cursor_scrolls_alone = true, -- The cursor will keep on scrolling even if the window cannot scroll further
+        easing_function = nil, -- Default easing function
+        -- Function to run before the scrolling animation starts
+        pre_hook = function()
+          vim.cmd [[MinimapClose]]
+        end,
+        post_hook = function()
+          vim.defer_fn(function() vim.cmd [[Minimap]] end, 700)
+        end,
+      })
+    end
+  },
+  { -- Uses telescope.nvim for vim.ui.select
+    "nvim-telescope/telescope-ui-select.nvim",
+    config = function()
+      lvim.builtin.telescope.extensions["ui-select"] = {
+        require('telescope.themes').get_dropdown {}
+      }
+      require('telescope').load_extension("ui-select")
+    end
+  },
+  { -- Simple storage solution management for neovim
+    "folke/persistence.nvim",
+    event = "BufReadPre", -- this will only start session saving when an actual file was opened
+    module = "persistence",
+    config = function()
+      require("persistence").setup {
+        dir = vim.fn.expand(vim.fn.stdpath "config" .. "/session/"),
+        options = { "buffers", "curdir", "tabpages", "winsize" },
+      }
+    end,
+  },
+
+  -- GITHUB INTEGRATION
   {
     "pwntester/octo.nvim",
     config = function()
-      require"octo".setup()
+      require "octo".setup()
     end
   }
 
@@ -728,7 +803,7 @@ local function process_sections(sections)
       comp.separator = left and { right = "" } or { left = "" }
       -- lualine_z is a scrollbar so don't give it a left arrowe
       if name == "lualine_z" and id == 3 and not left then
-        comp.separator = { left = ""}
+        comp.separator = { left = "" }
       end
     end
   end
@@ -739,7 +814,7 @@ local function search_result()
   if vim.v.hlsearch == 0 then
     return ""
   end
-  local last_search = vim.fn.getreg "/"
+  local last_search = vim.fn.getreg("/", 0, {})
   if not last_search or last_search == "" then
     return ""
   end
@@ -790,19 +865,19 @@ local sections = process_sections {
     {
       "%w",
       cond = function()
-      return vim.wo.previewwindow
+        return vim.wo.previewwindow
       end,
     },
     {
       "%r",
       cond = function()
-      return vim.bo.readonly
+        return vim.bo.readonly
       end,
     },
     {
       "%q",
       cond = function()
-      return vim.bo.buftype == "quickfix"
+        return vim.bo.buftype == "quickfix"
       end,
     },
   },
@@ -832,6 +907,7 @@ lvim.builtin.lualine.sections.lualine_x = sections.lualine_x
 lvim.builtin.lualine.sections.lualine_y = sections.lualine_y
 lvim.builtin.lualine.sections.lualine_z = sections.lualine_z
 lvim.builtin.lualine.inactive_sections = {
+  lualine_b = { "branch" },
   lualine_c = { "%f %y %m" },
   lualine_x = {}
 }

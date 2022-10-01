@@ -17,6 +17,8 @@
 
 - link: # Need Brewfile before running `brew bundle`
     ~/.Brewfile: brewfiles/personal.brewfile # This is the global brewfile
+    quiet: false
+    ~/.gitconfig.active: git/gitconfig.jry
 
 # =============================================================================
 # PERSONAL: Run commands

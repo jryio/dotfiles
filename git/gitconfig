@@ -1,7 +1,5 @@
-[user]
-  name = "Jacob Young"
-  email = jacob@jry.io
-  signingkey = 715CED2327899E28
+[include]
+  path = ~/.gitconfig.active
 [includeIf "gitdir:~/go/src/git.zoom.us/"]
   path = ~/.gitconfig.zed
 [gpg]
@@ -30,6 +28,8 @@
 [difftool]
   prompt = false
 [difftool "icdiff"]
-  cmd = /usr/local/bin/icdiff --line-numbers $LOCAL $REMOTE
+  cmd = /opt/homebrew/bin/icdiff --line-numbers $LOCAL $REMOTE
 [pager]
   difftool = true
+[url "git@git.zoom.us:"]
+	insteadOf = https://git.zoom.us

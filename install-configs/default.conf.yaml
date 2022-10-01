@@ -48,6 +48,7 @@
     ~/.gitconfig: git/gitconfig
     ~/.gitconfig.keybase: git/gitconfig.keybase
     ~/.gitconfig.zed: git/gitconfig.zed
+    ~/.gitconfig.jry: git/gitconfig.jry
 
 - link:
     ~/.functions: functions
@@ -101,19 +102,24 @@
   # -------------------------------------
   # Node Version Manager
   # -------------------------------------
-  - description: "==> node via nvm"
-    command: >
-      [[ -z "$(command -v nvm)" ]]
-      && curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.0/install.sh | bash
-      || echo "==| Already exists = nvm"
+  #
+  # 2022-10-01 - Nvm does not seem to be detected by dotbot because the correct
+  # shell has not been loaded from ZSHRC, so nvm is not found. Need to fix
+  # this.
+  #
+  # - description: "==> node via nvm"
+  #   command: >
+  #     [[ -z "$(command -v nvm)" ]]
+  #     && curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.0/install.sh | bash
+  #     || echo "==| Already exists = nvm"
 
-  - description: "==> nvim install node"
-    command: >
-      nvm install node
+  # - description: "==> nvim install node"
+  #   command: >
+  #     nvm install node
 
-  - description: "==> nvim alias default node"
-    command: >
-      nvm alias default node
+  # - description: "==> nvim alias default node"
+  #   command: >
+  #     nvm alias default node
 
   # -------------------------------------
   # Install LunarVim
@@ -122,7 +128,7 @@
   - description: "==> LunarVim"
     command: >
       [[ ! -a "$HOME/.local/bin/lvim" ]]
-      && LV_BRANCH=rolling bash <(curl -s https://raw.githubusercontent.com/lunarvim/lunarvim/master/utils/installer/install.sh)
+      && bash <(curl -s https://raw.githubusercontent.com/lunarvim/lunarvim/master/utils/installer/install.sh)
       || echo "==| Already exists = ~/.config/lvim"
 
   # -------------------------------------
