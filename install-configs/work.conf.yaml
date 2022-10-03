@@ -17,6 +17,10 @@
 - link: # Need Brewfile before running `brew bundle`
     ~/.Brewfile: brewfiles/work.brewfile
     ~/.gitconfig.active: git/gitconfig.zed
+    ~/.local/bin/lvim:
+      force: true
+      create: true
+      path: lvim/bin/lvim.wor
 
 # =============================================================================
 # WORK: Run commands

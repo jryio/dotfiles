@@ -238,12 +238,10 @@ lvim.builtin.notify = {
 }
 
 lvim.builtin.nvimtree.setup.view.width = 30
-lvim.builtin.nvimtree.setup.view.auto_resize = false
 -- lvim.builtin.nvimtree.hide_dotfiles = false
 lvim.builtin.nvimtree.setup.filters.dotfiles = false
 lvim.builtin.nvimtree.on_config_done = function()
   lvim.builtin.nvimtree.setup.view.width = 30
-  lvim.builtin.nvimtree.setup.view.auto_resize = false
   lvim.builtin.nvimtree.hide_dotfiles = false
 end
 
