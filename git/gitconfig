@@ -28,7 +28,7 @@
 [difftool]
   prompt = false
 [difftool "icdiff"]
-  cmd = /opt/homebrew/bin/icdiff --line-numbers $LOCAL $REMOTE
+  cmd = /usr/local/bin/icdiff --line-numbers $LOCAL $REMOTE
 [pager]
   difftool = true
 [url "git@git.zoom.us:"]

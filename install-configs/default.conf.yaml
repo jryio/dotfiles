@@ -173,10 +173,6 @@
       force: true
       create: true
       path: lvim
-    ~/.local/bin/lvim:
-      force: true
-      create: true
-      path: lvim/bin/lvim
 
 # -------------------------------------
 # Customize macos defaults
