@@ -20,7 +20,7 @@
     ~/.local/bin/lvim:
       force: true
       create: true
-      path: lvim/bin/lvim.wor
+      path: lvim/bin/lvim.work
 
 # =============================================================================
 # WORK: Run commands
