@@ -2,3 +2,5 @@
 	name = "Edward Wong Hau Pepelu Tivrusky IV"
 	email = jacob.young@zoom.us
 	signingkey = 6987BCCFD2D60DB8
+[difftool "icdiff"]
+  cmd = /opt/homebrew/bin/icdiff --line-numbers $LOCAL $REMOTE

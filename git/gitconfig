@@ -27,8 +27,6 @@
   tool = icdiff
 [difftool]
   prompt = false
-[difftool "icdiff"]
-  cmd = /usr/local/bin/icdiff --line-numbers $LOCAL $REMOTE
 [pager]
   difftool = true
 [url "git@git.zoom.us:"]
