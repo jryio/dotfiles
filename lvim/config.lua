@@ -195,8 +195,8 @@ lvim.builtin.telescope.defaults.sorting_strategy = "ascending"
 -- TODO: User Config for predefined plugins
 -- After changing plugin config exit and reopen LunarVim, Run :PackerInstall :PackerCompile
 
--- lvim.builtin.alpha.active = true
--- lvim.builtin.alpha.mode = 'dashboard'
+lvim.builtin.alpha.active = true
+lvim.builtin.alpha.mode = 'dashboard'
 
 lvim.builtin.terminal.active = true
 

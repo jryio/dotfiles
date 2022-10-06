@@ -6,4 +6,5 @@ export LUNARVIM_CACHE_DIR="${LUNARVIM_CACHE_DIR:-"/Users/bigbrother/.cache/lvim"
 
 export LVIMRC="${LUNARVIM_CONFIG_DIR}/config.lua"
 
-exec nvim -u "$LUNARVIM_RUNTIME_DIR/lvim/init.lua" -c ":LvimReload" "$@"
+# exec nvim -u "$LUNARVIM_RUNTIME_DIR/lvim/init.lua" -c ":LvimReload" "$@"
+exec nvim -u "$LUNARVIM_RUNTIME_DIR/lvim/init.lua" "$@"
