@@ -247,6 +247,7 @@ end
 
 -- if you don't want all the parsers change this to a table of the ones you want
 lvim.builtin.treesitter.ensure_installed = {
+  "comment", -- Treesitter will parse comment strings and can highlight things like TODO
   "bash",
   "c",
   "cpp",
@@ -271,6 +272,19 @@ lvim.builtin.lualine.options.theme = "jellybeans"
 ----------------------------------------------------------------
 -- WHICHKEY
 ----------------------------------------------------------------
+
+-- Unset Treesitter
+lvim.builtin.which_key.mappings["T"] = nil
+
+-- Todo-Comments via Trouble and Telescope
+lvim.builtin.which_key.mappings["T"] = {
+  name = "+Todo",
+  l = { "<cmd>TodoTrouble<CR>", "List" },
+  s = { "<cmd>TodoTelescope<CR>", "Search" },
+  n = { "<cmd>lua require('todo-comments').jump_next()<CR>", "Next Comment" },
+  k = { "<cmd>lua require('todo-comments').jump_prev()<CR>", "Prev Comment" },
+}
+
 -- No Highlight
 lvim.builtin.which_key.mappings["h"] = {
   -- Clear search hilights but also clear the previous search term
@@ -328,6 +342,12 @@ lvim.builtin.which_key.mappings["S"] = {
 ----------------------------------------------------------------
 -- GENERAL LSP SETTINGS
 ----------------------------------------------------------------
+-- --@usage Disable using LSP for `gq` formatting of comments and text
+-- Instead fallback on the existing vim functionality which can be customized
+-- using:
+-- vim.opt.textwidth
+-- vim.opt.formatoptions
+lvim.lsp.buffer_options.formatexpr = ""
 
 -- ---@usage Disable automatic installation of servers
 -- lvim.lsp.automatic_servers_installation = false
@@ -343,11 +363,16 @@ lvim.builtin.which_key.mappings["S"] = {
 -- you can set a custom on_attach function that will be used for all the language servers
 -- See <https://github.com/neovim/nvim-lspconfig#keybindings-and-completion>
 -- lvim.lsp.on_attach_callback = function(client, bufnr)
+
+--   vim.api.nvim_buf_set_option(bufnr, "formatexpr", "")
+--   vim.api.nvim_buf_set_option(bufnr, "formatexpr", "''")
+
 --   local function buf_set_option(...)
 --     vim.api.nvim_buf_set_option(bufnr, ...)
 --   end
+
 --   --Enable completion triggered by <c-x><c-o>
---   buf_set_option("omnifunc", "v:lua.vim.lsp.omnifunc")
+--   buf_set_option("formatexpr", "''")
 -- end
 -- you can overwrite the null_ls setup table (useful for setting the root_dir function)
 -- lvim.lsp.null_ls.setup = {
@@ -491,7 +516,9 @@ end
 ----------------------------------------------------------------
 -- Increase whichkey timeout len (default is 100ms). We don't need
 -- which key to be appearing constantly
-vim.opt.timeoutlen = 300
+vim.opt.timeoutlen = 500
+
+vim.opt.textwidth = 80
 
 -- indent-blankline will pickup these characters
 vim.opt.list = true
@@ -508,6 +535,32 @@ vim.opt.cursorlineopt = "number"
 vim.opt.foldmethod = "manual" -- folding set to "expr" for treesitter based folding
 vim.opt.foldexpr = "" -- set to "nvim_treesitter#foldexpr()" for treesitter based folding
 vim.opt.mouse = "" -- disallow the mouse to be used in neovim
+
+-- Attempt to remove LunarVim's autogroup which sets formatoptions
+-- LunarVim prevents the addition of 'c' to formatoptions which makes it
+-- difficult to format comment blocks by using the important `gq` command
+--
+-- This is set in conjunction with lvim.lsp.buffer_options.formatexpr = ''
+--
+-- https://github.com/LunarVim/LunarVim/issues/2878#issuecomment-1274355796
+pcall(vim.api.nvim_del_augroup_by_name, "_format_options")
+
+-- :help fo-table
+vim.opt.formatoptions = {
+  q = true, -- continue comments with gq"
+  c = true, -- Auto-wrap comments using textwidth
+  r = true, -- Continue comments when pressing Enter
+  n = true, -- Recognize numbered lists
+  t = true, -- autowrap lines using text width value
+  j = true, -- remove a comment leader when joining lines.
+  -- Only break if the line was not longer than 'textwidth' when the insert
+  -- started and only at a white character that has been entered during the
+  -- current insert command.
+  l = true,
+  v = true,
+}
+
+-- testing testing testing testing testing testing testing testing testing testing testing testing testing testing testing testing testing testing testing testing testing
 
 ----------------------------------------------------------------
 -- PLUGIN OPTIONS
@@ -564,6 +617,17 @@ lvim.plugins                       = {
   {
     "folke/trouble.nvim",
     cmd = "TroubleToggle",
+  },
+  {
+    "folke/todo-comments.nvim",
+    requires = "nvim-lua/plenary.nvim",
+    config = function()
+      require("todo-comments").setup {
+        -- your configuration comes here
+        -- or leave it empty to use the default settings
+        -- refer to the configuration section below
+      }
+    end
   },
   {
     "thebearjew/nv-colorschemes",
