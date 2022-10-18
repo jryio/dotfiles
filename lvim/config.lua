@@ -161,33 +161,6 @@ vim.cmd [[
   map <silent> ge <Plug>CamelCaseMotion_ge
 ]]
 
-----------------------------------------------------------------
--- TELESCOPE
-----------------------------------------------------------------
-lvim.builtin.telescope.defaults.prompt_prefix = " "
-lvim.builtin.telescope.defaults.selection_caret = "﬌ "
-lvim.builtin.telescope.defaults.entry_prefix = "  "
-lvim.builtin.telescope.defaults.layout_config.width = 0.65
-lvim.builtin.telescope.defaults.layout_config.prompt_position = "top"
-lvim.builtin.telescope.defaults.layout_config.preview_width = 0.5
-lvim.builtin.telescope.defaults.sorting_strategy = "ascending"
--- Change Telescope navigation to use j and k for navigation and n and p for history in both input and normal mode.
--- we use protected-mode (pcall) just in case the plugin wasn't loaded yet.
--- local _, actions = pcall(require, "telescope.actions")
--- lvim.builtin.telescope.defaults.mappings = {
---   -- for input mode
---   i = {
---     ["<C-j>"] = actions.move_selection_next,
---     ["<C-k>"] = actions.move_selection_previous,
---     ["<C-n>"] = actions.cycle_history_next,
---     ["<C-p>"] = actions.cycle_history_prev,
---   },
---   -- for normal mode
---   n = {
---     ["<C-j>"] = actions.move_selection_next,
---     ["<C-k>"] = actions.move_selection_previous,
---   },
--- }
 
 ----------------------------------------------------------------
 -- BUILTIN PLUGINS
@@ -268,6 +241,66 @@ lvim.builtin.treesitter.highlight.enabled = true
 
 lvim.builtin.lualine.style = "none"
 lvim.builtin.lualine.options.theme = "jellybeans"
+
+----------------------------------------------------------------
+-- BUILTIN PLUGINS -> INDENT_BLANKLINE
+----------------------------------------------------------------
+vim.g.indent_blankline_use_treesitter = true
+vim.g.indent_blankline_use_treesitter_scope = true
+vim.g.indent_blankline_show_current_context = true
+vim.g.indent_blankline_show_current_context_start = true
+vim.g.indent_blankline_space_char_blankline = " "
+vim.g.indent_blankline_show_end_of_line = true
+vim.g.indent_blankline_space_char_highlight_list = {
+  "IndentBlanklineIndent1",
+  "IndentBlanklineIndent2",
+}
+lvim.builtin.indentlines.options.filetype_exclude = {
+  "help",
+  "terminal",
+  "nofile",
+  "packer",
+  "alpha",
+  "NvimTree",
+  "lsp-installer",
+  "lspinstaller",
+  "lsp-info",
+  "lspinfo",
+  "minimap"
+
+}
+
+
+----------------------------------------------------------------
+-- BUILTIN PLUGINS -> TELESCOPE
+----------------------------------------------------------------
+lvim.builtin.telescope.active = true
+lvim.builtin.telescope.defaults.prompt_prefix = " "
+lvim.builtin.telescope.defaults.selection_caret = "﬌ "
+lvim.builtin.telescope.defaults.entry_prefix = "  "
+lvim.builtin.telescope.defaults.layout_strategy = "horizontal"
+lvim.builtin.telescope.defaults.layout_config.width = 0.65
+lvim.builtin.telescope.defaults.layout_config.prompt_position = "top"
+lvim.builtin.telescope.defaults.preview_width = 0.5
+-- lvim.builtin.telescope.defaults.layout_config.preview_cutoff = 120
+lvim.builtin.telescope.defaults.sorting_strategy = "ascending"
+-- Change Telescope navigation to use j and k for navigation and n and p for history in both input and normal mode.
+-- we use protected-mode (pcall) just in case the plugin wasn't loaded yet.
+-- local _, actions = pcall(require, "telescope.actions")
+-- lvim.builtin.telescope.defaults.mappings = {
+--   -- for input mode
+--   i = {
+--     ["<C-j>"] = actions.move_selection_next,
+--     ["<C-k>"] = actions.move_selection_previous,
+--     ["<C-n>"] = actions.cycle_history_next,
+--     ["<C-p>"] = actions.cycle_history_prev,
+--   },
+--   -- for normal mode
+--   n = {
+--     ["<C-j>"] = actions.move_selection_next,
+--     ["<C-k>"] = actions.move_selection_previous,
+--   },
+-- }
 
 ----------------------------------------------------------------
 -- WHICHKEY
@@ -606,10 +639,10 @@ vim.g.minimap_close_buftypes       = ignore_filetypes
 ----------------------------------------------------------------
 lvim.plugins                       = {
   -- THEME
-  {
-    "folke/tokyonight.nvim",
-    disable = true
-  },
+  -- {
+  --   "folke/tokyonight.nvim",
+  --   disable = true
+  -- },
   {
     "lunarvim/colorschemes",
     disable = true
@@ -647,33 +680,33 @@ lvim.plugins                       = {
   },
 
   -- LAYOUT
-  {
-    "lukas-reineke/indent-blankline.nvim",
-    event = "BufRead",
-    setup = function()
-      vim.g.indent_blankline_use_treesitter = true
-      vim.g.indent_blankline_use_treesitter_scope = true
-      vim.g.indent_blankline_show_current_context = true
-      vim.g.indent_blankline_show_current_context_start = true
-      vim.g.indent_blankline_space_char_blankline = " "
-      vim.g.indent_blankline_show_end_of_line = true
-      vim.g.indent_blankline_filetype_exclude = { -- indent_blankline ignore filetypes
-        "help",
-        "packer",
-        "alpha",
-        "NvimTree",
-        "lsp-installer",
-        "lspinstaller",
-        "lsp-info",
-        "lspinfo",
-        "minimap"
-      }
-      vim.g.indent_blankline_space_char_highlight_list = {
-        "IndentBlanklineIndent1",
-        "IndentBlanklineIndent2",
-      }
-    end
-  },
+  -- {
+  --   "lukas-reineke/indent-blankline.nvim",
+  --   event = "BufRead",
+  --   setup = function()
+  --     vim.g.indent_blankline_use_treesitter = true
+  --     vim.g.indent_blankline_use_treesitter_scope = true
+  --     vim.g.indent_blankline_show_current_context = true
+  --     vim.g.indent_blankline_show_current_context_start = true
+  --     vim.g.indent_blankline_space_char_blankline = " "
+  --     vim.g.indent_blankline_show_end_of_line = true
+  --     vim.g.indent_blankline_filetype_exclude = { -- indent_blankline ignore filetypes
+  --       "help",
+  --       "packer",
+  --       "alpha",
+  --       "NvimTree",
+  --       "lsp-installer",
+  --       "lspinstaller",
+  --       "lsp-info",
+  --       "lspinfo",
+  --       "minimap"
+  --     }
+  --     vim.g.indent_blankline_space_char_highlight_list = {
+  --       "IndentBlanklineIndent1",
+  --       "IndentBlanklineIndent2",
+  --     }
+  --   end
+  -- },
   {
     "wfxr/minimap.vim",
     run = function()
@@ -720,6 +753,7 @@ lvim.plugins                       = {
   --- LSP PLUGINS
   {
     "simrat39/rust-tools.nvim",
+    -- This package is disabled because curently using LSP rust_analyzer
     disable = true,
     config = function()
       require("rust-tools").setup({
