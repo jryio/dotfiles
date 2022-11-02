@@ -29,6 +29,9 @@ local CR = "<CR>"
 
 -- INSERT
 lvim.keys.insert_mode = {
+  -- Remap Ctonrol-C to ESC in insert mode to prevent sending KeyboardInterrupt
+  -- messages to different lua functions causing them to produce error messages.
+  ["<C-c>"] = "<ESC>",
   -- Unmap arrows
   ["<up>"] = "<NOP>",
   ["<down>"] = "<NOP>",
