@@ -115,7 +115,7 @@ font:
   #
   # Thin strokes are suitable for retina displays, but for non-retina screens
   # it is recommended to set `use_thin_strokes` to `false`
-  use_thin_strokes: true
+  # use_thin_strokes: true
 
 # Display the time it takes to redraw each frame.
 # render_timer: false
@@ -126,6 +126,7 @@ draw_bold_text_with_bright_colors: false
 
 # Base16 Tomorrow Night 256 - alacritty color config
 # Chris Kempson (http://chriskempson.com)
+
 colors:
   # Default colors
   primary:

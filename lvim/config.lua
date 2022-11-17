@@ -13,12 +13,9 @@ or a path to an executable
 -- GENERAL
 ----------------------------------------------------------------
 lvim.log.level = "info"
-lvim.format_on_save = true
--- We need have a colorscheme name here otherwise onedarker gets loaded by
--- default by LunarVim. We add a file in the vim runtimepath under
--- ~/.config/lvim/colors/tomorrow-night.vim to register the name and
--- simultaneously disbale onedarker.
-lvim.colorscheme = "tomorrow-night"
+lvim.format_on_save.enabled = true
+
+lvim.colorscheme = 'minimal-base16'
 
 ----------------------------------------------------------------
 -- KEYMAPS -> [view all the defaults by pressing <leader>Lk]
@@ -642,13 +639,11 @@ vim.g.minimap_close_buftypes       = ignore_filetypes
 ----------------------------------------------------------------
 lvim.plugins                       = {
   -- THEME
-  -- {
-  --   "folke/tokyonight.nvim",
-  --   disable = true
-  -- },
   {
-    "lunarvim/colorschemes",
-    disable = true
+    'thebearjew/minimal.nvim',
+    config = function()
+      vim.g.minimal_italic_comments = true
+    end
   },
   {
     "folke/trouble.nvim",
@@ -665,23 +660,6 @@ lvim.plugins                       = {
       }
     end
   },
-  {
-    "thebearjew/nv-colorschemes",
-    config = function()
-      -- First load the base16 theme
-      local base16 = require("base16")
-      local theme = "tomorrow-night"
-      local colors = base16.themes(theme)
-      local use_256_colorspace = true
-      base16(colors, use_256_colorspace)
-      -- Then load our custom highlights
-      -- hl_themes is available from thebearjew/nv-colorschemes
-      local highlight = require("core.highlight")
-      highlight(theme)
-
-    end
-  },
-
   -- LAYOUT
   -- {
   --   "lukas-reineke/indent-blankline.nvim",
