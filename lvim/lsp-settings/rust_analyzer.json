@@ -1,4 +1,8 @@
 {
+  "rust-analyzer.diagnostics.disabled": [
+    "unresolved-proc-macro"
+  ],
+  "rust-analyzer.cargo.sysroot": "/Users/CASE/.rustup/toolchains/stable-x86_64-apple-darwin",
   "rust-analyzer.diagnostics.enable": true,
   "rust-analyzer.diagnostics.disabled": [
     "macro-error",

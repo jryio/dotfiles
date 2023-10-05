@@ -35,6 +35,7 @@
     - ~/.config/alacritty
     - ~/.vim/undo-history
     - ~/Pictures/Screenshots # Alternative screenshot location
+    - ~/.config/vale
 
 # =============================================================================
 # DEFAULT: Link files
@@ -160,6 +161,7 @@
     ~/.zprofile: shell/zprofile
     ~/.zlogin: shell/zlogin
     ~/.zshrc: shell/zshrc
+    ~/.vale.ini: vale/vale.ini
 
 - link: # Config
     ~/.config/alacritty/alacritty.yml:
@@ -173,6 +175,9 @@
       force: true
       create: true
       path: lvim
+    ~/.config/vale:
+      force: true
+      create: true
 
 # -------------------------------------
 # Customize macos defaults

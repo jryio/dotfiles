@@ -51,76 +51,76 @@ lvim.keys.insert_mode = {
 -- NORMAL
 lvim.keys.normal_mode = {
   -- Navigate buffers
-  ["+"] = ":bnext<CR>",
-  ["_"] = ":bprevious<CR>",
+  ["+"]          = ":bnext<CR>",
+  ["_"]          = ":bprevious<CR>",
   -- Save buffer
   [comma .. "s"] = ":w" .. CR,
   -- Close buffer
   [comma .. "w"] = ":Sayonara!<CR>",
   [comma .. "q"] = ":Sayonara<CR>",
   -- Resizes
-  ["<M-l>"] = "10<C-w>>",
-  ["<M-h>"] = "10<C-w><",
-  ["<M-j>"] = "10<C-w>-",
-  ["<M-k>"] = "10<C-w>+",
+  ["<M-l>"]      = "10<C-w>>",
+  ["<M-h>"]      = "10<C-w><",
+  ["<M-j>"]      = "10<C-w>-",
+  ["<M-k>"]      = "10<C-w>+",
   -- Easier window switching
-  ["<C-h>"] = "<C-w>h",
-  ["<C-j>"] = "<C-w>j",
-  ["<C-k>"] = "<C-w>k",
-  ["<C-l>"] = "<C-w>l",
+  ["<C-h>"]      = "<C-w>h",
+  ["<C-j>"]      = "<C-w>j",
+  ["<C-k>"]      = "<C-w>k",
+  ["<C-l>"]      = "<C-w>l",
   -- Visual linewise up and down by default (and use gj gk to go quicker)
-  ["j"] = "gj",
-  ["k"] = "gk",
-  ["gj"] = "5j",
-  ["gk"] = "5k",
+  ["j"]          = "gj",
+  ["k"]          = "gk",
+  ["gj"]         = "5j",
+  ["gk"]         = "5k",
   -- Center screen when navigating in visual mode
-  ["n"] = ":norm! nzz<CR>",
-  ["N"] = ":norm! Nzz<CR>",
-  ["<C-u>"] = "<C-u>zz",
-  ["<C-d>"] = "<C-d>zz",
-  ["<C-f>"] = "<C-f>zz",
-  ["<C-b>"] = "<C-b>zz",
+  ["n"]          = ":norm! nzz<CR>",
+  ["N"]          = ":norm! Nzz<CR>",
+  ["<C-u>"]      = "<C-u>zz",
+  ["<C-d>"]      = "<C-d>zz",
+  ["<C-f>"]      = "<C-f>zz",
+  ["<C-b>"]      = "<C-b>zz",
   -- Remap H and L (top, bottom of screen to left and right end of line)
-  ["<S-h>"] = "^",
-  ["<S-l>"] = "$",
+  ["<S-h>"]      = "^",
+  ["<S-l>"]      = "$",
 
   -- More logical Y (default was alias for yy)
-  ["Y"] = "y$",
+  ["Y"]          = "y$",
   -- Don't yank to default register when changing something
-  ["c"] = "<NOP>",
+  ["c"]          = "<NOP>",
   -- Navigate Diagnostics
-  ["[q"] = ":cprev<CR>",
-  ["]q"] = ":cnext<CR>",
+  ["[q"]         = ":cprev<CR>",
+  ["]q"]         = ":cnext<CR>",
   -- After block yank and paste, move cursor to the end of operated text and don't override register
-  ["p"] = "p`]",
+  ["p"]          = "p`]",
   -- Fix dw at the end of line bug default vim has special treatment (:help dw)
-  ["dw"] = "de",
+  ["dw"]         = "de",
   -- Keep the cursor in place while joining lines
-  ["J"] = "mzJ`z",
+  ["J"]          = "mzJ`z",
   -- [S]plit line (sister to [J]oin lines) S is covered by cc.
-  ["S"] = "mzi<CR><ESC>`z",
+  ["S"]          = "mzi<CR><ESC>`z",
 
   -- Unmap default resizes
-  ["<A-Down>"]  = "",
-  ["<A-Left>"]  = "",
-  ["<A-Right>"] = "",
-  ["<A-Up>"]    = "",
-  ["<A-j>"]     = "",
-  ["<A-k>"]     = "",
-  ["<C-Down>"]  = "",
-  ["<C-Left>"]  = "",
-  ["<C-Right>"] = "",
-  ["<C-Up>"]    = "",
+  ["<A-Down>"]   = "",
+  ["<A-Left>"]   = "",
+  ["<A-Right>"]  = "",
+  ["<A-Up>"]     = "",
+  ["<A-j>"]      = "",
+  ["<A-k>"]      = "",
+  ["<C-Down>"]   = "",
+  ["<C-Left>"]   = "",
+  ["<C-Right>"]  = "",
+  ["<C-Up>"]     = "",
   -- Unmap
-  ["<up>"]      = "<NOP>",
-  ["<down>"]    = "<NOP>",
-  ["<left>"]    = "<NOP>",
-  ["<right>"]   = "<NOP>",
-  ["<bs>"]      = "<NOP>",
-  ["<delete>"]  = "<NOP>",
-  ["<F1>"]      = "<NOP>",
-  ["Q"]         = "<NOP>",
-  ["q"]         = "<NOP>", -- Unmap macro recording
+  ["<up>"]       = "<NOP>",
+  ["<down>"]     = "<NOP>",
+  ["<left>"]     = "<NOP>",
+  ["<right>"]    = "<NOP>",
+  ["<bs>"]       = "<NOP>",
+  ["<delete>"]   = "<NOP>",
+  ["<F1>"]       = "<NOP>",
+  ["Q"]          = "<NOP>",
+  ["q"]          = "<NOP>", -- Unmap macro recording
   -- Unmap default comment behavior
   -- ["<C-q>"] = ":call QuickFixToggle()<CR>",
 }
@@ -174,41 +174,6 @@ lvim.builtin.alpha.mode = 'dashboard'
 lvim.builtin.terminal.active = true
 
 lvim.builtin.comment.active = true
-
-lvim.builtin.notify = {
-  active = true,
-  opts = {
-    ---@usage Animation style one of { "fade", "slide", "fade_in_slide_out", "static" }
-    stages = "fade",
-
-    ---@usage Function called when a new window is opened, use for changing win settings/config
-    on_open = nil,
-
-    ---@usage Function called when a window is closed
-    on_close = nil,
-
-    ---@usage timeout for notifications in ms, default 5000
-    timeout = 5000,
-
-    -- Render function for notifications. See notify-render()
-    render = "default",
-
-    ---@usage highlight behind the window for stages that change opacity
-    background_colour = "Normal",
-
-    ---@usage minimum width for notification windows
-    minimum_width = 50,
-
-    ---@usage Icons for the different levels
-    icons = {
-      ERROR = "",
-      WARN = "",
-      INFO = "",
-      DEBUG = "",
-      TRACE = "✎",
-    },
-  },
-}
 
 lvim.builtin.nvimtree.setup.view.width = 30
 -- lvim.builtin.nvimtree.hide_dotfiles = false
@@ -393,6 +358,13 @@ lvim.lsp.buffer_options.formatexpr = ""
 -- local opts = {} -- check the lspconfig documentation for a list of all possible options
 -- require("lvim.lsp.manager").setup("pylsp", opts)
 
+-- @source: https://www.reddit.com/r/lunarvim/comments/13a72cl/lsp_problem_attachinginstalling_servers/
+require('mason-lspconfig').setup_handlers({
+  function(server)
+    require('lvim.lsp.manager').setup(server)
+  end
+})
+
 -- you can set a custom on_attach function that will be used for all the language servers
 -- See <https://github.com/neovim/nvim-lspconfig#keybindings-and-completion>
 -- lvim.lsp.on_attach_callback = function(client, bufnr)
@@ -439,21 +411,11 @@ lvim.lsp.buffer_options.formatexpr = ""
 -- }
 
 -- -- set additional linters
--- local linters = require "lvim.lsp.null-ls.linters"
--- linters.setup {
---   { exe = "flake8", filetypes = { "python" } },
---   {
---     exe = "shellcheck",
---     ---@usage arguments to pass to the formatter
---     -- these cannot contain whitespaces, options such as `--line-width 80` become either `{'--line-width', '80'}` or `{'--line-width=80'}`
---     args = { "--severity", "warning" },
---   },
---   {
---     exe = "codespell",
---     ---@usage specify which filetypes to enable. By default a providers will attach to all the filetypes it supports.
---     filetypes = { "javascript", "python" },
---   },
--- }
+-- -- set additional linters
+local linters = require "lvim.lsp.null-ls.linters"
+linters.setup {
+  { command = "vale", filetypes = { "golang", "go" } },
+}
 vim.list_extend(lvim.lsp.automatic_configuration.skipped_servers, { "rust" })
 -- vim.list_extend(lvim.lsp.override, { "typescript" })
 
@@ -566,8 +528,8 @@ vim.opt.cursorlineopt = "number"
 
 -- TODO: @JRY Change these values when we have keybindings for this
 vim.opt.foldmethod = "manual" -- folding set to "expr" for treesitter based folding
-vim.opt.foldexpr = "" -- set to "nvim_treesitter#foldexpr()" for treesitter based folding
-vim.opt.mouse = "" -- disallow the mouse to be used in neovim
+vim.opt.foldexpr = ""         -- set to "nvim_treesitter#foldexpr()" for treesitter based folding
+vim.opt.mouse = ""            -- disallow the mouse to be used in neovim
 
 -- Attempt to remove LunarVim's autogroup which sets formatoptions
 -- LunarVim prevents the addition of 'c' to formatoptions which makes it
@@ -579,7 +541,7 @@ vim.opt.mouse = "" -- disallow the mouse to be used in neovim
 pcall(vim.api.nvim_del_augroup_by_name, "_format_options")
 
 -- :help fo-table
-vim.opt.formatoptions = {
+vim.opt.formatoptions              = {
   q = true, -- continue comments with gq"
   c = true, -- Auto-wrap comments using textwidth
   r = true, -- Continue comments when pressing Enter
@@ -603,14 +565,14 @@ vim.opt.formatoptions = {
 
 -- Make the buffer bar unclickable and have no close icons
 -- Will be using Sayonara for closing buffers.
-vim.g.barbar = {
+vim.g.barbar                       = {
   clickable = false,
   closable = false,
   insert_at_end = true,
 }
 
 -- Symbols outline
-vim.g.symbols_outline = {
+vim.g.symbols_outline              = {
   width = 45
 }
 
@@ -706,10 +668,10 @@ lvim.plugins                       = {
     "romgrk/nvim-treesitter-context",
     config = function()
       require("treesitter-context").setup {
-        enable = true, -- Enable this plugin (Can be enabled/disabled later via commands)
+        enable = true,   -- Enable this plugin (Can be enabled/disabled later via commands)
         throttle = true, -- Throttles plugin updates (may improve performance)
-        max_lines = 0, -- How many lines the window should span. Values <= 0 mean no limit.
-        patterns = { -- Match patterns for TS nodes. These get wrapped to match at word boundaries.
+        max_lines = 0,   -- How many lines the window should span. Values <= 0 mean no limit.
+        patterns = {     -- Match patterns for TS nodes. These get wrapped to match at word boundaries.
           -- For all filetypes
           -- Note that setting an entry here replaces all other patterns for this entry.
           -- By setting the 'default' entry below, you can control which nodes you want to
@@ -732,40 +694,18 @@ lvim.plugins                       = {
   },
 
   --- LSP PLUGINS
-  {
-    "simrat39/rust-tools.nvim",
-    -- This package is disabled because curently using LSP rust_analyzer
-    disable = true,
-    config = function()
-      require("rust-tools").setup({
-        tools = {
-          autoSetHints = true,
-          hover_with_actions = true,
-          runnables = {
-            use_telescope = true,
-          },
-        },
-        server = {
-          cmd = { vim.fn.stdpath "data" .. "/lsp_servers/rust/rust-analyzer" },
-          on_attach = require("lvim.lsp").common_on_attach,
-          on_init = require("lvim.lsp").common_on_init,
-        },
-      })
-    end,
-    ft = { "rust", "rs" },
-  },
 
   -- UTILITIES AND KEYS
   { "tpope/vim-surround" },
-  { "tpope/vim-dotenv" }, -- Load .env files into scope from vim
-  { "bkad/CamelCaseMotion" }, -- CamelCase and snake_case motions
-  { "mattboehm/vim-accordion" }, -- Vertically stack splits for infinite depth
-  { "mhinz/vim-sayonara", cmd = { "Sayonara" } }, -- Intelligent buffer closing
-  { -- Trim trailing whitespace
+  { "tpope/vim-dotenv" },                             -- Load .env files into scope from vim
+  { "bkad/CamelCaseMotion" },                         -- CamelCase and snake_case motions
+  { "mattboehm/vim-accordion" },                      -- Vertically stack splits for infinite depth
+  { "mhinz/vim-sayonara",     cmd = { "Sayonara" } }, -- Intelligent buffer closing
+  {                                                   -- Trim trailing whitespace
     "cappyzawa/trim.nvim",
     config = function()
       require "trim".setup({
-        disable = { "markdown" },
+        ft_blocklist = { "markdown" },
       })
     end
   },
@@ -773,13 +713,13 @@ lvim.plugins                       = {
     "norcalli/nvim-colorizer.lua",
     config = function()
       require("colorizer").setup({ "*" }, {
-        RGB = true, -- #RGB hex codes
-        RRGGBB = true, -- #RRGGBB hex codes
+        RGB = true,      -- #RGB hex codes
+        RRGGBB = true,   -- #RRGGBB hex codes
         RRGGBBAA = true, -- #RRGGBBAA hex codes
-        rgb_fn = true, -- CSS rgb() and rgba() functions
-        hsl_fn = true, -- CSS hsl() and hsla() functions
-        css = true, -- Enable all CSS features: rgb_fn, hsl_fn, names, RGB, RRGGBB
-        css_fn = true, -- Enable all CSS *functions*: rgb_fn, hsl_fn
+        rgb_fn = true,   -- CSS rgb() and rgba() functions
+        hsl_fn = true,   -- CSS hsl() and hsla() functions
+        css = true,      -- Enable all CSS features: rgb_fn, hsl_fn, names, RGB, RRGGBB
+        css_fn = true,   -- Enable all CSS *functions*: rgb_fn, hsl_fn
       })
     end,
   },
@@ -794,12 +734,12 @@ lvim.plugins                       = {
           "<C-u>",
           "<C-d>",
         },
-        hide_cursor = true, -- Hide cursor while scrolling
-        stop_eof = false, -- Stop at <EOF> when scrolling downwards
-        use_local_scrolloff = true, -- Use the local scope of scrolloff instead of the global scope
-        respect_scrolloff = true, -- Stop scrolling when the cursor reaches the scrolloff margin of the file
+        hide_cursor = true,          -- Hide cursor while scrolling
+        stop_eof = false,            -- Stop at <EOF> when scrolling downwards
+        use_local_scrolloff = true,  -- Use the local scope of scrolloff instead of the global scope
+        respect_scrolloff = true,    -- Stop scrolling when the cursor reaches the scrolloff margin of the file
         cursor_scrolls_alone = true, -- The cursor will keep on scrolling even if the window cannot scroll further
-        easing_function = nil, -- Default easing function
+        easing_function = nil,       -- Default easing function
         -- Function to run before the scrolling animation starts
         pre_hook = function()
           vim.cmd [[MinimapClose]]
@@ -819,7 +759,7 @@ lvim.plugins                       = {
       require('telescope').load_extension("ui-select")
     end
   },
-  { -- Simple storage solution management for neovim
+  {                       -- Simple storage solution management for neovim
     "folke/persistence.nvim",
     event = "BufReadPre", -- this will only start session saving when an actual file was opened
     module = "persistence",
@@ -853,9 +793,9 @@ lvim.plugins                       = {
 ----------------------------------------------------------------
 -- STATUSLINE
 ----------------------------------------------------------------
-local empty = require("lualine.component"):extend()
-local components = require("lvim.core.lualine.components")
-local colors = {
+local empty                        = require("lualine.component"):extend()
+local components                   = require("lvim.core.lualine.components")
+local colors                       = {
   nord1  = "#3B4252",
   nord3  = "#232527", -- Modified to match tomorrow-night
   nord5  = "#E5E9F0",
