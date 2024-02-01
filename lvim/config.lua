@@ -291,7 +291,7 @@ lvim.builtin.which_key.mappings["h"] = {
 }
 
 -- nvimtree
-lvim.builtin.which_key.mappings["e"] = {}
+-- lvim.builtin.which_key.mappings["e"] = {}
 lvim.builtin.which_key.mappings["n"] = {
   name = "+NvimTree",
   f = { "<cmd>lua require('core.utils').find_toggle()<CR>", "Minimap" }
@@ -347,6 +347,28 @@ lvim.builtin.which_key.mappings["S"] = {
 -- vim.opt.formatoptions
 lvim.lsp.buffer_options.formatexpr = ""
 
+-- Adding
+local formatters = require "lvim.lsp.null-ls.formatters"
+local h = require 'null-ls.helpers'
+formatters.setup {
+  {
+    name = "black",
+    generator = h.formatter_factory {
+                    command = 'blackd-client',
+                    to_stdin = true,
+                },
+  },
+}
+-- lvim.format_on_save.pattern = { "*.py" }
+
+-- @source = https://dev.to/alexandreliberato/-use-vale-linter-in-lunarvim-2oeo
+-- set additional linters
+local linters = require "lvim.lsp.null-ls.linters"
+linters.setup {
+  { command = "vale", filetypes = { "markdown" } },
+}
+
+
 -- ---@usage Disable automatic installation of servers
 -- lvim.lsp.automatic_servers_installation = false
 
@@ -357,6 +379,7 @@ lvim.lsp.buffer_options.formatexpr = ""
 -- ---@usage setup a server -- see: https://www.lunarvim.org/languages/#overriding-the-default-configuration
 -- local opts = {} -- check the lspconfig documentation for a list of all possible options
 -- require("lvim.lsp.manager").setup("pylsp", opts)
+
 
 -- @source: https://www.reddit.com/r/lunarvim/comments/13a72cl/lsp_problem_attachinginstalling_servers/
 require('mason-lspconfig').setup_handlers({
@@ -410,12 +433,6 @@ require('mason-lspconfig').setup_handlers({
 --   },
 -- }
 
--- -- set additional linters
--- -- set additional linters
-local linters = require "lvim.lsp.null-ls.linters"
-linters.setup {
-  { command = "vale", filetypes = { "golang", "go" } },
-}
 vim.list_extend(lvim.lsp.automatic_configuration.skipped_servers, { "rust" })
 -- vim.list_extend(lvim.lsp.override, { "typescript" })
 
@@ -613,7 +630,7 @@ lvim.plugins                       = {
   },
   {
     "folke/todo-comments.nvim",
-    requires = "nvim-lua/plenary.nvim",
+    dependencies = "nvim-lua/plenary.nvim",
     config = function()
       require("todo-comments").setup {
         -- your configuration comes here
@@ -652,7 +669,7 @@ lvim.plugins                       = {
   -- },
   {
     "wfxr/minimap.vim",
-    run = function()
+    build = function()
       vim.cmd(":!cargo install --locked code-minimap")
     end
   },
@@ -725,7 +742,7 @@ lvim.plugins                       = {
   },
   {
     "karb94/neoscroll.nvim",
-    disable = true,
+    enabled = false,
     event = "WinScrolled",
     config = function()
       require("neoscroll").setup({
@@ -759,10 +776,9 @@ lvim.plugins                       = {
       require('telescope').load_extension("ui-select")
     end
   },
-  {                       -- Simple storage solution management for neovim
+  { -- Simple storage solution management for neovim
     "folke/persistence.nvim",
-    event = "BufReadPre", -- this will only start session saving when an actual file was opened
-    module = "persistence",
+    -- event = "BufReadPre", -- this will only start session saving when an actual file was opened
     config = function()
       require("persistence").setup {
         dir = vim.fn.expand(vim.fn.stdpath "config" .. "/session/"),

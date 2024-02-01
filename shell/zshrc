@@ -29,6 +29,7 @@ export GO111MODULE='auto'
 # PATH
 export PATH="$PATH:$MY_INSTALL_DIR/bin" # Zoom
 export PATH=$PATH:/$HOME/.local/bin
+export PATH=$PATH:/opt/homebrew/bin
 export PATH=$PATH:/usr/local/bin
 export PATH=$PATH:/usr/local/sbin
 export PATH=$PATH:/usr/local/MacGPG2/bin
@@ -52,6 +53,7 @@ export PATH=$PATH:$GOPATH/bin
 # ENVIRONMENT VARIABLES
 # =============================================================================
 
+export HOMEBREW_NO_ANALYTICS=1
 # Manpages path
 export MANPATH="/usr/local/share/man:$MANPATH"
 # Tell homebrew to install cask applications to root applications folder
@@ -239,6 +241,7 @@ alias gdc='git difftool --cached'
 alias grbsign="git rebase --exec 'git commit --amend --no-edit -n -S' -i"
 alias ggpush='git push -u origin $(git_current_branch)'
 alias bgrep='/usr/bin/grep --color=auto --exclude-dir={.bzr,CVS,.git,.hg,.svn}'
+alias htop='btm'
 
 # ===============================================
 # VERSION MANAGERS

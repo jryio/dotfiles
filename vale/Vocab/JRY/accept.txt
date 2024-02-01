@@ -1,0 +1,15 @@
+(?i)recurse
+(?i)merkle
+(?i)geeking
+(?i)geek
+(?i)emacs
+(?i)vim
+(?i)neovim
+(?i)zulip
+(?i)rustaceans
+(?i)cryptopals
+(?i)tokio
+(?i)miccah
+(?i)macbook
+(?i)sapien
+(?i)...

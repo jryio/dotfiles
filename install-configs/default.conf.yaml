@@ -164,9 +164,9 @@
     ~/.vale.ini: vale/vale.ini
 
 - link: # Config
-    ~/.config/alacritty/alacritty.yml:
+    ~/.config/alacritty/alacritty.toml:
       relink: true
-      path: alacritty/alacritty.yml
+      path: alacritty/alacritty.toml
     ~/.config/nvim:
       force: true
       create: true

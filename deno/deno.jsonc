@@ -1,0 +1,10 @@
+{
+  "lint": {
+    "rules": {
+      "exclude": [
+        "no-this-alias",
+        "@typescript-eslint/no-this-alias"
+      ]
+    }
+  }
+}
