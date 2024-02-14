@@ -317,3 +317,15 @@ export NVM_DIR="$HOME/.nvm"
 # bun
 export BUN_INSTALL="$HOME/.bun"
 export PATH="$BUN_INSTALL/bin:$PATH"
+
+
+# Force ZSH to use Arm64 architecture by default.
+# This is helpful for homebrew, TreeSitter, and other local developer tools to
+# compile for arm64 by default.
+# Switching to x86 can be done manually via
+#
+# env /use/bin/arch -i386 /bin/zsh --login
+
+if [ "$(uname -m)" != "arm64" ]; then
+  env arch -arm64 /bin/zsh --login
+fi

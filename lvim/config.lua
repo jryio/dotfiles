@@ -354,9 +354,9 @@ formatters.setup {
   {
     name = "black",
     generator = h.formatter_factory {
-                    command = 'blackd-client',
-                    to_stdin = true,
-                },
+      command = 'blackd-client',
+      to_stdin = true,
+    },
   },
 }
 -- lvim.format_on_save.pattern = { "*.py" }
