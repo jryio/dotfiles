@@ -173,6 +173,9 @@ source $ZSH/oh-my-zsh.sh
 # FUNCTIONS
 # =============================================================================
 
+# Add all functions in ~/.functions to system path
+export PATH="$HOME/.functions:$PATH"
+
 ssh_find_agent --auto
 if [ -z "$SSH_AUTH_SOCK" ]
 then

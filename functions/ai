@@ -1,0 +1,24 @@
+#!/usr/bin/env zsh
+#
+set -e # errexit
+set -u # nounset
+
+# Given a model name as an argument, runs that model through ollama
+#
+# E.g. `ai code` -> `ollama run codellama`
+# Check if an argument was provided to the script
+if [[ $# -eq 0 ]]; then
+    echo "No model name provided" >&2
+    exit 1
+fi
+
+# Store the first command-line argument in a variable
+argument=$1
+
+# Run the 'ollama run' command with the argument and check if it was successful
+ollama run "$argument"
+# if ! output=$(); then
+#     echo "Error when running 'ollama run $argument'" >&2
+#     exit 1
+# fi
+```
